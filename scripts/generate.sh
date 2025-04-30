@@ -8,7 +8,7 @@ echo "🔄 Removing old generated client..."
 rm -rf t3api/
 
 echo "⚙️  Generating new client into $TMP_DIR..."
-openapi-generator-cli generate \
+openapi-generator generate \
   -g python \
   -i "$SPEC_URL" \
   -o "$TMP_DIR" \
