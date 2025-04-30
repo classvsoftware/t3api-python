@@ -1,0 +1,24 @@
+[project]
+name = "t3api"
+version = "0.1.0"
+description = "Python client for the T3 API"
+authors = [{ name = "Matt Frisbie", email = "matt@classvsoftware.com" }]
+readme = "README.md"
+license = { text = "GPL-3.0-only" }
+requires-python = ">=3.8"
+dependencies = []
+keywords = ["t3", "metrc", "api", "cannabis", "track and trace"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/classvsoftware/t3api-python"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
