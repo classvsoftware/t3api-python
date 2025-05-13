@@ -1,6 +1,6 @@
 [project]
 name = "t3api"
-version = "0.1.0"
+version = "0.2.0"
 description = "Python client for the T3 API"
 authors = [{ name = "Matt Frisbie", email = "matt@classvsoftware.com" }]
 readme = "README.md"
