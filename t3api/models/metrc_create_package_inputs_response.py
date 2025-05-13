@@ -40,6 +40,7 @@ class MetrcCreatePackageInputsResponse(BaseModel):
     items: Optional[List[StrictStr]] = None
     lab_test_batches: Optional[StrictStr] = Field(default=None, alias="labTestBatches")
     locations: Optional[List[MetrcLocation]] = None
+    sublocations: Optional[List[StrictStr]] = None
     packages: Optional[List[StrictStr]] = None
     patient_affiliations: Optional[StrictStr] = Field(default=None, alias="patientAffiliations")
     plant_batches: Optional[StrictStr] = Field(default=None, alias="plantBatches")
@@ -48,7 +49,7 @@ class MetrcCreatePackageInputsResponse(BaseModel):
     submit_for_testing: Optional[StrictBool] = Field(default=None, alias="submitForTesting")
     tags: Optional[List[MetrcTag]] = None
     units_of_measure: Optional[List[UnitOfMeasure]] = Field(default=None, alias="unitsOfMeasure")
-    __properties: ClassVar[List[str]] = ["allowedProductionLabTestingStates", "allowedProductionProductCategoryIds", "details", "harvestBatches", "isProductDestruction", "itemCategoryIds", "items", "labTestBatches", "locations", "packages", "patientAffiliations", "plantBatches", "plants", "remediationMethods", "submitForTesting", "tags", "unitsOfMeasure"]
+    __properties: ClassVar[List[str]] = ["allowedProductionLabTestingStates", "allowedProductionProductCategoryIds", "details", "harvestBatches", "isProductDestruction", "itemCategoryIds", "items", "labTestBatches", "locations", "sublocations", "packages", "patientAffiliations", "plantBatches", "plants", "remediationMethods", "submitForTesting", "tags", "unitsOfMeasure"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -137,6 +138,11 @@ class MetrcCreatePackageInputsResponse(BaseModel):
         if self.lab_test_batches is None and "lab_test_batches" in self.model_fields_set:
             _dict['labTestBatches'] = None
 
+        # set to None if sublocations (nullable) is None
+        # and model_fields_set contains the field
+        if self.sublocations is None and "sublocations" in self.model_fields_set:
+            _dict['sublocations'] = None
+
         # set to None if patient_affiliations (nullable) is None
         # and model_fields_set contains the field
         if self.patient_affiliations is None and "patient_affiliations" in self.model_fields_set:
@@ -173,6 +179,7 @@ class MetrcCreatePackageInputsResponse(BaseModel):
             "items": obj.get("items"),
             "labTestBatches": obj.get("labTestBatches"),
             "locations": [MetrcLocation.from_dict(_item) for _item in obj["locations"]] if obj.get("locations") is not None else None,
+            "sublocations": obj.get("sublocations"),
             "packages": obj.get("packages"),
             "patientAffiliations": obj.get("patientAffiliations"),
             "plantBatches": obj.get("plantBatches"),

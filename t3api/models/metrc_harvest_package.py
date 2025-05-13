@@ -17,22 +17,37 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_package import MetrcPackage
+from datetime import date, datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcPackageListResponse(BaseModel):
+class MetrcHarvestPackage(BaseModel):
     """
-    MetrcPackageListResponse
+    MetrcHarvestPackage
     """ # noqa: E501
-    page: Optional[StrictInt] = None
-    total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
-    page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
-    total: Optional[StrictInt] = None
-    data: Optional[List[MetrcPackage]] = None
-    __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
+    hostname: Optional[StrictStr] = Field(default=None, description="The hostname this object was retrieved from")
+    data_model: Optional[StrictStr] = Field(default=None, description="Name of this object's data model", alias="dataModel")
+    retrieved_at: Optional[datetime] = Field(default=None, description="Timestamp of when this object was pulled from Metrc", alias="retrievedAt")
+    license_number: Optional[StrictStr] = Field(default=None, description="License number used to access this object", alias="licenseNumber")
+    package_id: Optional[StrictInt] = Field(default=None, description="Unique identifier for the package.", alias="packageId")
+    label: Optional[StrictStr] = Field(default=None, description="Unique label identifier for the package.")
+    package_type: Optional[StrictStr] = Field(default=None, description="Type of the package.", alias="packageType")
+    product_name: Optional[StrictStr] = Field(default=None, description="Name of the product associated with the package.", alias="productName")
+    product_category_name: Optional[StrictStr] = Field(default=None, description="Category of the product.", alias="productCategoryName")
+    quantity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Quantity of the package contents.")
+    unit_of_measure_name: Optional[StrictStr] = Field(default=None, description="Full name of the unit of measure.", alias="unitOfMeasureName")
+    unit_of_measure_abbreviation: Optional[StrictStr] = Field(default=None, description="Abbreviation for the unit of measure.", alias="unitOfMeasureAbbreviation")
+    is_production_batch: Optional[StrictBool] = Field(default=None, description="Indicates whether the package is part of a production batch.", alias="isProductionBatch")
+    production_batch_number: Optional[StrictStr] = Field(default=None, description="Identifier for the production batch.", alias="productionBatchNumber")
+    actual_date: Optional[date] = Field(default=None, description="Date the package was created or became active.", alias="actualDate")
+    expiration_date: Optional[date] = Field(default=None, description="Expiration date of the package, if applicable.", alias="expirationDate")
+    sell_by_date: Optional[date] = Field(default=None, description="Sell-by date of the package, if applicable.", alias="sellByDate")
+    use_by_date: Optional[date] = Field(default=None, description="Use-by date of the package, if applicable.", alias="useByDate")
+    is_archived: Optional[StrictBool] = Field(default=None, description="Indicates whether the package is archived.", alias="isArchived")
+    is_finished: Optional[StrictBool] = Field(default=None, description="Indicates whether the package is finished.", alias="isFinished")
+    __properties: ClassVar[List[str]] = ["hostname", "dataModel", "retrievedAt", "licenseNumber", "packageId", "label", "packageType", "productName", "productCategoryName", "quantity", "unitOfMeasureName", "unitOfMeasureAbbreviation", "isProductionBatch", "productionBatchNumber", "actualDate", "expirationDate", "sellByDate", "useByDate", "isArchived", "isFinished"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +67,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a JSON string"""
+        """Create an instance of MetrcHarvestPackage from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,18 +88,26 @@ class MetrcPackageListResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
-        _items = []
-        if self.data:
-            for _item_data in self.data:
-                if _item_data:
-                    _items.append(_item_data.to_dict())
-            _dict['data'] = _items
+        # set to None if expiration_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.expiration_date is None and "expiration_date" in self.model_fields_set:
+            _dict['expirationDate'] = None
+
+        # set to None if sell_by_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.sell_by_date is None and "sell_by_date" in self.model_fields_set:
+            _dict['sellByDate'] = None
+
+        # set to None if use_by_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.use_by_date is None and "use_by_date" in self.model_fields_set:
+            _dict['useByDate'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a dict"""
+        """Create an instance of MetrcHarvestPackage from a dict"""
         if obj is None:
             return None
 
@@ -92,11 +115,26 @@ class MetrcPackageListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "page": obj.get("page"),
-            "totalPages": obj.get("totalPages"),
-            "pageSize": obj.get("pageSize"),
-            "total": obj.get("total"),
-            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "hostname": obj.get("hostname"),
+            "dataModel": obj.get("dataModel"),
+            "retrievedAt": obj.get("retrievedAt"),
+            "licenseNumber": obj.get("licenseNumber"),
+            "packageId": obj.get("packageId"),
+            "label": obj.get("label"),
+            "packageType": obj.get("packageType"),
+            "productName": obj.get("productName"),
+            "productCategoryName": obj.get("productCategoryName"),
+            "quantity": obj.get("quantity"),
+            "unitOfMeasureName": obj.get("unitOfMeasureName"),
+            "unitOfMeasureAbbreviation": obj.get("unitOfMeasureAbbreviation"),
+            "isProductionBatch": obj.get("isProductionBatch"),
+            "productionBatchNumber": obj.get("productionBatchNumber"),
+            "actualDate": obj.get("actualDate"),
+            "expirationDate": obj.get("expirationDate"),
+            "sellByDate": obj.get("sellByDate"),
+            "useByDate": obj.get("useByDate"),
+            "isArchived": obj.get("isArchived"),
+            "isFinished": obj.get("isFinished")
         })
         return _obj
 

@@ -17,22 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_package import MetrcPackage
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcPackageListResponse(BaseModel):
+class MetrcSessionAuthPayloadFacilitiesInner(BaseModel):
     """
-    MetrcPackageListResponse
+    MetrcSessionAuthPayloadFacilitiesInner
     """ # noqa: E501
-    page: Optional[StrictInt] = None
-    total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
-    page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
-    total: Optional[StrictInt] = None
-    data: Optional[List[MetrcPackage]] = None
-    __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
+    facility_license_number: Optional[StrictStr] = Field(default=None, description="The license number of the facility")
+    facility_name: Optional[StrictStr] = Field(default=None, description="The name of the facility")
+    __properties: ClassVar[List[str]] = ["facility_license_number", "facility_name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +48,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a JSON string"""
+        """Create an instance of MetrcSessionAuthPayloadFacilitiesInner from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,18 +69,11 @@ class MetrcPackageListResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
-        _items = []
-        if self.data:
-            for _item_data in self.data:
-                if _item_data:
-                    _items.append(_item_data.to_dict())
-            _dict['data'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a dict"""
+        """Create an instance of MetrcSessionAuthPayloadFacilitiesInner from a dict"""
         if obj is None:
             return None
 
@@ -92,11 +81,8 @@ class MetrcPackageListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "page": obj.get("page"),
-            "totalPages": obj.get("totalPages"),
-            "pageSize": obj.get("pageSize"),
-            "total": obj.get("total"),
-            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "facility_license_number": obj.get("facility_license_number"),
+            "facility_name": obj.get("facility_name")
         })
         return _obj
 

@@ -19,19 +19,19 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_package import MetrcPackage
+from t3api.models.metrc_harvest_plant import MetrcHarvestPlant
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcPackageListResponse(BaseModel):
+class MetrcHarvestPackageListResponse(BaseModel):
     """
-    MetrcPackageListResponse
+    MetrcHarvestPackageListResponse
     """ # noqa: E501
     page: Optional[StrictInt] = None
     total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
     page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
     total: Optional[StrictInt] = None
-    data: Optional[List[MetrcPackage]] = None
+    data: Optional[List[MetrcHarvestPlant]] = None
     __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
 
     model_config = ConfigDict(
@@ -52,7 +52,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a JSON string"""
+        """Create an instance of MetrcHarvestPackageListResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -84,7 +84,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a dict"""
+        """Create an instance of MetrcHarvestPackageListResponse from a dict"""
         if obj is None:
             return None
 
@@ -96,7 +96,7 @@ class MetrcPackageListResponse(BaseModel):
             "totalPages": obj.get("totalPages"),
             "pageSize": obj.get("pageSize"),
             "total": obj.get("total"),
-            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "data": [MetrcHarvestPlant.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
         })
         return _obj
 

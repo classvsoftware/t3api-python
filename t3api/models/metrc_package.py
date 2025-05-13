@@ -66,6 +66,7 @@ class MetrcPackage(BaseModel):
     label: Optional[StrictStr] = Field(default=None, description="The label identifier for the package.")
     last_modified: Optional[datetime] = Field(default=None, description="The date and time when the package details were last modified.", alias="lastModified")
     location_name: Optional[StrictStr] = Field(default=None, description="The name of the location where the package is stored.", alias="locationName")
+    sublocation_name: Optional[StrictStr] = Field(default=None, alias="sublocationName")
     location_type_name: Optional[StrictStr] = Field(default=None, description="The type of location where the package is stored.", alias="locationTypeName")
     multi_harvest: Optional[StrictBool] = Field(default=None, description="Indicates if the package contains material from multiple harvests.", alias="multiHarvest")
     multi_package: Optional[StrictBool] = Field(default=None, description="Indicates if the package is part of multiple packages.", alias="multiPackage")
@@ -120,7 +121,7 @@ class MetrcPackage(BaseModel):
     product_label: Optional[StrictStr] = Field(default=None, alias="productLabel")
     lab_test_stage: Optional[StrictStr] = Field(default=None, alias="labTestStage")
     external_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="externalId")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "archivedDate", "containsRemediatedProduct", "donationFacilityLicenseNumber", "donationFacilityName", "facilityLicenseNumber", "facilityName", "finishedDate", "initialLabTestingState", "isArchived", "isDonation", "isDonationPersistent", "isFinished", "isInTransit", "isOnHold", "isProcessValidationTestingSample", "isProductionBatch", "isTestingSample", "isTradeSample", "isTradeSamplePersistent", "item", "itemFromFacilityLicenseNumber", "itemFromFacilityName", "labTestingStateDate", "labTestingStateName", "labTestingRecordedDate", "labTestingPerformedDate", "labTestStageId", "labTestResultExpirationDateTime", "label", "lastModified", "locationName", "locationTypeName", "multiHarvest", "multiPackage", "multiProductionBatch", "note", "packageType", "packagedByFacilityLicenseNumber", "packagedByFacilityName", "packagedDate", "patientLicenseNumber", "productRequiresRemediation", "productionBatchNumber", "quantity", "receivedDateTime", "receivedFromFacilityLicenseNumber", "receivedFromFacilityName", "receivedFromManifestNumber", "remediationDate", "sourceHarvestNames", "sourcePackageIsDonation", "sourcePackageIsTradeSample", "sourcePackageLabels", "sourceProductionBatchNumbers", "tradeSampleFacilityName", "tradeSampleFacilityLicenseNumber", "transferManifestNumber", "unitOfMeasureAbbreviation", "unitOfMeasureId", "unitOfMeasureQuantityType", "sourceHarvestCount", "sourcePackageCount", "sourceProcessingJobCount", "sourceProcessingJobNumbers", "sourceProcessingJobNames", "multiProcessingJob", "expirationDate", "sellByDate", "useByDate", "labTestResultDocumentFileId", "isOnTrip", "isOnRetailerDelivery", "packageForProductDestruction", "trip", "hasPartial", "isPartial", "inTransitStatus", "processingJobTypeId", "isOnRecall", "decontaminationDate", "containsDecontaminatedProduct", "productRequiresDecontamination", "productLabel", "labTestStage", "externalId"]
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "archivedDate", "containsRemediatedProduct", "donationFacilityLicenseNumber", "donationFacilityName", "facilityLicenseNumber", "facilityName", "finishedDate", "initialLabTestingState", "isArchived", "isDonation", "isDonationPersistent", "isFinished", "isInTransit", "isOnHold", "isProcessValidationTestingSample", "isProductionBatch", "isTestingSample", "isTradeSample", "isTradeSamplePersistent", "item", "itemFromFacilityLicenseNumber", "itemFromFacilityName", "labTestingStateDate", "labTestingStateName", "labTestingRecordedDate", "labTestingPerformedDate", "labTestStageId", "labTestResultExpirationDateTime", "label", "lastModified", "locationName", "sublocationName", "locationTypeName", "multiHarvest", "multiPackage", "multiProductionBatch", "note", "packageType", "packagedByFacilityLicenseNumber", "packagedByFacilityName", "packagedDate", "patientLicenseNumber", "productRequiresRemediation", "productionBatchNumber", "quantity", "receivedDateTime", "receivedFromFacilityLicenseNumber", "receivedFromFacilityName", "receivedFromManifestNumber", "remediationDate", "sourceHarvestNames", "sourcePackageIsDonation", "sourcePackageIsTradeSample", "sourcePackageLabels", "sourceProductionBatchNumbers", "tradeSampleFacilityName", "tradeSampleFacilityLicenseNumber", "transferManifestNumber", "unitOfMeasureAbbreviation", "unitOfMeasureId", "unitOfMeasureQuantityType", "sourceHarvestCount", "sourcePackageCount", "sourceProcessingJobCount", "sourceProcessingJobNumbers", "sourceProcessingJobNames", "multiProcessingJob", "expirationDate", "sellByDate", "useByDate", "labTestResultDocumentFileId", "isOnTrip", "isOnRetailerDelivery", "packageForProductDestruction", "trip", "hasPartial", "isPartial", "inTransitStatus", "processingJobTypeId", "isOnRecall", "decontaminationDate", "containsDecontaminatedProduct", "productRequiresDecontamination", "productLabel", "labTestStage", "externalId"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -253,6 +254,11 @@ class MetrcPackage(BaseModel):
         # and model_fields_set contains the field
         if self.location_name is None and "location_name" in self.model_fields_set:
             _dict['locationName'] = None
+
+        # set to None if sublocation_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.sublocation_name is None and "sublocation_name" in self.model_fields_set:
+            _dict['sublocationName'] = None
 
         # set to None if location_type_name (nullable) is None
         # and model_fields_set contains the field
@@ -398,6 +404,7 @@ class MetrcPackage(BaseModel):
             "label": obj.get("label"),
             "lastModified": obj.get("lastModified"),
             "locationName": obj.get("locationName"),
+            "sublocationName": obj.get("sublocationName"),
             "locationTypeName": obj.get("locationTypeName"),
             "multiHarvest": obj.get("multiHarvest"),
             "multiPackage": obj.get("multiPackage"),

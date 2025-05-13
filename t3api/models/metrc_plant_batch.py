@@ -36,6 +36,7 @@ class MetrcPlantBatch(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="The name of the plant batch. In CA, this is a plant tag label.")
     plant_batch_type_name: Optional[StrictStr] = Field(default=None, description="The type of the plant batch, typically a category or classification.", alias="plantBatchTypeName")
     location_name: Optional[StrictStr] = Field(default=None, description="The name of the location where the plant batch is stored or processed.", alias="locationName")
+    sublocation_name: Optional[StrictStr] = Field(default=None, alias="sublocationName")
     location_type_name: Optional[StrictStr] = Field(default=None, description="The type of location.", alias="locationTypeName")
     strain_id: Optional[StrictInt] = Field(default=None, alias="strainId")
     strain_name: Optional[StrictStr] = Field(default=None, description="The name of the strain of the plants.", alias="strainName")
@@ -52,7 +53,7 @@ class MetrcPlantBatch(BaseModel):
     is_on_trip: Optional[StrictBool] = Field(default=None, description="Indicates if the batch is currently on a trip or being transported.", alias="isOnTrip")
     last_modified: Optional[datetime] = Field(default=None, description="The last modified timestamp for the plant batch data.", alias="lastModified")
     is_on_hold: Optional[StrictBool] = Field(default=None, description="Indicates if the batch is currently on hold.", alias="isOnHold")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "name", "plantBatchTypeName", "locationName", "locationTypeName", "strainId", "strainName", "patientLicenseNumber", "untrackedCount", "trackedCount", "packagedCount", "destroyedCount", "sourcePackageLabel", "sourcePlantLabel", "sourcePlantBatchNames", "multiPlantBatch", "plantedDate", "isOnTrip", "lastModified", "isOnHold"]
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "name", "plantBatchTypeName", "locationName", "sublocationName", "locationTypeName", "strainId", "strainName", "patientLicenseNumber", "untrackedCount", "trackedCount", "packagedCount", "destroyedCount", "sourcePackageLabel", "sourcePlantLabel", "sourcePlantBatchNames", "multiPlantBatch", "plantedDate", "isOnTrip", "lastModified", "isOnHold"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -103,6 +104,11 @@ class MetrcPlantBatch(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if sublocation_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.sublocation_name is None and "sublocation_name" in self.model_fields_set:
+            _dict['sublocationName'] = None
+
         # set to None if patient_license_number (nullable) is None
         # and model_fields_set contains the field
         if self.patient_license_number is None and "patient_license_number" in self.model_fields_set:
@@ -144,6 +150,7 @@ class MetrcPlantBatch(BaseModel):
             "name": obj.get("name"),
             "plantBatchTypeName": obj.get("plantBatchTypeName"),
             "locationName": obj.get("locationName"),
+            "sublocationName": obj.get("sublocationName"),
             "locationTypeName": obj.get("locationTypeName"),
             "strainId": obj.get("strainId"),
             "strainName": obj.get("strainName"),

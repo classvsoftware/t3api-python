@@ -17,22 +17,29 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_package import MetrcPackage
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List
+from t3api.models.metrc_session_auth_payload_facilities_inner import MetrcSessionAuthPayloadFacilitiesInner
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcPackageListResponse(BaseModel):
+class MetrcSessionAuthPayload(BaseModel):
     """
-    MetrcPackageListResponse
+    MetrcSessionAuthPayload
     """ # noqa: E501
-    page: Optional[StrictInt] = None
-    total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
-    page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
-    total: Optional[StrictInt] = None
-    data: Optional[List[MetrcPackage]] = None
-    __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
+    username: StrictStr = Field(description="Your Metrc username")
+    hostname: StrictStr = Field(description="The Metrc hostname you use to login. For example, a California user would use ca.metrc.com.")
+    cookies: Dict[str, StrictStr] = Field(description="Session cookies for authentication")
+    facilities: List[MetrcSessionAuthPayloadFacilitiesInner] = Field(description="List of facilities associated with the session")
+    api_verification_token: StrictStr = Field(description="Verification token used for API authentication", alias="apiVerificationToken")
+    __properties: ClassVar[List[str]] = ["username", "hostname", "cookies", "facilities", "apiVerificationToken"]
+
+    @field_validator('hostname')
+    def hostname_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['ak.metrc.com', 'al.metrc.com', 'ca.metrc.com', 'co.metrc.com', 'il.metrc.com', 'ky.metrc.com', 'la.metrc.com', 'ma.metrc.com', 'md.metrc.com', 'me.metrc.com', 'mi.metrc.com', 'mn.metrc.com', 'mo.metrc.com', 'ms.metrc.com', 'mt.metrc.com', 'nj.metrc.com', 'nv.metrc.com', 'oh.metrc.com', 'ok.metrc.com', 'or.metrc.com', 'sd.metrc.com', 'wv.metrc.com']):
+            raise ValueError("must be one of enum values ('ak.metrc.com', 'al.metrc.com', 'ca.metrc.com', 'co.metrc.com', 'il.metrc.com', 'ky.metrc.com', 'la.metrc.com', 'ma.metrc.com', 'md.metrc.com', 'me.metrc.com', 'mi.metrc.com', 'mn.metrc.com', 'mo.metrc.com', 'ms.metrc.com', 'mt.metrc.com', 'nj.metrc.com', 'nv.metrc.com', 'oh.metrc.com', 'ok.metrc.com', 'or.metrc.com', 'sd.metrc.com', 'wv.metrc.com')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +59,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a JSON string"""
+        """Create an instance of MetrcSessionAuthPayload from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,18 +80,18 @@ class MetrcPackageListResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
+        # override the default output from pydantic by calling `to_dict()` of each item in facilities (list)
         _items = []
-        if self.data:
-            for _item_data in self.data:
-                if _item_data:
-                    _items.append(_item_data.to_dict())
-            _dict['data'] = _items
+        if self.facilities:
+            for _item_facilities in self.facilities:
+                if _item_facilities:
+                    _items.append(_item_facilities.to_dict())
+            _dict['facilities'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a dict"""
+        """Create an instance of MetrcSessionAuthPayload from a dict"""
         if obj is None:
             return None
 
@@ -92,11 +99,11 @@ class MetrcPackageListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "page": obj.get("page"),
-            "totalPages": obj.get("totalPages"),
-            "pageSize": obj.get("pageSize"),
-            "total": obj.get("total"),
-            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "username": obj.get("username"),
+            "hostname": obj.get("hostname"),
+            "cookies": obj.get("cookies"),
+            "facilities": [MetrcSessionAuthPayloadFacilitiesInner.from_dict(_item) for _item in obj["facilities"]] if obj.get("facilities") is not None else None,
+            "apiVerificationToken": obj.get("apiVerificationToken")
         })
         return _obj
 

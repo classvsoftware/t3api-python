@@ -17,22 +17,59 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from datetime import date, datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_package import MetrcPackage
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcPackageListResponse(BaseModel):
+class MetrcHarvestPlant(BaseModel):
     """
-    MetrcPackageListResponse
+    MetrcHarvestPlant
     """ # noqa: E501
-    page: Optional[StrictInt] = None
-    total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
-    page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
-    total: Optional[StrictInt] = None
-    data: Optional[List[MetrcPackage]] = None
-    __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
+    hostname: Optional[StrictStr] = Field(default=None, description="The hostname this object was retrieved from")
+    data_model: Optional[StrictStr] = Field(default=None, description="Name of this object's data model", alias="dataModel")
+    retrieved_at: Optional[datetime] = Field(default=None, description="Timestamp of when this object was pulled from Metrc", alias="retrievedAt")
+    license_number: Optional[StrictStr] = Field(default=None, description="License number used to access this object", alias="licenseNumber")
+    harvest_id: Optional[StrictInt] = Field(default=None, description="Unique identifier for the harvest.", alias="harvestId")
+    plant_id: Optional[StrictInt] = Field(default=None, description="Unique identifier for the plant.", alias="plantId")
+    harvest_count: Optional[StrictInt] = Field(default=None, description="Number of times this plant has been harvested.", alias="harvestCount")
+    label: Optional[StrictStr] = Field(default=None, description="Unique label identifier for the package.")
+    location_name: Optional[StrictStr] = Field(default=None, description="Name of the location where the plant was located during harvest.", alias="locationName")
+    location_type_name: Optional[StrictStr] = Field(default=None, description="Type of the location.", alias="locationTypeName")
+    patient_license_number: Optional[StrictStr] = Field(default=None, description="License number of the patient, if applicable.", alias="patientLicenseNumber")
+    plant_batch_name: Optional[StrictStr] = Field(default=None, description="Name of the plant batch.", alias="plantBatchName")
+    plant_batch_type_name: Optional[StrictStr] = Field(default=None, description="Type of the plant batch.", alias="plantBatchTypeName")
+    harvest_specific_plant_count: Optional[StrictInt] = Field(default=None, description="Number of plants specifically in this harvest package.", alias="harvestSpecificPlantCount")
+    total_plant_count: Optional[StrictInt] = Field(default=None, description="Total number of plants associated with the package.", alias="totalPlantCount")
+    strain_name: Optional[StrictStr] = Field(default=None, description="Name of the plant strain.", alias="strainName")
+    is_on_hold: Optional[StrictBool] = Field(default=None, description="Indicates if the plant is on hold.", alias="isOnHold")
+    planted_date: Optional[date] = Field(default=None, description="Date when the plant was planted.", alias="plantedDate")
+    vegetative_date: Optional[date] = Field(default=None, description="Date when the plant entered the vegetative stage.", alias="vegetativeDate")
+    flowering_date: Optional[date] = Field(default=None, description="Date when the plant entered the flowering stage.", alias="floweringDate")
+    destroyed_date: Optional[date] = Field(default=None, description="Date when the plant was destroyed, if applicable.", alias="destroyedDate")
+    last_modified: Optional[datetime] = Field(default=None, description="The last time the record was modified.", alias="lastModified")
+    __properties: ClassVar[List[str]] = ["hostname", "dataModel", "retrievedAt", "licenseNumber", "harvestId", "plantId", "harvestCount", "label", "locationName", "locationTypeName", "patientLicenseNumber", "plantBatchName", "plantBatchTypeName", "harvestSpecificPlantCount", "totalPlantCount", "strainName", "isOnHold", "plantedDate", "vegetativeDate", "floweringDate", "destroyedDate", "lastModified"]
+
+    @field_validator('location_type_name')
+    def location_type_name_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['Default Location Type', 'Greenhouse', 'Outdoor']):
+            raise ValueError("must be one of enum values ('Default Location Type', 'Greenhouse', 'Outdoor')")
+        return value
+
+    @field_validator('plant_batch_type_name')
+    def plant_batch_type_name_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['Clone', 'Seed']):
+            raise ValueError("must be one of enum values ('Clone', 'Seed')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +89,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a JSON string"""
+        """Create an instance of MetrcHarvestPlant from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,18 +110,21 @@ class MetrcPackageListResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
-        _items = []
-        if self.data:
-            for _item_data in self.data:
-                if _item_data:
-                    _items.append(_item_data.to_dict())
-            _dict['data'] = _items
+        # set to None if patient_license_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.patient_license_number is None and "patient_license_number" in self.model_fields_set:
+            _dict['patientLicenseNumber'] = None
+
+        # set to None if destroyed_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.destroyed_date is None and "destroyed_date" in self.model_fields_set:
+            _dict['destroyedDate'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a dict"""
+        """Create an instance of MetrcHarvestPlant from a dict"""
         if obj is None:
             return None
 
@@ -92,11 +132,28 @@ class MetrcPackageListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "page": obj.get("page"),
-            "totalPages": obj.get("totalPages"),
-            "pageSize": obj.get("pageSize"),
-            "total": obj.get("total"),
-            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "hostname": obj.get("hostname"),
+            "dataModel": obj.get("dataModel"),
+            "retrievedAt": obj.get("retrievedAt"),
+            "licenseNumber": obj.get("licenseNumber"),
+            "harvestId": obj.get("harvestId"),
+            "plantId": obj.get("plantId"),
+            "harvestCount": obj.get("harvestCount"),
+            "label": obj.get("label"),
+            "locationName": obj.get("locationName"),
+            "locationTypeName": obj.get("locationTypeName"),
+            "patientLicenseNumber": obj.get("patientLicenseNumber"),
+            "plantBatchName": obj.get("plantBatchName"),
+            "plantBatchTypeName": obj.get("plantBatchTypeName"),
+            "harvestSpecificPlantCount": obj.get("harvestSpecificPlantCount"),
+            "totalPlantCount": obj.get("totalPlantCount"),
+            "strainName": obj.get("strainName"),
+            "isOnHold": obj.get("isOnHold"),
+            "plantedDate": obj.get("plantedDate"),
+            "vegetativeDate": obj.get("vegetativeDate"),
+            "floweringDate": obj.get("floweringDate"),
+            "destroyedDate": obj.get("destroyedDate"),
+            "lastModified": obj.get("lastModified")
         })
         return _obj
 

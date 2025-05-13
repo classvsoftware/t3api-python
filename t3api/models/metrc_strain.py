@@ -17,22 +17,41 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_package import MetrcPackage
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcPackageListResponse(BaseModel):
+class MetrcStrain(BaseModel):
     """
-    MetrcPackageListResponse
+    MetrcStrain
     """ # noqa: E501
-    page: Optional[StrictInt] = None
-    total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
-    page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
-    total: Optional[StrictInt] = None
-    data: Optional[List[MetrcPackage]] = None
-    __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
+    id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The item ID")
+    hostname: Optional[StrictStr] = Field(default=None, description="The hostname this object was retrieved from")
+    data_model: Optional[StrictStr] = Field(default=None, description="Name of this object's data model", alias="dataModel")
+    retrieved_at: Optional[datetime] = Field(default=None, description="Timestamp of when this object was pulled from Metrc", alias="retrievedAt")
+    license_number: Optional[StrictStr] = Field(default=None, description="License number used to access this object", alias="licenseNumber")
+    index: Optional[StrictStr] = Field(default=None, description="Describes the current state of this object at the time it was returned from the API. This cannot be used to sort or filter.")
+    name: Optional[StrictStr] = Field(default=None, description="The strain name")
+    sativa_percentage: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="sativaPercentage")
+    indica_percentage: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="indicaPercentage")
+    cbd_level: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="cbdLevel")
+    thc_level: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="thcLevel")
+    testing_status: Optional[StrictStr] = Field(default=None, alias="testingStatus")
+    is_used: Optional[StrictBool] = Field(default=None, alias="isUsed")
+    is_archived: Optional[StrictBool] = Field(default=None, alias="isArchived")
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "name", "sativaPercentage", "indicaPercentage", "cbdLevel", "thcLevel", "testingStatus", "isUsed", "isArchived"]
+
+    @field_validator('index')
+    def index_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['ACTIVE_STRAIN']):
+            raise ValueError("must be one of enum values ('ACTIVE_STRAIN')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +71,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a JSON string"""
+        """Create an instance of MetrcStrain from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,18 +92,16 @@ class MetrcPackageListResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
-        _items = []
-        if self.data:
-            for _item_data in self.data:
-                if _item_data:
-                    _items.append(_item_data.to_dict())
-            _dict['data'] = _items
+        # set to None if testing_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.testing_status is None and "testing_status" in self.model_fields_set:
+            _dict['testingStatus'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a dict"""
+        """Create an instance of MetrcStrain from a dict"""
         if obj is None:
             return None
 
@@ -92,11 +109,20 @@ class MetrcPackageListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "page": obj.get("page"),
-            "totalPages": obj.get("totalPages"),
-            "pageSize": obj.get("pageSize"),
-            "total": obj.get("total"),
-            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "id": obj.get("id"),
+            "hostname": obj.get("hostname"),
+            "dataModel": obj.get("dataModel"),
+            "retrievedAt": obj.get("retrievedAt"),
+            "licenseNumber": obj.get("licenseNumber"),
+            "index": obj.get("index"),
+            "name": obj.get("name"),
+            "sativaPercentage": obj.get("sativaPercentage"),
+            "indicaPercentage": obj.get("indicaPercentage"),
+            "cbdLevel": obj.get("cbdLevel"),
+            "thcLevel": obj.get("thcLevel"),
+            "testingStatus": obj.get("testingStatus"),
+            "isUsed": obj.get("isUsed"),
+            "isArchived": obj.get("isArchived")
         })
         return _obj
 

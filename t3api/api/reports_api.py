@@ -28,6 +28,7 @@ from t3api.models.v2_packages_transferred_report_get200_response import V2Packag
 from t3api.models.v2_plantbatches_active_report_get200_response import V2PlantbatchesActiveReportGet200Response
 from t3api.models.v2_plants_vegetative_report_get200_response import V2PlantsVegetativeReportGet200Response
 from t3api.models.v2_sales_active_report_get200_response import V2SalesActiveReportGet200Response
+from t3api.models.v2_strains_report_get200_response import V2StrainsReportGet200Response
 from t3api.models.v2_transfers_incoming_manifest_report_get200_response import V2TransfersIncomingManifestReportGet200Response
 from t3api.models.v2_transfers_outgoing_manifest_report_get200_response import V2TransfersOutgoingManifestReportGet200Response
 
@@ -4147,6 +4148,390 @@ class ReportsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v2/sales/active/report',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def v2_strains_report_get(
+        self,
+        license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        secret_key: Annotated[Optional[StrictStr], Field(description="Your secret key, if you wish to authenticate via query params. Secret keys can be manually generated [here](/v2/pages/secret-key). ")] = None,
+        filter_logic: Annotated[Optional[StrictStr], Field(description="Describes how the filters, if any, should be applied")] = None,
+        content_type: Annotated[Optional[StrictStr], Field(description="Specifies how the report should be formatted. Can be returned as json or csv. *This can also be defined in the Content-Type header* ")] = None,
+        prepend_csv_metadata: Annotated[Optional[StrictStr], Field(description="Controls if the CSV header metadata should be included in the output. When set to false, only the column headers and data will be returned. ")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Defines the collection sort order.")] = None,
+        filter: Annotated[Optional[List[StrictStr]], Field(description="One or more collection filters.")] = None,
+        fieldnames: Annotated[Optional[StrictStr], Field(description="Defines which strain fields should appear in the report data.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> V2StrainsReportGet200Response:
+        """Generate a report of all active strains
+
+        **Note: this endpoint supports secret key authentication.** 
+
+        :param license_number: The unique identifier for the license associated with this request. (required)
+        :type license_number: str
+        :param secret_key: Your secret key, if you wish to authenticate via query params. Secret keys can be manually generated [here](/v2/pages/secret-key). 
+        :type secret_key: str
+        :param filter_logic: Describes how the filters, if any, should be applied
+        :type filter_logic: str
+        :param content_type: Specifies how the report should be formatted. Can be returned as json or csv. *This can also be defined in the Content-Type header* 
+        :type content_type: str
+        :param prepend_csv_metadata: Controls if the CSV header metadata should be included in the output. When set to false, only the column headers and data will be returned. 
+        :type prepend_csv_metadata: str
+        :param sort: Defines the collection sort order.
+        :type sort: str
+        :param filter: One or more collection filters.
+        :type filter: List[str]
+        :param fieldnames: Defines which strain fields should appear in the report data.
+        :type fieldnames: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_strains_report_get_serialize(
+            license_number=license_number,
+            secret_key=secret_key,
+            filter_logic=filter_logic,
+            content_type=content_type,
+            prepend_csv_metadata=prepend_csv_metadata,
+            sort=sort,
+            filter=filter,
+            fieldnames=fieldnames,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2StrainsReportGet200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def v2_strains_report_get_with_http_info(
+        self,
+        license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        secret_key: Annotated[Optional[StrictStr], Field(description="Your secret key, if you wish to authenticate via query params. Secret keys can be manually generated [here](/v2/pages/secret-key). ")] = None,
+        filter_logic: Annotated[Optional[StrictStr], Field(description="Describes how the filters, if any, should be applied")] = None,
+        content_type: Annotated[Optional[StrictStr], Field(description="Specifies how the report should be formatted. Can be returned as json or csv. *This can also be defined in the Content-Type header* ")] = None,
+        prepend_csv_metadata: Annotated[Optional[StrictStr], Field(description="Controls if the CSV header metadata should be included in the output. When set to false, only the column headers and data will be returned. ")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Defines the collection sort order.")] = None,
+        filter: Annotated[Optional[List[StrictStr]], Field(description="One or more collection filters.")] = None,
+        fieldnames: Annotated[Optional[StrictStr], Field(description="Defines which strain fields should appear in the report data.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[V2StrainsReportGet200Response]:
+        """Generate a report of all active strains
+
+        **Note: this endpoint supports secret key authentication.** 
+
+        :param license_number: The unique identifier for the license associated with this request. (required)
+        :type license_number: str
+        :param secret_key: Your secret key, if you wish to authenticate via query params. Secret keys can be manually generated [here](/v2/pages/secret-key). 
+        :type secret_key: str
+        :param filter_logic: Describes how the filters, if any, should be applied
+        :type filter_logic: str
+        :param content_type: Specifies how the report should be formatted. Can be returned as json or csv. *This can also be defined in the Content-Type header* 
+        :type content_type: str
+        :param prepend_csv_metadata: Controls if the CSV header metadata should be included in the output. When set to false, only the column headers and data will be returned. 
+        :type prepend_csv_metadata: str
+        :param sort: Defines the collection sort order.
+        :type sort: str
+        :param filter: One or more collection filters.
+        :type filter: List[str]
+        :param fieldnames: Defines which strain fields should appear in the report data.
+        :type fieldnames: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_strains_report_get_serialize(
+            license_number=license_number,
+            secret_key=secret_key,
+            filter_logic=filter_logic,
+            content_type=content_type,
+            prepend_csv_metadata=prepend_csv_metadata,
+            sort=sort,
+            filter=filter,
+            fieldnames=fieldnames,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2StrainsReportGet200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def v2_strains_report_get_without_preload_content(
+        self,
+        license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        secret_key: Annotated[Optional[StrictStr], Field(description="Your secret key, if you wish to authenticate via query params. Secret keys can be manually generated [here](/v2/pages/secret-key). ")] = None,
+        filter_logic: Annotated[Optional[StrictStr], Field(description="Describes how the filters, if any, should be applied")] = None,
+        content_type: Annotated[Optional[StrictStr], Field(description="Specifies how the report should be formatted. Can be returned as json or csv. *This can also be defined in the Content-Type header* ")] = None,
+        prepend_csv_metadata: Annotated[Optional[StrictStr], Field(description="Controls if the CSV header metadata should be included in the output. When set to false, only the column headers and data will be returned. ")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Defines the collection sort order.")] = None,
+        filter: Annotated[Optional[List[StrictStr]], Field(description="One or more collection filters.")] = None,
+        fieldnames: Annotated[Optional[StrictStr], Field(description="Defines which strain fields should appear in the report data.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Generate a report of all active strains
+
+        **Note: this endpoint supports secret key authentication.** 
+
+        :param license_number: The unique identifier for the license associated with this request. (required)
+        :type license_number: str
+        :param secret_key: Your secret key, if you wish to authenticate via query params. Secret keys can be manually generated [here](/v2/pages/secret-key). 
+        :type secret_key: str
+        :param filter_logic: Describes how the filters, if any, should be applied
+        :type filter_logic: str
+        :param content_type: Specifies how the report should be formatted. Can be returned as json or csv. *This can also be defined in the Content-Type header* 
+        :type content_type: str
+        :param prepend_csv_metadata: Controls if the CSV header metadata should be included in the output. When set to false, only the column headers and data will be returned. 
+        :type prepend_csv_metadata: str
+        :param sort: Defines the collection sort order.
+        :type sort: str
+        :param filter: One or more collection filters.
+        :type filter: List[str]
+        :param fieldnames: Defines which strain fields should appear in the report data.
+        :type fieldnames: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_strains_report_get_serialize(
+            license_number=license_number,
+            secret_key=secret_key,
+            filter_logic=filter_logic,
+            content_type=content_type,
+            prepend_csv_metadata=prepend_csv_metadata,
+            sort=sort,
+            filter=filter,
+            fieldnames=fieldnames,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2StrainsReportGet200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _v2_strains_report_get_serialize(
+        self,
+        license_number,
+        secret_key,
+        filter_logic,
+        content_type,
+        prepend_csv_metadata,
+        sort,
+        filter,
+        fieldnames,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'filter': 'multi',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if license_number is not None:
+            
+            _query_params.append(('licenseNumber', license_number))
+            
+        if secret_key is not None:
+            
+            _query_params.append(('secretKey', secret_key))
+            
+        if filter_logic is not None:
+            
+            _query_params.append(('filterLogic', filter_logic))
+            
+        if content_type is not None:
+            
+            _query_params.append(('contentType', content_type))
+            
+        if prepend_csv_metadata is not None:
+            
+            _query_params.append(('prependCsvMetadata', prepend_csv_metadata))
+            
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if fieldnames is not None:
+            
+            _query_params.append(('fieldnames', fieldnames))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/csv'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v2/strains/report',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

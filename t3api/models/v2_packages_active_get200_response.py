@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_superpackage import MetrcSuperpackage
+from t3api.models.metrc_package import MetrcPackage
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,7 +31,7 @@ class V2PackagesActiveGet200Response(BaseModel):
     total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
     page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
     total: Optional[StrictInt] = None
-    data: Optional[List[MetrcSuperpackage]] = None
+    data: Optional[List[MetrcPackage]] = None
     __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
 
     model_config = ConfigDict(
@@ -96,7 +96,7 @@ class V2PackagesActiveGet200Response(BaseModel):
             "totalPages": obj.get("totalPages"),
             "pageSize": obj.get("pageSize"),
             "total": obj.get("total"),
-            "data": [MetrcSuperpackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
         })
         return _obj
 

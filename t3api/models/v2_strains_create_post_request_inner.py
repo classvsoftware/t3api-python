@@ -17,22 +17,29 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_package import MetrcPackage
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcPackageListResponse(BaseModel):
+class V2StrainsCreatePostRequestInner(BaseModel):
     """
-    MetrcPackageListResponse
+    V2StrainsCreatePostRequestInner
     """ # noqa: E501
-    page: Optional[StrictInt] = None
-    total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
-    page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
-    total: Optional[StrictInt] = None
-    data: Optional[List[MetrcPackage]] = None
-    __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
+    name: StrictStr = Field(description="The name of the strain")
+    cbd_level: Union[StrictFloat, StrictInt] = Field(description="The strain's CBD Level", alias="cbdLevel")
+    thc_level: Union[StrictFloat, StrictInt] = Field(description="The strain's THC Level", alias="thcLevel")
+    indica_percentage: Union[StrictFloat, StrictInt] = Field(description="The percentage of indica in the strain", alias="indicaPercentage")
+    sativa_percentage: Union[StrictFloat, StrictInt] = Field(description="The percentage of sativa in the strain", alias="sativaPercentage")
+    testing_status: StrictStr = Field(description="The current testing status of the strain", alias="testingStatus")
+    __properties: ClassVar[List[str]] = ["name", "cbdLevel", "thcLevel", "indicaPercentage", "sativaPercentage", "testingStatus"]
+
+    @field_validator('testing_status')
+    def testing_status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['None', 'InHouse', 'ThirdParty']):
+            raise ValueError("must be one of enum values ('None', 'InHouse', 'ThirdParty')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +59,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a JSON string"""
+        """Create an instance of V2StrainsCreatePostRequestInner from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,18 +80,11 @@ class MetrcPackageListResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
-        _items = []
-        if self.data:
-            for _item_data in self.data:
-                if _item_data:
-                    _items.append(_item_data.to_dict())
-            _dict['data'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a dict"""
+        """Create an instance of V2StrainsCreatePostRequestInner from a dict"""
         if obj is None:
             return None
 
@@ -92,11 +92,12 @@ class MetrcPackageListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "page": obj.get("page"),
-            "totalPages": obj.get("totalPages"),
-            "pageSize": obj.get("pageSize"),
-            "total": obj.get("total"),
-            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "name": obj.get("name"),
+            "cbdLevel": obj.get("cbdLevel"),
+            "thcLevel": obj.get("thcLevel"),
+            "indicaPercentage": obj.get("indicaPercentage"),
+            "sativaPercentage": obj.get("sativaPercentage"),
+            "testingStatus": obj.get("testingStatus")
         })
         return _obj
 

@@ -17,22 +17,39 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_package import MetrcPackage
+from t3api.models.metrc_driver import MetrcDriver
+from t3api.models.metrc_vehicle import MetrcVehicle
+from t3api.models.unit_of_measure import UnitOfMeasure
+from t3api.models.v2_transfers_create_inputs_get200_response_transfer_types_inner import V2TransfersCreateInputsGet200ResponseTransferTypesInner
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcPackageListResponse(BaseModel):
+class MetrcCreateTransferInputsResponse(BaseModel):
     """
-    MetrcPackageListResponse
+    MetrcCreateTransferInputsResponse
     """ # noqa: E501
-    page: Optional[StrictInt] = None
-    total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
-    page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
-    total: Optional[StrictInt] = None
-    data: Optional[List[MetrcPackage]] = None
-    __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
+    adding: Optional[StrictBool] = Field(default=None, description="Indicates if the entity is being added.")
+    days_wholesale_price_can_edit: Optional[StrictInt] = Field(default=None, description="Number of days the wholesale price can be edited.", alias="daysWholesalePriceCanEdit")
+    default_phone_number_for_questions: Optional[StrictStr] = Field(default=None, description="Default phone number for questions.", alias="defaultPhoneNumberForQuestions")
+    destination_facilities: Optional[List[Dict[str, Any]]] = Field(default=None, description="List of destination facilities.", alias="destinationFacilities")
+    details: Optional[Dict[str, Any]] = Field(default=None, description="Additional details.")
+    drivers: Optional[List[MetrcDriver]] = Field(default=None, description="List of drivers associated with the entity.")
+    edit_delivery_details_only: Optional[StrictBool] = Field(default=None, description="Indicates if only delivery details can be edited.", alias="editDeliveryDetailsOnly")
+    edit_wholesale_price_only: Optional[StrictBool] = Field(default=None, description="Indicates if only the wholesale price can be edited.", alias="editWholesalePriceOnly")
+    facilities: Optional[Dict[str, Any]] = Field(default=None, description="Details of the facilities.")
+    is_outgoing_inactive: Optional[StrictBool] = Field(default=None, description="Indicates if the outgoing status is inactive.", alias="isOutgoingInactive")
+    items: Optional[Dict[str, Any]] = Field(default=None, description="List of items.")
+    packages: Optional[List[Dict[str, Any]]] = Field(default=None, description="List of packages.")
+    selected_delivery_ids: Optional[List[StrictInt]] = Field(default=None, description="List of selected delivery IDs.", alias="selectedDeliveryIds")
+    selected_transfer_ids: Optional[List[StrictInt]] = Field(default=None, description="List of selected transfer IDs.", alias="selectedTransferIds")
+    selected_transfer_template_ids: Optional[Dict[str, Any]] = Field(default=None, description="List of selected transfer template IDs.", alias="selectedTransferTemplateIds")
+    transfer_types: Optional[List[V2TransfersCreateInputsGet200ResponseTransferTypesInner]] = Field(default=None, description="List of transfer types.", alias="transferTypes")
+    transporter_facilities: Optional[List[Dict[str, Any]]] = Field(default=None, description="List of transporter facilities.", alias="transporterFacilities")
+    units_of_measure: Optional[List[UnitOfMeasure]] = Field(default=None, description="List of units of measure.", alias="unitsOfMeasure")
+    vehicles: Optional[List[MetrcVehicle]] = Field(default=None, description="List of vehicles associated with the facility.")
+    __properties: ClassVar[List[str]] = ["adding", "daysWholesalePriceCanEdit", "defaultPhoneNumberForQuestions", "destinationFacilities", "details", "drivers", "editDeliveryDetailsOnly", "editWholesalePriceOnly", "facilities", "isOutgoingInactive", "items", "packages", "selectedDeliveryIds", "selectedTransferIds", "selectedTransferTemplateIds", "transferTypes", "transporterFacilities", "unitsOfMeasure", "vehicles"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +69,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a JSON string"""
+        """Create an instance of MetrcCreateTransferInputsResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,18 +90,54 @@ class MetrcPackageListResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
+        # override the default output from pydantic by calling `to_dict()` of each item in drivers (list)
         _items = []
-        if self.data:
-            for _item_data in self.data:
-                if _item_data:
-                    _items.append(_item_data.to_dict())
-            _dict['data'] = _items
+        if self.drivers:
+            for _item_drivers in self.drivers:
+                if _item_drivers:
+                    _items.append(_item_drivers.to_dict())
+            _dict['drivers'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in transfer_types (list)
+        _items = []
+        if self.transfer_types:
+            for _item_transfer_types in self.transfer_types:
+                if _item_transfer_types:
+                    _items.append(_item_transfer_types.to_dict())
+            _dict['transferTypes'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in units_of_measure (list)
+        _items = []
+        if self.units_of_measure:
+            for _item_units_of_measure in self.units_of_measure:
+                if _item_units_of_measure:
+                    _items.append(_item_units_of_measure.to_dict())
+            _dict['unitsOfMeasure'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in vehicles (list)
+        _items = []
+        if self.vehicles:
+            for _item_vehicles in self.vehicles:
+                if _item_vehicles:
+                    _items.append(_item_vehicles.to_dict())
+            _dict['vehicles'] = _items
+        # set to None if details (nullable) is None
+        # and model_fields_set contains the field
+        if self.details is None and "details" in self.model_fields_set:
+            _dict['details'] = None
+
+        # set to None if items (nullable) is None
+        # and model_fields_set contains the field
+        if self.items is None and "items" in self.model_fields_set:
+            _dict['items'] = None
+
+        # set to None if selected_transfer_template_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.selected_transfer_template_ids is None and "selected_transfer_template_ids" in self.model_fields_set:
+            _dict['selectedTransferTemplateIds'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a dict"""
+        """Create an instance of MetrcCreateTransferInputsResponse from a dict"""
         if obj is None:
             return None
 
@@ -92,11 +145,25 @@ class MetrcPackageListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "page": obj.get("page"),
-            "totalPages": obj.get("totalPages"),
-            "pageSize": obj.get("pageSize"),
-            "total": obj.get("total"),
-            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "adding": obj.get("adding"),
+            "daysWholesalePriceCanEdit": obj.get("daysWholesalePriceCanEdit"),
+            "defaultPhoneNumberForQuestions": obj.get("defaultPhoneNumberForQuestions"),
+            "destinationFacilities": obj.get("destinationFacilities"),
+            "details": obj.get("details"),
+            "drivers": [MetrcDriver.from_dict(_item) for _item in obj["drivers"]] if obj.get("drivers") is not None else None,
+            "editDeliveryDetailsOnly": obj.get("editDeliveryDetailsOnly"),
+            "editWholesalePriceOnly": obj.get("editWholesalePriceOnly"),
+            "facilities": obj.get("facilities"),
+            "isOutgoingInactive": obj.get("isOutgoingInactive"),
+            "items": obj.get("items"),
+            "packages": obj.get("packages"),
+            "selectedDeliveryIds": obj.get("selectedDeliveryIds"),
+            "selectedTransferIds": obj.get("selectedTransferIds"),
+            "selectedTransferTemplateIds": obj.get("selectedTransferTemplateIds"),
+            "transferTypes": [V2TransfersCreateInputsGet200ResponseTransferTypesInner.from_dict(_item) for _item in obj["transferTypes"]] if obj.get("transferTypes") is not None else None,
+            "transporterFacilities": obj.get("transporterFacilities"),
+            "unitsOfMeasure": [UnitOfMeasure.from_dict(_item) for _item in obj["unitsOfMeasure"]] if obj.get("unitsOfMeasure") is not None else None,
+            "vehicles": [MetrcVehicle.from_dict(_item) for _item in obj["vehicles"]] if obj.get("vehicles") is not None else None
         })
         return _obj
 

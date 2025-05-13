@@ -19,6 +19,7 @@ __version__ = "1.0.0"
 # import apis into sdk package
 from t3api.api.authentication_api import AuthenticationApi
 from t3api.api.create_package_api import CreatePackageApi
+from t3api.api.create_strains_api import CreateStrainsApi
 from t3api.api.create_transfer_api import CreateTransferApi
 from t3api.api.facilities_api import FacilitiesApi
 from t3api.api.free_api import FreeApi
@@ -32,6 +33,7 @@ from t3api.api.manifests_api import ManifestsApi
 from t3api.api.modify_items_api import ModifyItemsApi
 from t3api.api.modify_packages_api import ModifyPackagesApi
 from t3api.api.modify_sales_receipts_api import ModifySalesReceiptsApi
+from t3api.api.modify_strains_api import ModifyStrainsApi
 from t3api.api.pdf_api import PDFApi
 from t3api.api.packages_api import PackagesApi
 from t3api.api.permissions_api import PermissionsApi
@@ -48,6 +50,8 @@ from t3api.api.single_plant_batch_api import SinglePlantBatchApi
 from t3api.api.single_sales_receipt_api import SingleSalesReceiptApi
 from t3api.api.single_transfer_api import SingleTransferApi
 from t3api.api.states_api import StatesApi
+from t3api.api.strains_api import StrainsApi
+from t3api.api.supercollections_api import SupercollectionsApi
 from t3api.api.transfers_api import TransfersApi
 
 # import ApiClient
@@ -67,16 +71,22 @@ from t3api.models.incoming_transfer_manifest_report_response import IncomingTran
 from t3api.models.jwt_data import JWTData
 from t3api.models.lab_testing_states import LabTestingStates
 from t3api.models.metrc_create_package_inputs_response import MetrcCreatePackageInputsResponse
+from t3api.models.metrc_create_transfer_inputs_response import MetrcCreateTransferInputsResponse
 from t3api.models.metrc_credential_auth_payload import MetrcCredentialAuthPayload
 from t3api.models.metrc_delivery_package import MetrcDeliveryPackage
 from t3api.models.metrc_delivery_package_list_response import MetrcDeliveryPackageListResponse
 from t3api.models.metrc_discontinue_item_payload import MetrcDiscontinueItemPayload
+from t3api.models.metrc_discontinue_strain_payload import MetrcDiscontinueStrainPayload
 from t3api.models.metrc_driver import MetrcDriver
 from t3api.models.metrc_facility import MetrcFacility
 from t3api.models.metrc_facility_list_response import MetrcFacilityListResponse
 from t3api.models.metrc_facility_physical_address import MetrcFacilityPhysicalAddress
 from t3api.models.metrc_harvest import MetrcHarvest
 from t3api.models.metrc_harvest_list_response import MetrcHarvestListResponse
+from t3api.models.metrc_harvest_package import MetrcHarvestPackage
+from t3api.models.metrc_harvest_package_list_response import MetrcHarvestPackageListResponse
+from t3api.models.metrc_harvest_plant import MetrcHarvestPlant
+from t3api.models.metrc_harvest_plant_list_response import MetrcHarvestPlantListResponse
 from t3api.models.metrc_harvest_report_response import MetrcHarvestReportResponse
 from t3api.models.metrc_history import MetrcHistory
 from t3api.models.metrc_history_list_response import MetrcHistoryListResponse
@@ -107,7 +117,11 @@ from t3api.models.metrc_remediation_method import MetrcRemediationMethod
 from t3api.models.metrc_sales_receipt import MetrcSalesReceipt
 from t3api.models.metrc_sales_receipt_list_response import MetrcSalesReceiptListResponse
 from t3api.models.metrc_sales_receipt_report_response import MetrcSalesReceiptReportResponse
+from t3api.models.metrc_session_auth_payload import MetrcSessionAuthPayload
+from t3api.models.metrc_session_auth_payload_facilities_inner import MetrcSessionAuthPayloadFacilitiesInner
 from t3api.models.metrc_state import MetrcState
+from t3api.models.metrc_strain import MetrcStrain
+from t3api.models.metrc_strain_list_response import MetrcStrainListResponse
 from t3api.models.metrc_superpackage import MetrcSuperpackage
 from t3api.models.metrc_superpackage_all_of_metadata import MetrcSuperpackageAllOfMetadata
 from t3api.models.metrc_superpackage_all_of_metadata_test_results import MetrcSuperpackageAllOfMetadataTestResults
@@ -138,6 +152,7 @@ from t3api.models.t3_label_content_layout_element_type import T3LabelContentLayo
 from t3api.models.t3_label_content_layouts_response import T3LabelContentLayoutsResponse
 from t3api.models.t3_label_template_layouts_response import T3LabelTemplateLayoutsResponse
 from t3api.models.t3_outgoing_transfer_manifest import T3OutgoingTransferManifest
+from t3api.models.t3_package_labels_payload import T3PackageLabelsPayload
 from t3api.models.unit_of_measure import UnitOfMeasure
 from t3api.models.unit_of_measure_abbreviation import UnitOfMeasureAbbreviation
 from t3api.models.v2_auth_apikey_post_request import V2AuthApikeyPostRequest
@@ -162,6 +177,7 @@ from t3api.models.v2_files_labels_label_template_layouts_get200_response_data_da
 from t3api.models.v2_files_labels_label_template_layouts_get200_response_data_data_inner_label_template_layout_config import V2FilesLabelsLabelTemplateLayoutsGet200ResponseDataDataInnerLabelTemplateLayoutConfig
 from t3api.models.v2_harvests_active_get200_response import V2HarvestsActiveGet200Response
 from t3api.models.v2_harvests_active_report_get200_response import V2HarvestsActiveReportGet200Response
+from t3api.models.v2_harvests_plants_get200_response import V2HarvestsPlantsGet200Response
 from t3api.models.v2_items_discontinue_post200_response import V2ItemsDiscontinuePost200Response
 from t3api.models.v2_items_discontinue_post400_response import V2ItemsDiscontinuePost400Response
 from t3api.models.v2_items_discontinue_post400_response_error import V2ItemsDiscontinuePost400ResponseError
@@ -176,6 +192,7 @@ from t3api.models.v2_items_report_get200_response import V2ItemsReportGet200Resp
 from t3api.models.v2_licenses_get200_response_inner import V2LicensesGet200ResponseInner
 from t3api.models.v2_packages_active_get200_response import V2PackagesActiveGet200Response
 from t3api.models.v2_packages_active_report_get200_response import V2PackagesActiveReportGet200Response
+from t3api.models.v2_packages_active_super_get200_response import V2PackagesActiveSuperGet200Response
 from t3api.models.v2_packages_create_inputs_get200_response import V2PackagesCreateInputsGet200Response
 from t3api.models.v2_packages_create_post_request_inner import V2PackagesCreatePostRequestInner
 from t3api.models.v2_packages_create_post_request_inner_ingredients_inner import V2PackagesCreatePostRequestInnerIngredientsInner
@@ -197,6 +214,10 @@ from t3api.models.v2_sales_unfinalize_post_request_inner import V2SalesUnfinaliz
 from t3api.models.v2_search_get200_response import V2SearchGet200Response
 from t3api.models.v2_search_get200_response_data_inner import V2SearchGet200ResponseDataInner
 from t3api.models.v2_states_get200_response_inner import V2StatesGet200ResponseInner
+from t3api.models.v2_strains_create_post_request_inner import V2StrainsCreatePostRequestInner
+from t3api.models.v2_strains_discontinue_post_request import V2StrainsDiscontinuePostRequest
+from t3api.models.v2_strains_get200_response import V2StrainsGet200Response
+from t3api.models.v2_strains_report_get200_response import V2StrainsReportGet200Response
 from t3api.models.v2_transfers_create_destinations_get200_response import V2TransfersCreateDestinationsGet200Response
 from t3api.models.v2_transfers_create_inputs_get200_response import V2TransfersCreateInputsGet200Response
 from t3api.models.v2_transfers_create_inputs_get200_response_transfer_types_inner import V2TransfersCreateInputsGet200ResponseTransferTypesInner

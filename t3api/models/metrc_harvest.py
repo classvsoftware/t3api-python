@@ -42,6 +42,7 @@ class MetrcHarvest(BaseModel):
     source_strain_names: Optional[StrictStr] = Field(default=None, description="Names of source strains", alias="sourceStrainNames")
     multi_strain: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest includes multiple strains", alias="multiStrain")
     drying_location_name: Optional[StrictStr] = Field(default=None, description="Name of the drying location", alias="dryingLocationName")
+    drying_sublocation_name: Optional[StrictStr] = Field(default=None, alias="dryingSublocationName")
     drying_location_type_name: Optional[StrictStr] = Field(default=None, description="Type of the drying location", alias="dryingLocationTypeName")
     patient_license_number: Optional[StrictStr] = Field(default=None, description="License number of the patient, if applicable", alias="patientLicenseNumber")
     current_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Current weight of the harvest", alias="currentWeight")
@@ -63,7 +64,7 @@ class MetrcHarvest(BaseModel):
     archived_date: Optional[datetime] = Field(default=None, description="Date when the harvest was archived", alias="archivedDate")
     is_on_trip: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest is currently being transported", alias="isOnTrip")
     last_modified: Optional[datetime] = Field(default=None, description="Last modified date of the harvest", alias="lastModified")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "facilityLicenseNumber", "facilityName", "name", "harvestType", "harvestTypeName", "sourceStrainCount", "sourceStrainNames", "multiStrain", "dryingLocationName", "dryingLocationTypeName", "patientLicenseNumber", "currentWeight", "totalWasteWeight", "plantCount", "totalWetWeight", "totalRestoredWeight", "packageCount", "totalPackagedWeight", "unitOfWeightId", "unitOfWeightAbbreviation", "labTestingStateName", "labTestingStateDate", "isOnHold", "harvestStartDate", "isFinished", "finishedDate", "isArchived", "archivedDate", "isOnTrip", "lastModified"]
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "facilityLicenseNumber", "facilityName", "name", "harvestType", "harvestTypeName", "sourceStrainCount", "sourceStrainNames", "multiStrain", "dryingLocationName", "dryingSublocationName", "dryingLocationTypeName", "patientLicenseNumber", "currentWeight", "totalWasteWeight", "plantCount", "totalWetWeight", "totalRestoredWeight", "packageCount", "totalPackagedWeight", "unitOfWeightId", "unitOfWeightAbbreviation", "labTestingStateName", "labTestingStateDate", "isOnHold", "harvestStartDate", "isFinished", "finishedDate", "isArchived", "archivedDate", "isOnTrip", "lastModified"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -191,6 +192,7 @@ class MetrcHarvest(BaseModel):
             "sourceStrainNames": obj.get("sourceStrainNames"),
             "multiStrain": obj.get("multiStrain"),
             "dryingLocationName": obj.get("dryingLocationName"),
+            "dryingSublocationName": obj.get("dryingSublocationName"),
             "dryingLocationTypeName": obj.get("dryingLocationTypeName"),
             "patientLicenseNumber": obj.get("patientLicenseNumber"),
             "currentWeight": obj.get("currentWeight"),

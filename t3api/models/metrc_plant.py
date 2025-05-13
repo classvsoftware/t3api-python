@@ -44,6 +44,7 @@ class MetrcPlant(BaseModel):
     strain_id: Optional[StrictInt] = Field(default=None, alias="strainId")
     strain_name: Optional[StrictStr] = Field(default=None, description="Name of the plant strain.", alias="strainName")
     location_name: Optional[StrictStr] = Field(default=None, description="Name of the location where the plant is situated.", alias="locationName")
+    sublocation_name: Optional[StrictStr] = Field(default=None, alias="sublocationName")
     location_type_name: Optional[StrictStr] = Field(default=None, description="Type of the location.", alias="locationTypeName")
     patient_license_number: Optional[StrictStr] = Field(default=None, description="License number of the patient, if applicable.", alias="patientLicenseNumber")
     harvest_count: Optional[StrictInt] = Field(default=None, description="Number of times the plant has been harvested.", alias="harvestCount")
@@ -56,7 +57,7 @@ class MetrcPlant(BaseModel):
     destroyed_note: Optional[StrictStr] = Field(default=None, description="Note about the destruction of the plant, if applicable.", alias="destroyedNote")
     destroyed_by_user_name: Optional[StrictStr] = Field(default=None, description="Username of the person who destroyed the plant, if applicable.", alias="destroyedByUserName")
     last_modified: Optional[datetime] = Field(default=None, description="The last time the plant record was modified.", alias="lastModified")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "label", "stateName", "growthPhaseName", "plantCount", "groupTagTypeMax", "tagTypeMax", "plantBatchName", "plantBatchTypeName", "strainId", "strainName", "locationName", "locationTypeName", "patientLicenseNumber", "harvestCount", "isOnHold", "isOnTrip", "plantedDate", "vegetativeDate", "floweringDate", "destroyedDate", "destroyedNote", "destroyedByUserName", "lastModified"]
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "label", "stateName", "growthPhaseName", "plantCount", "groupTagTypeMax", "tagTypeMax", "plantBatchName", "plantBatchTypeName", "strainId", "strainName", "locationName", "sublocationName", "locationTypeName", "patientLicenseNumber", "harvestCount", "isOnHold", "isOnTrip", "plantedDate", "vegetativeDate", "floweringDate", "destroyedDate", "destroyedNote", "destroyedByUserName", "lastModified"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -147,6 +148,11 @@ class MetrcPlant(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if sublocation_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.sublocation_name is None and "sublocation_name" in self.model_fields_set:
+            _dict['sublocationName'] = None
+
         # set to None if patient_license_number (nullable) is None
         # and model_fields_set contains the field
         if self.patient_license_number is None and "patient_license_number" in self.model_fields_set:
@@ -196,6 +202,7 @@ class MetrcPlant(BaseModel):
             "strainId": obj.get("strainId"),
             "strainName": obj.get("strainName"),
             "locationName": obj.get("locationName"),
+            "sublocationName": obj.get("sublocationName"),
             "locationTypeName": obj.get("locationTypeName"),
             "patientLicenseNumber": obj.get("patientLicenseNumber"),
             "harvestCount": obj.get("harvestCount"),

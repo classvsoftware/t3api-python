@@ -21,6 +21,7 @@ from typing import List, Optional, Union
 from typing_extensions import Annotated
 from t3api.models.v2_harvests_active_get200_response import V2HarvestsActiveGet200Response
 from t3api.models.v2_harvests_active_report_get200_response import V2HarvestsActiveReportGet200Response
+from t3api.models.v2_harvests_plants_get200_response import V2HarvestsPlantsGet200Response
 from t3api.models.v2_items_history_get200_response import V2ItemsHistoryGet200Response
 from t3api.models.v2_packages_source_harvests_get200_response import V2PackagesSourceHarvestsGet200Response
 
@@ -2270,6 +2271,778 @@ class HarvestsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v2/harvests/onhold',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def v2_harvests_packages_get(
+        self,
+        license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        package_id: Annotated[Union[StrictFloat, StrictInt], Field(description="ID of the target harvest")],
+        page: Annotated[Optional[StrictInt], Field(description="The index of the page to be returned.")] = None,
+        page_size: Annotated[Optional[StrictInt], Field(description="The number of objects per page to be returned.")] = None,
+        strict_pagination: Annotated[Optional[StrictBool], Field(description="Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Defines the collection sort order.")] = None,
+        filter_logic: Annotated[Optional[StrictStr], Field(description="Describes how the filters, if any, should be applied")] = None,
+        filter: Annotated[Optional[List[StrictStr]], Field(description="One or more collection filters.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> V2HarvestsPlantsGet200Response:
+        """List of harvest package objects for a single harvest.
+
+        NOTE: only supports INACTIVE harvests 
+
+        :param license_number: The unique identifier for the license associated with this request. (required)
+        :type license_number: str
+        :param package_id: ID of the target harvest (required)
+        :type package_id: float
+        :param page: The index of the page to be returned.
+        :type page: int
+        :param page_size: The number of objects per page to be returned.
+        :type page_size: int
+        :param strict_pagination: Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.
+        :type strict_pagination: bool
+        :param sort: Defines the collection sort order.
+        :type sort: str
+        :param filter_logic: Describes how the filters, if any, should be applied
+        :type filter_logic: str
+        :param filter: One or more collection filters.
+        :type filter: List[str]
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_harvests_packages_get_serialize(
+            license_number=license_number,
+            package_id=package_id,
+            page=page,
+            page_size=page_size,
+            strict_pagination=strict_pagination,
+            sort=sort,
+            filter_logic=filter_logic,
+            filter=filter,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2HarvestsPlantsGet200Response",
+            '401': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def v2_harvests_packages_get_with_http_info(
+        self,
+        license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        package_id: Annotated[Union[StrictFloat, StrictInt], Field(description="ID of the target harvest")],
+        page: Annotated[Optional[StrictInt], Field(description="The index of the page to be returned.")] = None,
+        page_size: Annotated[Optional[StrictInt], Field(description="The number of objects per page to be returned.")] = None,
+        strict_pagination: Annotated[Optional[StrictBool], Field(description="Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Defines the collection sort order.")] = None,
+        filter_logic: Annotated[Optional[StrictStr], Field(description="Describes how the filters, if any, should be applied")] = None,
+        filter: Annotated[Optional[List[StrictStr]], Field(description="One or more collection filters.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[V2HarvestsPlantsGet200Response]:
+        """List of harvest package objects for a single harvest.
+
+        NOTE: only supports INACTIVE harvests 
+
+        :param license_number: The unique identifier for the license associated with this request. (required)
+        :type license_number: str
+        :param package_id: ID of the target harvest (required)
+        :type package_id: float
+        :param page: The index of the page to be returned.
+        :type page: int
+        :param page_size: The number of objects per page to be returned.
+        :type page_size: int
+        :param strict_pagination: Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.
+        :type strict_pagination: bool
+        :param sort: Defines the collection sort order.
+        :type sort: str
+        :param filter_logic: Describes how the filters, if any, should be applied
+        :type filter_logic: str
+        :param filter: One or more collection filters.
+        :type filter: List[str]
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_harvests_packages_get_serialize(
+            license_number=license_number,
+            package_id=package_id,
+            page=page,
+            page_size=page_size,
+            strict_pagination=strict_pagination,
+            sort=sort,
+            filter_logic=filter_logic,
+            filter=filter,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2HarvestsPlantsGet200Response",
+            '401': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def v2_harvests_packages_get_without_preload_content(
+        self,
+        license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        package_id: Annotated[Union[StrictFloat, StrictInt], Field(description="ID of the target harvest")],
+        page: Annotated[Optional[StrictInt], Field(description="The index of the page to be returned.")] = None,
+        page_size: Annotated[Optional[StrictInt], Field(description="The number of objects per page to be returned.")] = None,
+        strict_pagination: Annotated[Optional[StrictBool], Field(description="Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Defines the collection sort order.")] = None,
+        filter_logic: Annotated[Optional[StrictStr], Field(description="Describes how the filters, if any, should be applied")] = None,
+        filter: Annotated[Optional[List[StrictStr]], Field(description="One or more collection filters.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List of harvest package objects for a single harvest.
+
+        NOTE: only supports INACTIVE harvests 
+
+        :param license_number: The unique identifier for the license associated with this request. (required)
+        :type license_number: str
+        :param package_id: ID of the target harvest (required)
+        :type package_id: float
+        :param page: The index of the page to be returned.
+        :type page: int
+        :param page_size: The number of objects per page to be returned.
+        :type page_size: int
+        :param strict_pagination: Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.
+        :type strict_pagination: bool
+        :param sort: Defines the collection sort order.
+        :type sort: str
+        :param filter_logic: Describes how the filters, if any, should be applied
+        :type filter_logic: str
+        :param filter: One or more collection filters.
+        :type filter: List[str]
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_harvests_packages_get_serialize(
+            license_number=license_number,
+            package_id=package_id,
+            page=page,
+            page_size=page_size,
+            strict_pagination=strict_pagination,
+            sort=sort,
+            filter_logic=filter_logic,
+            filter=filter,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2HarvestsPlantsGet200Response",
+            '401': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _v2_harvests_packages_get_serialize(
+        self,
+        license_number,
+        package_id,
+        page,
+        page_size,
+        strict_pagination,
+        sort,
+        filter_logic,
+        filter,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'filter': 'multi',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if license_number is not None:
+            
+            _query_params.append(('licenseNumber', license_number))
+            
+        if package_id is not None:
+            
+            _query_params.append(('packageId', package_id))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if strict_pagination is not None:
+            
+            _query_params.append(('strictPagination', strict_pagination))
+            
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if filter_logic is not None:
+            
+            _query_params.append(('filterLogic', filter_logic))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v2/harvests/packages',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def v2_harvests_plants_get(
+        self,
+        license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        plant_id: Annotated[Union[StrictFloat, StrictInt], Field(description="ID of the target harvest")],
+        page: Annotated[Optional[StrictInt], Field(description="The index of the page to be returned.")] = None,
+        page_size: Annotated[Optional[StrictInt], Field(description="The number of objects per page to be returned.")] = None,
+        strict_pagination: Annotated[Optional[StrictBool], Field(description="Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Defines the collection sort order.")] = None,
+        filter_logic: Annotated[Optional[StrictStr], Field(description="Describes how the filters, if any, should be applied")] = None,
+        filter: Annotated[Optional[List[StrictStr]], Field(description="One or more collection filters.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> V2HarvestsPlantsGet200Response:
+        """List of harvest plant objects for a single harvest.
+
+        NOTE: only supports INACTIVE harvests 
+
+        :param license_number: The unique identifier for the license associated with this request. (required)
+        :type license_number: str
+        :param plant_id: ID of the target harvest (required)
+        :type plant_id: float
+        :param page: The index of the page to be returned.
+        :type page: int
+        :param page_size: The number of objects per page to be returned.
+        :type page_size: int
+        :param strict_pagination: Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.
+        :type strict_pagination: bool
+        :param sort: Defines the collection sort order.
+        :type sort: str
+        :param filter_logic: Describes how the filters, if any, should be applied
+        :type filter_logic: str
+        :param filter: One or more collection filters.
+        :type filter: List[str]
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_harvests_plants_get_serialize(
+            license_number=license_number,
+            plant_id=plant_id,
+            page=page,
+            page_size=page_size,
+            strict_pagination=strict_pagination,
+            sort=sort,
+            filter_logic=filter_logic,
+            filter=filter,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2HarvestsPlantsGet200Response",
+            '401': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def v2_harvests_plants_get_with_http_info(
+        self,
+        license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        plant_id: Annotated[Union[StrictFloat, StrictInt], Field(description="ID of the target harvest")],
+        page: Annotated[Optional[StrictInt], Field(description="The index of the page to be returned.")] = None,
+        page_size: Annotated[Optional[StrictInt], Field(description="The number of objects per page to be returned.")] = None,
+        strict_pagination: Annotated[Optional[StrictBool], Field(description="Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Defines the collection sort order.")] = None,
+        filter_logic: Annotated[Optional[StrictStr], Field(description="Describes how the filters, if any, should be applied")] = None,
+        filter: Annotated[Optional[List[StrictStr]], Field(description="One or more collection filters.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[V2HarvestsPlantsGet200Response]:
+        """List of harvest plant objects for a single harvest.
+
+        NOTE: only supports INACTIVE harvests 
+
+        :param license_number: The unique identifier for the license associated with this request. (required)
+        :type license_number: str
+        :param plant_id: ID of the target harvest (required)
+        :type plant_id: float
+        :param page: The index of the page to be returned.
+        :type page: int
+        :param page_size: The number of objects per page to be returned.
+        :type page_size: int
+        :param strict_pagination: Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.
+        :type strict_pagination: bool
+        :param sort: Defines the collection sort order.
+        :type sort: str
+        :param filter_logic: Describes how the filters, if any, should be applied
+        :type filter_logic: str
+        :param filter: One or more collection filters.
+        :type filter: List[str]
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_harvests_plants_get_serialize(
+            license_number=license_number,
+            plant_id=plant_id,
+            page=page,
+            page_size=page_size,
+            strict_pagination=strict_pagination,
+            sort=sort,
+            filter_logic=filter_logic,
+            filter=filter,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2HarvestsPlantsGet200Response",
+            '401': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def v2_harvests_plants_get_without_preload_content(
+        self,
+        license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        plant_id: Annotated[Union[StrictFloat, StrictInt], Field(description="ID of the target harvest")],
+        page: Annotated[Optional[StrictInt], Field(description="The index of the page to be returned.")] = None,
+        page_size: Annotated[Optional[StrictInt], Field(description="The number of objects per page to be returned.")] = None,
+        strict_pagination: Annotated[Optional[StrictBool], Field(description="Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.")] = None,
+        sort: Annotated[Optional[StrictStr], Field(description="Defines the collection sort order.")] = None,
+        filter_logic: Annotated[Optional[StrictStr], Field(description="Describes how the filters, if any, should be applied")] = None,
+        filter: Annotated[Optional[List[StrictStr]], Field(description="One or more collection filters.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """List of harvest plant objects for a single harvest.
+
+        NOTE: only supports INACTIVE harvests 
+
+        :param license_number: The unique identifier for the license associated with this request. (required)
+        :type license_number: str
+        :param plant_id: ID of the target harvest (required)
+        :type plant_id: float
+        :param page: The index of the page to be returned.
+        :type page: int
+        :param page_size: The number of objects per page to be returned.
+        :type page_size: int
+        :param strict_pagination: Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.
+        :type strict_pagination: bool
+        :param sort: Defines the collection sort order.
+        :type sort: str
+        :param filter_logic: Describes how the filters, if any, should be applied
+        :type filter_logic: str
+        :param filter: One or more collection filters.
+        :type filter: List[str]
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_harvests_plants_get_serialize(
+            license_number=license_number,
+            plant_id=plant_id,
+            page=page,
+            page_size=page_size,
+            strict_pagination=strict_pagination,
+            sort=sort,
+            filter_logic=filter_logic,
+            filter=filter,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2HarvestsPlantsGet200Response",
+            '401': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _v2_harvests_plants_get_serialize(
+        self,
+        license_number,
+        plant_id,
+        page,
+        page_size,
+        strict_pagination,
+        sort,
+        filter_logic,
+        filter,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'filter': 'multi',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if license_number is not None:
+            
+            _query_params.append(('licenseNumber', license_number))
+            
+        if plant_id is not None:
+            
+            _query_params.append(('plantId', plant_id))
+            
+        if page is not None:
+            
+            _query_params.append(('page', page))
+            
+        if page_size is not None:
+            
+            _query_params.append(('pageSize', page_size))
+            
+        if strict_pagination is not None:
+            
+            _query_params.append(('strictPagination', strict_pagination))
+            
+        if sort is not None:
+            
+            _query_params.append(('sort', sort))
+            
+        if filter_logic is not None:
+            
+            _query_params.append(('filterLogic', filter_logic))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v2/harvests/plants',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

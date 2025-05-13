@@ -17,22 +17,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.metrc_package import MetrcPackage
+from t3api.models.v2_files_labels_content_data_packages_active_post_request_rendering_options import V2FilesLabelsContentDataPackagesActivePostRequestRenderingOptions
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcPackageListResponse(BaseModel):
+class T3PackageLabelsPayload(BaseModel):
     """
-    MetrcPackageListResponse
+    T3PackageLabelsPayload
     """ # noqa: E501
-    page: Optional[StrictInt] = None
-    total_pages: Optional[StrictInt] = Field(default=None, alias="totalPages")
-    page_size: Optional[StrictInt] = Field(default=None, alias="pageSize")
-    total: Optional[StrictInt] = None
-    data: Optional[List[MetrcPackage]] = None
-    __properties: ClassVar[List[str]] = ["page", "totalPages", "pageSize", "total", "data"]
+    label_template_layout_id: StrictStr = Field(description="The identifier for the label template configuration", alias="labelTemplateLayoutId")
+    label_content_layout_id: StrictStr = Field(description="The identifier for the label content configuration.", alias="labelContentLayoutId")
+    data: List[StrictStr] = Field(description="An array of tags")
+    rendering_options: Optional[V2FilesLabelsContentDataPackagesActivePostRequestRenderingOptions] = Field(default=None, alias="renderingOptions")
+    debug: Optional[StrictBool] = Field(default=None, description="When set to true, draws bounding boxes around the label containers, the printable area, and the individual elements per label.")
+    __properties: ClassVar[List[str]] = ["labelTemplateLayoutId", "labelContentLayoutId", "data", "renderingOptions", "debug"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +52,7 @@ class MetrcPackageListResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a JSON string"""
+        """Create an instance of T3PackageLabelsPayload from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,18 +73,14 @@ class MetrcPackageListResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in data (list)
-        _items = []
-        if self.data:
-            for _item_data in self.data:
-                if _item_data:
-                    _items.append(_item_data.to_dict())
-            _dict['data'] = _items
+        # override the default output from pydantic by calling `to_dict()` of rendering_options
+        if self.rendering_options:
+            _dict['renderingOptions'] = self.rendering_options.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcPackageListResponse from a dict"""
+        """Create an instance of T3PackageLabelsPayload from a dict"""
         if obj is None:
             return None
 
@@ -92,11 +88,11 @@ class MetrcPackageListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "page": obj.get("page"),
-            "totalPages": obj.get("totalPages"),
-            "pageSize": obj.get("pageSize"),
-            "total": obj.get("total"),
-            "data": [MetrcPackage.from_dict(_item) for _item in obj["data"]] if obj.get("data") is not None else None
+            "labelTemplateLayoutId": obj.get("labelTemplateLayoutId"),
+            "labelContentLayoutId": obj.get("labelContentLayoutId"),
+            "data": obj.get("data"),
+            "renderingOptions": V2FilesLabelsContentDataPackagesActivePostRequestRenderingOptions.from_dict(obj["renderingOptions"]) if obj.get("renderingOptions") is not None else None,
+            "debug": obj.get("debug")
         })
         return _obj
 
