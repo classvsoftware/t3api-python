@@ -35,8 +35,7 @@ class T3LabelContentLayoutConfig(BaseModel):
     min_aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = None
     max_aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = None
     label_content_layout_elements: Optional[List[T3LabelContentLayoutElement]] = None
-    label_content_data_json_schema: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["enabled", "visible", "requires_t3plus", "description", "aspect_ratio", "min_aspect_ratio", "max_aspect_ratio", "label_content_layout_elements", "label_content_data_json_schema"]
+    __properties: ClassVar[List[str]] = ["enabled", "visible", "requires_t3plus", "description", "aspect_ratio", "min_aspect_ratio", "max_aspect_ratio", "label_content_layout_elements"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,11 +83,6 @@ class T3LabelContentLayoutConfig(BaseModel):
                 if _item_label_content_layout_elements:
                     _items.append(_item_label_content_layout_elements.to_dict())
             _dict['label_content_layout_elements'] = _items
-        # set to None if label_content_data_json_schema (nullable) is None
-        # and model_fields_set contains the field
-        if self.label_content_data_json_schema is None and "label_content_data_json_schema" in self.model_fields_set:
-            _dict['label_content_data_json_schema'] = None
-
         return _dict
 
     @classmethod
@@ -108,8 +102,7 @@ class T3LabelContentLayoutConfig(BaseModel):
             "aspect_ratio": obj.get("aspect_ratio"),
             "min_aspect_ratio": obj.get("min_aspect_ratio"),
             "max_aspect_ratio": obj.get("max_aspect_ratio"),
-            "label_content_layout_elements": [T3LabelContentLayoutElement.from_dict(_item) for _item in obj["label_content_layout_elements"]] if obj.get("label_content_layout_elements") is not None else None,
-            "label_content_data_json_schema": obj.get("label_content_data_json_schema")
+            "label_content_layout_elements": [T3LabelContentLayoutElement.from_dict(_item) for _item in obj["label_content_layout_elements"]] if obj.get("label_content_layout_elements") is not None else None
         })
         return _obj
 

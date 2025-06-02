@@ -110,10 +110,8 @@ class MetrcSuperpackage(BaseModel):
     sell_by_date: Optional[datetime] = Field(default=None, description="The sell-by date of the product in the package, if applicable.", alias="sellByDate")
     use_by_date: Optional[datetime] = Field(default=None, description="The use-by date of the product in the package, if applicable.", alias="useByDate")
     lab_test_result_document_file_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The file ID of the lab test result document, if available.", alias="labTestResultDocumentFileId")
-    is_on_trip: Optional[StrictBool] = Field(default=None, description="Indicates if the package is part of an ongoing trip.", alias="isOnTrip")
     is_on_retailer_delivery: Optional[StrictBool] = Field(default=None, description="Indicates if the package is on a retailer delivery.", alias="isOnRetailerDelivery")
     package_for_product_destruction: Optional[StrictBool] = Field(default=None, description="Indicates if the package is intended for product destruction.", alias="packageForProductDestruction")
-    trip: Optional[StrictStr] = Field(default=None, description="Information about the trip associated with the package, if applicable.")
     has_partial: Optional[StrictBool] = Field(default=None, description="Indicates if the package has partial status.", alias="hasPartial")
     is_partial: Optional[StrictBool] = Field(default=None, description="Indicates if the package is a partial package.", alias="isPartial")
     in_transit_status: Optional[StrictStr] = Field(default=None, description="The current transit status of the package.", alias="inTransitStatus")
@@ -129,7 +127,7 @@ class MetrcSuperpackage(BaseModel):
     source_harvests: Optional[List[MetrcPackageSourceHarvest]] = Field(default=None, description="A list of this package's source harvests", alias="sourceHarvests")
     lab_result_batches: Optional[List[MetrcPackageLabResultBatch]] = Field(default=None, description="A list of this package's lab result batches", alias="labResultBatches")
     history: Optional[List[MetrcHistory]] = Field(default=None, description="A list of this package's history")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "archivedDate", "containsRemediatedProduct", "donationFacilityLicenseNumber", "donationFacilityName", "facilityLicenseNumber", "facilityName", "finishedDate", "initialLabTestingState", "isArchived", "isDonation", "isDonationPersistent", "isFinished", "isInTransit", "isOnHold", "isProcessValidationTestingSample", "isProductionBatch", "isTestingSample", "isTradeSample", "isTradeSamplePersistent", "item", "itemFromFacilityLicenseNumber", "itemFromFacilityName", "labTestingStateDate", "labTestingStateName", "labTestingRecordedDate", "labTestingPerformedDate", "labTestStageId", "labTestResultExpirationDateTime", "label", "lastModified", "locationName", "sublocationName", "locationTypeName", "multiHarvest", "multiPackage", "multiProductionBatch", "note", "packageType", "packagedByFacilityLicenseNumber", "packagedByFacilityName", "packagedDate", "patientLicenseNumber", "productRequiresRemediation", "productionBatchNumber", "quantity", "receivedDateTime", "receivedFromFacilityLicenseNumber", "receivedFromFacilityName", "receivedFromManifestNumber", "remediationDate", "sourceHarvestNames", "sourcePackageIsDonation", "sourcePackageIsTradeSample", "sourcePackageLabels", "sourceProductionBatchNumbers", "tradeSampleFacilityName", "tradeSampleFacilityLicenseNumber", "transferManifestNumber", "unitOfMeasureAbbreviation", "unitOfMeasureId", "unitOfMeasureQuantityType", "sourceHarvestCount", "sourcePackageCount", "sourceProcessingJobCount", "sourceProcessingJobNumbers", "sourceProcessingJobNames", "multiProcessingJob", "expirationDate", "sellByDate", "useByDate", "labTestResultDocumentFileId", "isOnTrip", "isOnRetailerDelivery", "packageForProductDestruction", "trip", "hasPartial", "isPartial", "inTransitStatus", "processingJobTypeId", "isOnRecall", "decontaminationDate", "containsDecontaminatedProduct", "productRequiresDecontamination", "productLabel", "labTestStage", "externalId", "metadata", "sourceHarvests", "labResultBatches", "history"]
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "archivedDate", "containsRemediatedProduct", "donationFacilityLicenseNumber", "donationFacilityName", "facilityLicenseNumber", "facilityName", "finishedDate", "initialLabTestingState", "isArchived", "isDonation", "isDonationPersistent", "isFinished", "isInTransit", "isOnHold", "isProcessValidationTestingSample", "isProductionBatch", "isTestingSample", "isTradeSample", "isTradeSamplePersistent", "item", "itemFromFacilityLicenseNumber", "itemFromFacilityName", "labTestingStateDate", "labTestingStateName", "labTestingRecordedDate", "labTestingPerformedDate", "labTestStageId", "labTestResultExpirationDateTime", "label", "lastModified", "locationName", "sublocationName", "locationTypeName", "multiHarvest", "multiPackage", "multiProductionBatch", "note", "packageType", "packagedByFacilityLicenseNumber", "packagedByFacilityName", "packagedDate", "patientLicenseNumber", "productRequiresRemediation", "productionBatchNumber", "quantity", "receivedDateTime", "receivedFromFacilityLicenseNumber", "receivedFromFacilityName", "receivedFromManifestNumber", "remediationDate", "sourceHarvestNames", "sourcePackageIsDonation", "sourcePackageIsTradeSample", "sourcePackageLabels", "sourceProductionBatchNumbers", "tradeSampleFacilityName", "tradeSampleFacilityLicenseNumber", "transferManifestNumber", "unitOfMeasureAbbreviation", "unitOfMeasureId", "unitOfMeasureQuantityType", "sourceHarvestCount", "sourcePackageCount", "sourceProcessingJobCount", "sourceProcessingJobNumbers", "sourceProcessingJobNames", "multiProcessingJob", "expirationDate", "sellByDate", "useByDate", "labTestResultDocumentFileId", "isOnRetailerDelivery", "packageForProductDestruction", "hasPartial", "isPartial", "inTransitStatus", "processingJobTypeId", "isOnRecall", "decontaminationDate", "containsDecontaminatedProduct", "productRequiresDecontamination", "productLabel", "labTestStage", "externalId", "metadata", "sourceHarvests", "labResultBatches", "history"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -357,11 +355,6 @@ class MetrcSuperpackage(BaseModel):
         if self.package_for_product_destruction is None and "package_for_product_destruction" in self.model_fields_set:
             _dict['packageForProductDestruction'] = None
 
-        # set to None if trip (nullable) is None
-        # and model_fields_set contains the field
-        if self.trip is None and "trip" in self.model_fields_set:
-            _dict['trip'] = None
-
         # set to None if processing_job_type_id (nullable) is None
         # and model_fields_set contains the field
         if self.processing_job_type_id is None and "processing_job_type_id" in self.model_fields_set:
@@ -476,10 +469,8 @@ class MetrcSuperpackage(BaseModel):
             "sellByDate": obj.get("sellByDate"),
             "useByDate": obj.get("useByDate"),
             "labTestResultDocumentFileId": obj.get("labTestResultDocumentFileId"),
-            "isOnTrip": obj.get("isOnTrip"),
             "isOnRetailerDelivery": obj.get("isOnRetailerDelivery"),
             "packageForProductDestruction": obj.get("packageForProductDestruction"),
-            "trip": obj.get("trip"),
             "hasPartial": obj.get("hasPartial"),
             "isPartial": obj.get("isPartial"),
             "inTransitStatus": obj.get("inTransitStatus"),

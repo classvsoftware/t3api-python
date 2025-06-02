@@ -17,82 +17,44 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import date, datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcHarvest(BaseModel):
+class T3LabelTemplateLayoutConfig(BaseModel):
     """
-    MetrcHarvest
+    Describes the label layout on a printed medium. Capable of supporting any rectangular printable medium, with an arbitrarily sized grid of labels. Assumes that multiple labels are arranged in a centered grid, and arranged with even spacing. NOTE: y-coordinates are inverted. 
     """ # noqa: E501
-    id: Optional[StrictInt] = Field(default=None, description="Unique identifier for the harvest")
-    hostname: Optional[StrictStr] = Field(default=None, description="The hostname this object was retrieved from")
-    data_model: Optional[StrictStr] = Field(default=None, description="Name of this object's data model", alias="dataModel")
-    retrieved_at: Optional[datetime] = Field(default=None, description="Timestamp of when this object was pulled from Metrc", alias="retrievedAt")
-    license_number: Optional[StrictStr] = Field(default=None, description="License number used to access this object", alias="licenseNumber")
-    index: Optional[StrictStr] = Field(default=None, description="Describes the current state of this object at the time it was returned from the API. This cannot be used to sort or filter.")
-    facility_license_number: Optional[StrictStr] = Field(default=None, description="License number of the facility", alias="facilityLicenseNumber")
-    facility_name: Optional[StrictStr] = Field(default=None, description="Name of the facility", alias="facilityName")
-    name: Optional[StrictStr] = Field(default=None, description="Name of the harvest")
-    harvest_type: Optional[StrictStr] = Field(default=None, description="Type of the harvest", alias="harvestType")
-    harvest_type_name: Optional[StrictStr] = Field(default=None, description="Name of the harvest type", alias="harvestTypeName")
-    source_strain_count: Optional[StrictInt] = Field(default=None, description="Number of source strains", alias="sourceStrainCount")
-    source_strain_names: Optional[StrictStr] = Field(default=None, description="Names of source strains", alias="sourceStrainNames")
-    multi_strain: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest includes multiple strains", alias="multiStrain")
-    drying_location_name: Optional[StrictStr] = Field(default=None, description="Name of the drying location", alias="dryingLocationName")
-    drying_sublocation_name: Optional[StrictStr] = Field(default=None, alias="dryingSublocationName")
-    drying_location_type_name: Optional[StrictStr] = Field(default=None, description="Type of the drying location", alias="dryingLocationTypeName")
-    patient_license_number: Optional[StrictStr] = Field(default=None, description="License number of the patient, if applicable", alias="patientLicenseNumber")
-    current_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Current weight of the harvest", alias="currentWeight")
-    total_waste_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total waste weight", alias="totalWasteWeight")
-    plant_count: Optional[StrictInt] = Field(default=None, description="Number of plants in the harvest", alias="plantCount")
-    total_wet_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total wet weight of the harvest", alias="totalWetWeight")
-    total_restored_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total restored weight", alias="totalRestoredWeight")
-    package_count: Optional[StrictInt] = Field(default=None, description="Number of packages in the harvest", alias="packageCount")
-    total_packaged_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total packaged weight", alias="totalPackagedWeight")
-    unit_of_weight_id: Optional[StrictInt] = Field(default=None, description="Identifier for the unit of weight", alias="unitOfWeightId")
-    unit_of_weight_abbreviation: Optional[StrictStr] = Field(default=None, description="Abbreviation of the unit of weight", alias="unitOfWeightAbbreviation")
-    lab_testing_state_name: Optional[StrictStr] = Field(default=None, description="Lab testing state of the harvest", alias="labTestingStateName")
-    lab_testing_state_date: Optional[datetime] = Field(default=None, description="Date of the lab testing state", alias="labTestingStateDate")
-    is_on_hold: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest is on hold", alias="isOnHold")
-    harvest_start_date: Optional[date] = Field(default=None, description="Start date of the harvest", alias="harvestStartDate")
-    is_finished: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest is finished", alias="isFinished")
-    finished_date: Optional[datetime] = Field(default=None, description="Date when the harvest was finished", alias="finishedDate")
-    is_archived: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest is archived", alias="isArchived")
-    archived_date: Optional[datetime] = Field(default=None, description="Date when the harvest was archived", alias="archivedDate")
-    last_modified: Optional[datetime] = Field(default=None, description="Last modified date of the harvest", alias="lastModified")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "facilityLicenseNumber", "facilityName", "name", "harvestType", "harvestTypeName", "sourceStrainCount", "sourceStrainNames", "multiStrain", "dryingLocationName", "dryingSublocationName", "dryingLocationTypeName", "patientLicenseNumber", "currentWeight", "totalWasteWeight", "plantCount", "totalWetWeight", "totalRestoredWeight", "packageCount", "totalPackagedWeight", "unitOfWeightId", "unitOfWeightAbbreviation", "labTestingStateName", "labTestingStateDate", "isOnHold", "harvestStartDate", "isFinished", "finishedDate", "isArchived", "archivedDate", "lastModified"]
+    printer_types: Optional[List[StrictStr]] = None
+    enabled: Optional[StrictBool] = None
+    visible: Optional[StrictBool] = None
+    requires_t3plus: Optional[StrictBool] = None
+    description: Optional[StrictStr] = None
+    pagesize_x_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    pagesize_y_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    label_width_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    label_height_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    x_gap_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    y_gap_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    num_columns: Optional[StrictInt] = None
+    num_rows: Optional[StrictInt] = None
+    page_margin_top_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    page_margin_left_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    label_padding_x_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    label_padding_y_pt: Optional[Union[StrictFloat, StrictInt]] = None
+    rotated: Optional[StrictBool] = False
+    __properties: ClassVar[List[str]] = ["printer_types", "enabled", "visible", "requires_t3plus", "description", "pagesize_x_pt", "pagesize_y_pt", "label_width_pt", "label_height_pt", "x_gap_pt", "y_gap_pt", "num_columns", "num_rows", "page_margin_top_pt", "page_margin_left_pt", "label_padding_x_pt", "label_padding_y_pt", "rotated"]
 
-    @field_validator('index')
-    def index_validate_enum(cls, value):
+    @field_validator('printer_types')
+    def printer_types_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
             return value
 
-        if value not in set(['ACTIVE_HARVEST', 'ONHOLD_HARVEST', 'INACTIVE_HARVEST']):
-            raise ValueError("must be one of enum values ('ACTIVE_HARVEST', 'ONHOLD_HARVEST', 'INACTIVE_HARVEST')")
-        return value
-
-    @field_validator('harvest_type')
-    def harvest_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['WholePlant', 'PartialPlant', 'Other']):
-            raise ValueError("must be one of enum values ('WholePlant', 'PartialPlant', 'Other')")
-        return value
-
-    @field_validator('lab_testing_state_name')
-    def lab_testing_state_name_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['NotSubmitted', 'Submitted', 'InTesting', 'Passed', 'Failed']):
-            raise ValueError("must be one of enum values ('NotSubmitted', 'Submitted', 'InTesting', 'Passed', 'Failed')")
+        for i in value:
+            if i not in set(['THERMAL', 'LASER', 'INKJET']):
+                raise ValueError("each list item must be one of ('THERMAL', 'LASER', 'INKJET')")
         return value
 
     model_config = ConfigDict(
@@ -113,7 +75,7 @@ class MetrcHarvest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcHarvest from a JSON string"""
+        """Create an instance of T3LabelTemplateLayoutConfig from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -134,41 +96,11 @@ class MetrcHarvest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if facility_license_number (nullable) is None
-        # and model_fields_set contains the field
-        if self.facility_license_number is None and "facility_license_number" in self.model_fields_set:
-            _dict['facilityLicenseNumber'] = None
-
-        # set to None if facility_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.facility_name is None and "facility_name" in self.model_fields_set:
-            _dict['facilityName'] = None
-
-        # set to None if patient_license_number (nullable) is None
-        # and model_fields_set contains the field
-        if self.patient_license_number is None and "patient_license_number" in self.model_fields_set:
-            _dict['patientLicenseNumber'] = None
-
-        # set to None if lab_testing_state_date (nullable) is None
-        # and model_fields_set contains the field
-        if self.lab_testing_state_date is None and "lab_testing_state_date" in self.model_fields_set:
-            _dict['labTestingStateDate'] = None
-
-        # set to None if finished_date (nullable) is None
-        # and model_fields_set contains the field
-        if self.finished_date is None and "finished_date" in self.model_fields_set:
-            _dict['finishedDate'] = None
-
-        # set to None if archived_date (nullable) is None
-        # and model_fields_set contains the field
-        if self.archived_date is None and "archived_date" in self.model_fields_set:
-            _dict['archivedDate'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcHarvest from a dict"""
+        """Create an instance of T3LabelTemplateLayoutConfig from a dict"""
         if obj is None:
             return None
 
@@ -176,42 +108,24 @@ class MetrcHarvest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "hostname": obj.get("hostname"),
-            "dataModel": obj.get("dataModel"),
-            "retrievedAt": obj.get("retrievedAt"),
-            "licenseNumber": obj.get("licenseNumber"),
-            "index": obj.get("index"),
-            "facilityLicenseNumber": obj.get("facilityLicenseNumber"),
-            "facilityName": obj.get("facilityName"),
-            "name": obj.get("name"),
-            "harvestType": obj.get("harvestType"),
-            "harvestTypeName": obj.get("harvestTypeName"),
-            "sourceStrainCount": obj.get("sourceStrainCount"),
-            "sourceStrainNames": obj.get("sourceStrainNames"),
-            "multiStrain": obj.get("multiStrain"),
-            "dryingLocationName": obj.get("dryingLocationName"),
-            "dryingSublocationName": obj.get("dryingSublocationName"),
-            "dryingLocationTypeName": obj.get("dryingLocationTypeName"),
-            "patientLicenseNumber": obj.get("patientLicenseNumber"),
-            "currentWeight": obj.get("currentWeight"),
-            "totalWasteWeight": obj.get("totalWasteWeight"),
-            "plantCount": obj.get("plantCount"),
-            "totalWetWeight": obj.get("totalWetWeight"),
-            "totalRestoredWeight": obj.get("totalRestoredWeight"),
-            "packageCount": obj.get("packageCount"),
-            "totalPackagedWeight": obj.get("totalPackagedWeight"),
-            "unitOfWeightId": obj.get("unitOfWeightId"),
-            "unitOfWeightAbbreviation": obj.get("unitOfWeightAbbreviation"),
-            "labTestingStateName": obj.get("labTestingStateName"),
-            "labTestingStateDate": obj.get("labTestingStateDate"),
-            "isOnHold": obj.get("isOnHold"),
-            "harvestStartDate": obj.get("harvestStartDate"),
-            "isFinished": obj.get("isFinished"),
-            "finishedDate": obj.get("finishedDate"),
-            "isArchived": obj.get("isArchived"),
-            "archivedDate": obj.get("archivedDate"),
-            "lastModified": obj.get("lastModified")
+            "printer_types": obj.get("printer_types"),
+            "enabled": obj.get("enabled"),
+            "visible": obj.get("visible"),
+            "requires_t3plus": obj.get("requires_t3plus"),
+            "description": obj.get("description"),
+            "pagesize_x_pt": obj.get("pagesize_x_pt"),
+            "pagesize_y_pt": obj.get("pagesize_y_pt"),
+            "label_width_pt": obj.get("label_width_pt"),
+            "label_height_pt": obj.get("label_height_pt"),
+            "x_gap_pt": obj.get("x_gap_pt"),
+            "y_gap_pt": obj.get("y_gap_pt"),
+            "num_columns": obj.get("num_columns"),
+            "num_rows": obj.get("num_rows"),
+            "page_margin_top_pt": obj.get("page_margin_top_pt"),
+            "page_margin_left_pt": obj.get("page_margin_left_pt"),
+            "label_padding_x_pt": obj.get("label_padding_x_pt"),
+            "label_padding_y_pt": obj.get("label_padding_y_pt"),
+            "rotated": obj.get("rotated") if obj.get("rotated") is not None else False
         })
         return _obj
 

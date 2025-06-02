@@ -49,7 +49,6 @@ class MetrcPlant(BaseModel):
     patient_license_number: Optional[StrictStr] = Field(default=None, description="License number of the patient, if applicable.", alias="patientLicenseNumber")
     harvest_count: Optional[StrictInt] = Field(default=None, description="Number of times the plant has been harvested.", alias="harvestCount")
     is_on_hold: Optional[StrictBool] = Field(default=None, description="Indicates if the plant is on hold.", alias="isOnHold")
-    is_on_trip: Optional[StrictBool] = Field(default=None, description="Indicates if the plant is on a trip.", alias="isOnTrip")
     planted_date: Optional[date] = Field(default=None, description="Date when the plant was planted.", alias="plantedDate")
     vegetative_date: Optional[date] = Field(default=None, description="Date when the plant entered the vegetative stage.", alias="vegetativeDate")
     flowering_date: Optional[date] = Field(default=None, description="Date when the plant entered the flowering stage.", alias="floweringDate")
@@ -57,7 +56,7 @@ class MetrcPlant(BaseModel):
     destroyed_note: Optional[StrictStr] = Field(default=None, description="Note about the destruction of the plant, if applicable.", alias="destroyedNote")
     destroyed_by_user_name: Optional[StrictStr] = Field(default=None, description="Username of the person who destroyed the plant, if applicable.", alias="destroyedByUserName")
     last_modified: Optional[datetime] = Field(default=None, description="The last time the plant record was modified.", alias="lastModified")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "label", "stateName", "growthPhaseName", "plantCount", "groupTagTypeMax", "tagTypeMax", "plantBatchName", "plantBatchTypeName", "strainId", "strainName", "locationName", "sublocationName", "locationTypeName", "patientLicenseNumber", "harvestCount", "isOnHold", "isOnTrip", "plantedDate", "vegetativeDate", "floweringDate", "destroyedDate", "destroyedNote", "destroyedByUserName", "lastModified"]
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "label", "stateName", "growthPhaseName", "plantCount", "groupTagTypeMax", "tagTypeMax", "plantBatchName", "plantBatchTypeName", "strainId", "strainName", "locationName", "sublocationName", "locationTypeName", "patientLicenseNumber", "harvestCount", "isOnHold", "plantedDate", "vegetativeDate", "floweringDate", "destroyedDate", "destroyedNote", "destroyedByUserName", "lastModified"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -207,7 +206,6 @@ class MetrcPlant(BaseModel):
             "patientLicenseNumber": obj.get("patientLicenseNumber"),
             "harvestCount": obj.get("harvestCount"),
             "isOnHold": obj.get("isOnHold"),
-            "isOnTrip": obj.get("isOnTrip"),
             "plantedDate": obj.get("plantedDate"),
             "vegetativeDate": obj.get("vegetativeDate"),
             "floweringDate": obj.get("floweringDate"),

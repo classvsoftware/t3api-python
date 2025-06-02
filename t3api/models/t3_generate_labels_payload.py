@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from t3api.models.v2_files_labels_generate_post_request_label_content_data_inner import V2FilesLabelsGeneratePostRequestLabelContentDataInner
 from t3api.models.v2_files_labels_generate_post_request_rendering_options import V2FilesLabelsGeneratePostRequestRenderingOptions
@@ -28,14 +28,12 @@ class T3GenerateLabelsPayload(BaseModel):
     """
     T3GenerateLabelsPayload
     """ # noqa: E501
-    label_template_layout_id: StrictStr = Field(description="The identifier for the label template configuration", alias="labelTemplateLayoutId")
-    label_content_layout_id: StrictStr = Field(description="The identifier for the label content configuration.", alias="labelContentLayoutId")
+    label_template_layout: Dict[str, Any] = Field(alias="labelTemplateLayout")
+    label_content_layout: Dict[str, Any] = Field(alias="labelContentLayout")
     label_content_data: List[V2FilesLabelsGeneratePostRequestLabelContentDataInner] = Field(description="A list of label content data objects to be filled into labels.  Refer to the label content layout information for which of these fields are required and where they will be inserted.", alias="labelContentData")
     rendering_options: Optional[V2FilesLabelsGeneratePostRequestRenderingOptions] = Field(default=None, alias="renderingOptions")
-    debug: Optional[StrictBool] = Field(default=None, description="When set to true, draws bounding boxes around the label containers, the printable area, and the individual elements per label.")
-    force_promo: Optional[StrictBool] = Field(default=None, description="When set to true, force-enables the T3 promo bar on all generated labels irrespective of T3+ subscription status.", alias="forcePromo")
     disposition: Optional[StrictStr] = Field(default='inline', description="Specifies whether the PDF should be opened inline or downloaded as an attachment.")
-    __properties: ClassVar[List[str]] = ["labelTemplateLayoutId", "labelContentLayoutId", "labelContentData", "renderingOptions", "debug", "forcePromo", "disposition"]
+    __properties: ClassVar[List[str]] = ["labelTemplateLayout", "labelContentLayout", "labelContentData", "renderingOptions", "disposition"]
 
     @field_validator('disposition')
     def disposition_validate_enum(cls, value):
@@ -86,6 +84,12 @@ class T3GenerateLabelsPayload(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of label_template_layout
+        if self.label_template_layout:
+            _dict['labelTemplateLayout'] = self.label_template_layout.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of label_content_layout
+        if self.label_content_layout:
+            _dict['labelContentLayout'] = self.label_content_layout.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in label_content_data (list)
         _items = []
         if self.label_content_data:
@@ -108,12 +112,10 @@ class T3GenerateLabelsPayload(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "labelTemplateLayoutId": obj.get("labelTemplateLayoutId"),
-            "labelContentLayoutId": obj.get("labelContentLayoutId"),
+            "labelTemplateLayout": T3LabelTemplateLayoutConfig.from_dict(obj["labelTemplateLayout"]) if obj.get("labelTemplateLayout") is not None else None,
+            "labelContentLayout": T3LabelTemplateLayoutConfig.from_dict(obj["labelContentLayout"]) if obj.get("labelContentLayout") is not None else None,
             "labelContentData": [V2FilesLabelsGeneratePostRequestLabelContentDataInner.from_dict(_item) for _item in obj["labelContentData"]] if obj.get("labelContentData") is not None else None,
             "renderingOptions": V2FilesLabelsGeneratePostRequestRenderingOptions.from_dict(obj["renderingOptions"]) if obj.get("renderingOptions") is not None else None,
-            "debug": obj.get("debug"),
-            "forcePromo": obj.get("forcePromo"),
             "disposition": obj.get("disposition") if obj.get("disposition") is not None else 'inline'
         })
         return _obj

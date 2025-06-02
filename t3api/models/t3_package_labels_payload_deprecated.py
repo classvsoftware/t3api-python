@@ -17,83 +17,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import date, datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from t3api.models.v2_files_labels_content_data_packages_active_post_request_rendering_options import V2FilesLabelsContentDataPackagesActivePostRequestRenderingOptions
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcHarvest(BaseModel):
+class T3PackageLabelsPayloadDEPRECATED(BaseModel):
     """
-    MetrcHarvest
+    T3PackageLabelsPayloadDEPRECATED
     """ # noqa: E501
-    id: Optional[StrictInt] = Field(default=None, description="Unique identifier for the harvest")
-    hostname: Optional[StrictStr] = Field(default=None, description="The hostname this object was retrieved from")
-    data_model: Optional[StrictStr] = Field(default=None, description="Name of this object's data model", alias="dataModel")
-    retrieved_at: Optional[datetime] = Field(default=None, description="Timestamp of when this object was pulled from Metrc", alias="retrievedAt")
-    license_number: Optional[StrictStr] = Field(default=None, description="License number used to access this object", alias="licenseNumber")
-    index: Optional[StrictStr] = Field(default=None, description="Describes the current state of this object at the time it was returned from the API. This cannot be used to sort or filter.")
-    facility_license_number: Optional[StrictStr] = Field(default=None, description="License number of the facility", alias="facilityLicenseNumber")
-    facility_name: Optional[StrictStr] = Field(default=None, description="Name of the facility", alias="facilityName")
-    name: Optional[StrictStr] = Field(default=None, description="Name of the harvest")
-    harvest_type: Optional[StrictStr] = Field(default=None, description="Type of the harvest", alias="harvestType")
-    harvest_type_name: Optional[StrictStr] = Field(default=None, description="Name of the harvest type", alias="harvestTypeName")
-    source_strain_count: Optional[StrictInt] = Field(default=None, description="Number of source strains", alias="sourceStrainCount")
-    source_strain_names: Optional[StrictStr] = Field(default=None, description="Names of source strains", alias="sourceStrainNames")
-    multi_strain: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest includes multiple strains", alias="multiStrain")
-    drying_location_name: Optional[StrictStr] = Field(default=None, description="Name of the drying location", alias="dryingLocationName")
-    drying_sublocation_name: Optional[StrictStr] = Field(default=None, alias="dryingSublocationName")
-    drying_location_type_name: Optional[StrictStr] = Field(default=None, description="Type of the drying location", alias="dryingLocationTypeName")
-    patient_license_number: Optional[StrictStr] = Field(default=None, description="License number of the patient, if applicable", alias="patientLicenseNumber")
-    current_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Current weight of the harvest", alias="currentWeight")
-    total_waste_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total waste weight", alias="totalWasteWeight")
-    plant_count: Optional[StrictInt] = Field(default=None, description="Number of plants in the harvest", alias="plantCount")
-    total_wet_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total wet weight of the harvest", alias="totalWetWeight")
-    total_restored_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total restored weight", alias="totalRestoredWeight")
-    package_count: Optional[StrictInt] = Field(default=None, description="Number of packages in the harvest", alias="packageCount")
-    total_packaged_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Total packaged weight", alias="totalPackagedWeight")
-    unit_of_weight_id: Optional[StrictInt] = Field(default=None, description="Identifier for the unit of weight", alias="unitOfWeightId")
-    unit_of_weight_abbreviation: Optional[StrictStr] = Field(default=None, description="Abbreviation of the unit of weight", alias="unitOfWeightAbbreviation")
-    lab_testing_state_name: Optional[StrictStr] = Field(default=None, description="Lab testing state of the harvest", alias="labTestingStateName")
-    lab_testing_state_date: Optional[datetime] = Field(default=None, description="Date of the lab testing state", alias="labTestingStateDate")
-    is_on_hold: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest is on hold", alias="isOnHold")
-    harvest_start_date: Optional[date] = Field(default=None, description="Start date of the harvest", alias="harvestStartDate")
-    is_finished: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest is finished", alias="isFinished")
-    finished_date: Optional[datetime] = Field(default=None, description="Date when the harvest was finished", alias="finishedDate")
-    is_archived: Optional[StrictBool] = Field(default=None, description="Indicates if the harvest is archived", alias="isArchived")
-    archived_date: Optional[datetime] = Field(default=None, description="Date when the harvest was archived", alias="archivedDate")
-    last_modified: Optional[datetime] = Field(default=None, description="Last modified date of the harvest", alias="lastModified")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "facilityLicenseNumber", "facilityName", "name", "harvestType", "harvestTypeName", "sourceStrainCount", "sourceStrainNames", "multiStrain", "dryingLocationName", "dryingSublocationName", "dryingLocationTypeName", "patientLicenseNumber", "currentWeight", "totalWasteWeight", "plantCount", "totalWetWeight", "totalRestoredWeight", "packageCount", "totalPackagedWeight", "unitOfWeightId", "unitOfWeightAbbreviation", "labTestingStateName", "labTestingStateDate", "isOnHold", "harvestStartDate", "isFinished", "finishedDate", "isArchived", "archivedDate", "lastModified"]
-
-    @field_validator('index')
-    def index_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['ACTIVE_HARVEST', 'ONHOLD_HARVEST', 'INACTIVE_HARVEST']):
-            raise ValueError("must be one of enum values ('ACTIVE_HARVEST', 'ONHOLD_HARVEST', 'INACTIVE_HARVEST')")
-        return value
-
-    @field_validator('harvest_type')
-    def harvest_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['WholePlant', 'PartialPlant', 'Other']):
-            raise ValueError("must be one of enum values ('WholePlant', 'PartialPlant', 'Other')")
-        return value
-
-    @field_validator('lab_testing_state_name')
-    def lab_testing_state_name_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['NotSubmitted', 'Submitted', 'InTesting', 'Passed', 'Failed']):
-            raise ValueError("must be one of enum values ('NotSubmitted', 'Submitted', 'InTesting', 'Passed', 'Failed')")
-        return value
+    label_template_layout_id: StrictStr = Field(description="The identifier for the label template configuration", alias="labelTemplateLayoutId")
+    label_content_layout_id: StrictStr = Field(description="The identifier for the label content configuration.", alias="labelContentLayoutId")
+    data: List[StrictStr] = Field(description="An array of tags")
+    rendering_options: Optional[V2FilesLabelsContentDataPackagesActivePostRequestRenderingOptions] = Field(default=None, alias="renderingOptions")
+    debug: Optional[StrictBool] = Field(default=None, description="When set to true, draws bounding boxes around the label containers, the printable area, and the individual elements per label.")
+    __properties: ClassVar[List[str]] = ["labelTemplateLayoutId", "labelContentLayoutId", "data", "renderingOptions", "debug"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -113,7 +52,7 @@ class MetrcHarvest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcHarvest from a JSON string"""
+        """Create an instance of T3PackageLabelsPayloadDEPRECATED from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -134,41 +73,14 @@ class MetrcHarvest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if facility_license_number (nullable) is None
-        # and model_fields_set contains the field
-        if self.facility_license_number is None and "facility_license_number" in self.model_fields_set:
-            _dict['facilityLicenseNumber'] = None
-
-        # set to None if facility_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.facility_name is None and "facility_name" in self.model_fields_set:
-            _dict['facilityName'] = None
-
-        # set to None if patient_license_number (nullable) is None
-        # and model_fields_set contains the field
-        if self.patient_license_number is None and "patient_license_number" in self.model_fields_set:
-            _dict['patientLicenseNumber'] = None
-
-        # set to None if lab_testing_state_date (nullable) is None
-        # and model_fields_set contains the field
-        if self.lab_testing_state_date is None and "lab_testing_state_date" in self.model_fields_set:
-            _dict['labTestingStateDate'] = None
-
-        # set to None if finished_date (nullable) is None
-        # and model_fields_set contains the field
-        if self.finished_date is None and "finished_date" in self.model_fields_set:
-            _dict['finishedDate'] = None
-
-        # set to None if archived_date (nullable) is None
-        # and model_fields_set contains the field
-        if self.archived_date is None and "archived_date" in self.model_fields_set:
-            _dict['archivedDate'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of rendering_options
+        if self.rendering_options:
+            _dict['renderingOptions'] = self.rendering_options.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcHarvest from a dict"""
+        """Create an instance of T3PackageLabelsPayloadDEPRECATED from a dict"""
         if obj is None:
             return None
 
@@ -176,42 +88,11 @@ class MetrcHarvest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "hostname": obj.get("hostname"),
-            "dataModel": obj.get("dataModel"),
-            "retrievedAt": obj.get("retrievedAt"),
-            "licenseNumber": obj.get("licenseNumber"),
-            "index": obj.get("index"),
-            "facilityLicenseNumber": obj.get("facilityLicenseNumber"),
-            "facilityName": obj.get("facilityName"),
-            "name": obj.get("name"),
-            "harvestType": obj.get("harvestType"),
-            "harvestTypeName": obj.get("harvestTypeName"),
-            "sourceStrainCount": obj.get("sourceStrainCount"),
-            "sourceStrainNames": obj.get("sourceStrainNames"),
-            "multiStrain": obj.get("multiStrain"),
-            "dryingLocationName": obj.get("dryingLocationName"),
-            "dryingSublocationName": obj.get("dryingSublocationName"),
-            "dryingLocationTypeName": obj.get("dryingLocationTypeName"),
-            "patientLicenseNumber": obj.get("patientLicenseNumber"),
-            "currentWeight": obj.get("currentWeight"),
-            "totalWasteWeight": obj.get("totalWasteWeight"),
-            "plantCount": obj.get("plantCount"),
-            "totalWetWeight": obj.get("totalWetWeight"),
-            "totalRestoredWeight": obj.get("totalRestoredWeight"),
-            "packageCount": obj.get("packageCount"),
-            "totalPackagedWeight": obj.get("totalPackagedWeight"),
-            "unitOfWeightId": obj.get("unitOfWeightId"),
-            "unitOfWeightAbbreviation": obj.get("unitOfWeightAbbreviation"),
-            "labTestingStateName": obj.get("labTestingStateName"),
-            "labTestingStateDate": obj.get("labTestingStateDate"),
-            "isOnHold": obj.get("isOnHold"),
-            "harvestStartDate": obj.get("harvestStartDate"),
-            "isFinished": obj.get("isFinished"),
-            "finishedDate": obj.get("finishedDate"),
-            "isArchived": obj.get("isArchived"),
-            "archivedDate": obj.get("archivedDate"),
-            "lastModified": obj.get("lastModified")
+            "labelTemplateLayoutId": obj.get("labelTemplateLayoutId"),
+            "labelContentLayoutId": obj.get("labelContentLayoutId"),
+            "data": obj.get("data"),
+            "renderingOptions": V2FilesLabelsContentDataPackagesActivePostRequestRenderingOptions.from_dict(obj["renderingOptions"]) if obj.get("renderingOptions") is not None else None,
+            "debug": obj.get("debug")
         })
         return _obj
 

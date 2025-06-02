@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,9 +29,20 @@ class JWTData(BaseModel):
     auth_mode: Optional[StrictStr] = Field(default=None, alias="authMode")
     credential_key: Optional[StrictStr] = Field(default=None, alias="credentialKey")
     has_t3plus: Optional[StrictBool] = Field(default=None, alias="hasT3plus")
+    t3plus_subscription_tier: Optional[StrictStr] = Field(default=None, alias="t3plusSubscriptionTier")
     username: Optional[StrictStr] = None
     hostname: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["authMode", "credentialKey", "hasT3plus", "username", "hostname"]
+    __properties: ClassVar[List[str]] = ["authMode", "credentialKey", "hasT3plus", "t3plusSubscriptionTier", "username", "hostname"]
+
+    @field_validator('t3plus_subscription_tier')
+    def t3plus_subscription_tier_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['manual', 'basic', 'team', 'enterprise', 'unlimited']):
+            raise ValueError("must be one of enum values ('manual', 'basic', 'team', 'enterprise', 'unlimited')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +83,11 @@ class JWTData(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if t3plus_subscription_tier (nullable) is None
+        # and model_fields_set contains the field
+        if self.t3plus_subscription_tier is None and "t3plus_subscription_tier" in self.model_fields_set:
+            _dict['t3plusSubscriptionTier'] = None
+
         return _dict
 
     @classmethod
@@ -87,6 +103,7 @@ class JWTData(BaseModel):
             "authMode": obj.get("authMode"),
             "credentialKey": obj.get("credentialKey"),
             "hasT3plus": obj.get("hasT3plus"),
+            "t3plusSubscriptionTier": obj.get("t3plusSubscriptionTier"),
             "username": obj.get("username"),
             "hostname": obj.get("hostname")
         })

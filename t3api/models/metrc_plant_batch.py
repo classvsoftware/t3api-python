@@ -50,10 +50,9 @@ class MetrcPlantBatch(BaseModel):
     source_plant_batch_names: Optional[StrictStr] = Field(default=None, description="Names of the source plant batches, if any.", alias="sourcePlantBatchNames")
     multi_plant_batch: Optional[StrictBool] = Field(default=None, description="Indicates if the batch contains multiple plants.", alias="multiPlantBatch")
     planted_date: Optional[date] = Field(default=None, description="The date the plants were planted.", alias="plantedDate")
-    is_on_trip: Optional[StrictBool] = Field(default=None, description="Indicates if the batch is currently on a trip or being transported.", alias="isOnTrip")
     last_modified: Optional[datetime] = Field(default=None, description="The last modified timestamp for the plant batch data.", alias="lastModified")
     is_on_hold: Optional[StrictBool] = Field(default=None, description="Indicates if the batch is currently on hold.", alias="isOnHold")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "name", "plantBatchTypeName", "locationName", "sublocationName", "locationTypeName", "strainId", "strainName", "patientLicenseNumber", "untrackedCount", "trackedCount", "packagedCount", "destroyedCount", "sourcePackageLabel", "sourcePlantLabel", "sourcePlantBatchNames", "multiPlantBatch", "plantedDate", "isOnTrip", "lastModified", "isOnHold"]
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "name", "plantBatchTypeName", "locationName", "sublocationName", "locationTypeName", "strainId", "strainName", "patientLicenseNumber", "untrackedCount", "trackedCount", "packagedCount", "destroyedCount", "sourcePackageLabel", "sourcePlantLabel", "sourcePlantBatchNames", "multiPlantBatch", "plantedDate", "lastModified", "isOnHold"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -164,7 +163,6 @@ class MetrcPlantBatch(BaseModel):
             "sourcePlantBatchNames": obj.get("sourcePlantBatchNames"),
             "multiPlantBatch": obj.get("multiPlantBatch"),
             "plantedDate": obj.get("plantedDate"),
-            "isOnTrip": obj.get("isOnTrip"),
             "lastModified": obj.get("lastModified"),
             "isOnHold": obj.get("isOnHold")
         })
