@@ -224,8 +224,8 @@ class MetrcItem(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['Approved']):
-            raise ValueError("must be one of enum values ('Approved')")
+        if value not in set(['Approved', 'Revoked']):
+            raise ValueError("must be one of enum values ('Approved', 'Revoked')")
         return value
 
     model_config = ConfigDict(
