@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from t3api.models.lab_testing_states import LabTestingStates
 from t3api.models.metrc_history import MetrcHistory
 from t3api.models.metrc_item import MetrcItem
 from t3api.models.metrc_package_lab_result_batch import MetrcPackageLabResultBatch
@@ -46,7 +47,7 @@ class MetrcSuperpackage(BaseModel):
     facility_license_number: Optional[StrictStr] = Field(default=None, description="The license number of the facility associated with the package.", alias="facilityLicenseNumber")
     facility_name: Optional[StrictStr] = Field(default=None, description="The name of the facility associated with the package.", alias="facilityName")
     finished_date: Optional[datetime] = Field(default=None, description="The date and time when the package was finished, if applicable.", alias="finishedDate")
-    initial_lab_testing_state: Optional[StrictStr] = Field(default=None, description="The initial state of lab testing for the package, such as NotRequired, TestPassed, or NotSubmitted.", alias="initialLabTestingState")
+    initial_lab_testing_state: Optional[LabTestingStates] = Field(default=None, alias="initialLabTestingState")
     is_archived: Optional[StrictBool] = Field(default=None, description="Indicates if the package is archived.", alias="isArchived")
     is_donation: Optional[StrictBool] = Field(default=None, description="Indicates if the package was a donation.", alias="isDonation")
     is_donation_persistent: Optional[StrictBool] = Field(default=None, description="Indicates if the donation status of the package is persistent.", alias="isDonationPersistent")
@@ -137,16 +138,6 @@ class MetrcSuperpackage(BaseModel):
 
         if value not in set(['ACTIVE_PACKAGE', 'ONHOLD_PACKAGE', 'INACTIVE_PACKAGE', 'INTRANSIT_PACKAGE']):
             raise ValueError("must be one of enum values ('ACTIVE_PACKAGE', 'ONHOLD_PACKAGE', 'INACTIVE_PACKAGE', 'INTRANSIT_PACKAGE')")
-        return value
-
-    @field_validator('initial_lab_testing_state')
-    def initial_lab_testing_state_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['NotRequired', 'TestPassed', 'NotSubmitted']):
-            raise ValueError("must be one of enum values ('NotRequired', 'TestPassed', 'NotSubmitted')")
         return value
 
     @field_validator('package_type')

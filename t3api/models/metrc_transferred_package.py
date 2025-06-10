@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from t3api.models.lab_testing_states import LabTestingStates
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -43,7 +44,7 @@ class MetrcTransferredPackage(BaseModel):
     product_name: StrictStr = Field(description="Name of the product", alias="productName")
     product_category_name: StrictStr = Field(description="Category name of the product", alias="productCategoryName")
     item_strain_name: StrictStr = Field(description="Strain name of the item", alias="itemStrainName")
-    lab_testing_state_name: StrictStr = Field(description="Lab testing status of the item", alias="labTestingStateName")
+    lab_testing_state_name: LabTestingStates = Field(alias="labTestingStateName")
     shipped_quantity: Union[StrictFloat, StrictInt] = Field(description="Quantity shipped", alias="shippedQuantity")
     shipped_unit_of_measure_abbreviation: StrictStr = Field(description="Unit of measure for the shipped quantity", alias="shippedUnitOfMeasureAbbreviation")
     gross_weight: Union[StrictFloat, StrictInt] = Field(description="Gross weight of the package", alias="grossWeight")
@@ -67,13 +68,6 @@ class MetrcTransferredPackage(BaseModel):
 
         if value not in set(['TRANSFERRED_PACKAGE']):
             raise ValueError("must be one of enum values ('TRANSFERRED_PACKAGE')")
-        return value
-
-    @field_validator('lab_testing_state_name')
-    def lab_testing_state_name_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['TestPassed', 'TestFailed', 'Pending']):
-            raise ValueError("must be one of enum values ('TestPassed', 'TestFailed', 'Pending')")
         return value
 
     @field_validator('shipment_package_state_name')

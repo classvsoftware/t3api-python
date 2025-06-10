@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from t3api.models.lab_testing_states import LabTestingStates
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -178,7 +179,7 @@ class T3OutgoingTransferManifest(BaseModel):
     package_product_name: StrictStr = Field(description="Name of the product", alias="package.productName")
     package_product_category_name: StrictStr = Field(description="Category name of the product", alias="package.productCategoryName")
     package_item_strain_name: StrictStr = Field(description="Strain name of the item", alias="package.itemStrainName")
-    package_lab_testing_state_name: StrictStr = Field(description="Lab testing status of the item", alias="package.labTestingStateName")
+    package_lab_testing_state_name: LabTestingStates = Field(alias="package.labTestingStateName")
     package_shipped_quantity: Union[StrictFloat, StrictInt] = Field(description="Quantity shipped", alias="package.shippedQuantity")
     package_shipped_unit_of_measure_abbreviation: StrictStr = Field(description="Unit of measure for the shipped quantity", alias="package.shippedUnitOfMeasureAbbreviation")
     package_gross_weight: Union[StrictFloat, StrictInt] = Field(description="Gross weight of the package", alias="package.grossWeight")
@@ -241,13 +242,6 @@ class T3OutgoingTransferManifest(BaseModel):
 
         if value not in set(['TRANSFERRED_PACKAGE']):
             raise ValueError("must be one of enum values ('TRANSFERRED_PACKAGE')")
-        return value
-
-    @field_validator('package_lab_testing_state_name')
-    def package_lab_testing_state_name_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['TestPassed', 'TestFailed', 'Pending']):
-            raise ValueError("must be one of enum values ('TestPassed', 'TestFailed', 'Pending')")
         return value
 
     @field_validator('package_shipment_package_state_name')
