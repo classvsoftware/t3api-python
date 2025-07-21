@@ -26,6 +26,13 @@ class TestPlantsApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_v2_harvests_plants_get(self) -> None:
+        """Test case for v2_harvests_plants_get
+
+        List of harvest plant objects for a single harvest.
+        """
+        pass
+
     def test_v2_plants_flowering_get(self) -> None:
         """Test case for v2_plants_flowering_get
 
@@ -57,7 +64,6 @@ class TestPlantsApi(unittest.TestCase):
     def test_v2_plants_onhold_get(self) -> None:
         """Test case for v2_plants_onhold_get
 
-        List of on hold plants
         """
         pass
 

@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **float** | Identifier of the package. | 
-**wholesale_price** | **float** | Wholesale price of the package. *Only required for wholesale transfers*  | [optional] 
-**gross_weight** | **float** | Gross weight of the package.  *Only applicable in some Metrc states*  | [optional] 
-**gross_unit_of_weight_id** | **float** | Unit of weight identifier for the package. *Only applicable in some Metrc states*  | [optional] 
+**wholesale_price** | **float** | Wholesale price of the package. *Not all transfer types require this value.*  Only should be set if the &#x60;transferType&#x60; has &#x60;transactionType&#x3D;\&quot;Wholesale\&quot;&#x60;.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details.  | [optional] 
+**gross_weight** | **float** | Gross weight of the package. *Not all transfer types require this value.*  Only should be set if the &#x60;transferType&#x60; has &#x60;requiresPackagesGrossWeight&#x3D;true&#x60;.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details.  | [optional] 
+**gross_unit_of_weight_id** | **float** | Unit of weight identifier for the package. *Not all transfer types require this value.*  Only should be set if the &#x60;transferType&#x60; has &#x60;requiresPackagesGrossWeight&#x3D;true&#x60;.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details.  | [optional] 
 
 ## Example
 

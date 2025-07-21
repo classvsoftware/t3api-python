@@ -44,6 +44,10 @@ class TestMetrcFacilityListResponse(unittest.TestCase):
                         license_number = 'LIC00001', 
                         facility_name = 'Example Facilitiy LLC', 
                         id = 1234, 
+                        hostname = 'ca.metrc.com', 
+                        data_model = 'MetrcPackage', 
+                        retrieved_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        index = 'TRANSPORTER', 
                         facility_type_name = 'Example Cultivator', 
                         facility_type = '', 
                         physical_address = t3api.models.metrc_facility_physical_address.MetrcFacility_physicalAddress(

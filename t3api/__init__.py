@@ -129,6 +129,7 @@ from t3api.models.metrc_strain import MetrcStrain
 from t3api.models.metrc_strain_list_response import MetrcStrainListResponse
 from t3api.models.metrc_superpackage import MetrcSuperpackage
 from t3api.models.metrc_superpackage_all_of_metadata import MetrcSuperpackageAllOfMetadata
+from t3api.models.metrc_superpackage_list_response import MetrcSuperpackageListResponse
 from t3api.models.metrc_tag import MetrcTag
 from t3api.models.metrc_transaction import MetrcTransaction
 from t3api.models.metrc_transaction_list_response import MetrcTransactionListResponse

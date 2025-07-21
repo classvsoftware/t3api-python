@@ -109,7 +109,17 @@ class TestMetrcDeliveryPackageListResponse(unittest.TestCase):
                         lab_test_stage_id = 1.337, 
                         use_by_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         product_label = '', 
-                        external_id = 1.337, )
+                        external_id = 1.337, 
+                        item_unit_thc_a_content_dose_unit_of_measure_abbreviation = '', 
+                        item_unit_cbd_a_content = 1.337, 
+                        item_unit_cbd_a_content_unit_of_measure_abbreviation = '', 
+                        item_unit_thc_a_content = 1.337, 
+                        item_unit_cbd_a_content_dose = 1.337, 
+                        item_unit_cbd_a_content_dose_unit_of_measure_abbreviation = '', 
+                        item_unit_thc_a_content_unit_of_measure_abbreviation = '', 
+                        item_unit_thc_a_percent = 1.337, 
+                        item_unit_thc_a_content_dose = 1.337, 
+                        item_unit_cbd_a_percent = 1.337, )
                     ]
             )
         else:

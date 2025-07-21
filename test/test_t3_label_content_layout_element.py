@@ -41,7 +41,6 @@ class TestT3LabelContentLayoutElement(unittest.TestCase):
                 x_end_fraction = 1.337,
                 y_start_fraction = 1.337,
                 y_end_fraction = 1.337,
-                label_content_data_key = 'text1',
                 value_template = '',
                 paragraph_font_name = 'Helvetica',
                 paragraph_font_size = 1.337,
@@ -53,6 +52,7 @@ class TestT3LabelContentLayoutElement(unittest.TestCase):
             )
         else:
             return T3LabelContentLayoutElement(
+                element_type = 'TEXT',
         )
         """
 

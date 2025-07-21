@@ -5,13 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**recipient_id** | **float** | Facility ID of the destination facility. To find eligible destination facilities, use the [Destinations](#/Create%20Transfer/get_v2_packages_create_transfer_destination_list) endpoint.  | [optional] 
-**planned_route** | **str** | Planned route for the shipment. | [optional] 
-**transfer_type_id** | **float** | Identifier for the type of transfer. | [optional] 
-**estimated_departure_date_time** | **datetime** | Estimated departure date and time. | [optional] 
-**estimated_arrival_date_time** | **datetime** | Estimated arrival date and time. | [optional] 
-**gross_weight** | **float** | Gross weight of the transfer.  *Only applicable in some Metrc states*  | [optional] 
-**gross_unit_of_weight_id** | **float** | Identifier for the unit of weight. | [optional] 
+**recipient_id** | **float** | Facility ID of the destination facility.  To find eligible destination facilities, use the [Destinations](#/Create%20Transfer/get_v2_packages_create_transfer_destination_list) endpoint.  | 
+**planned_route** | **str** | Planned route for the shipment. | 
+**transfer_type_id** | **float** | Identifier for the type of transfer. | 
+**invoice_number** | **str** | Invoice number for this delivery. *Not all transfer types require this value.*  This value is only required if the &#x60;transferType&#x60; has &#x60;requiresInvoiceNumber&#x3D;true&#x60;.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details.  | [optional] 
+**estimated_departure_date_time** | **datetime** | Estimated departure date and time. | 
+**estimated_arrival_date_time** | **datetime** | Estimated arrival date and time. | 
+**gross_weight** | **float** | Gross weight of the transfer. *Not all transfer types require this value.*  Only should be set if the &#x60;transferType&#x60; has &#x60;requiresDestinationGrossWeight&#x3D;true&#x60;.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details.  | [optional] 
+**gross_unit_of_weight_id** | **float** | Identifier for the unit of weight. *Not all transfer types require this value.*  Only should be set if the &#x60;transferType&#x60; has &#x60;requiresDestinationGrossWeight&#x3D;true&#x60;.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details.  | [optional] 
 **transporters** | [**List[V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInner]**](V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInner.md) | List of transporters for the transfer. | [optional] 
 **packages** | [**List[V2TransfersCreatePostRequestInnerDestinationsInnerPackagesInner]**](V2TransfersCreatePostRequestInnerDestinationsInnerPackagesInner.md) | List of packages in the transfer. | [optional] 
 

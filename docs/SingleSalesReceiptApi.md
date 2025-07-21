@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **v2_sales_transactions_get**
-> V2SalesTransactionsGet200Response v2_sales_transactions_get(sales_receipt_id, license_number, page=page, page_size=page_size, strict_pagination=strict_pagination, sort=sort, filter_logic=filter_logic, filter=filter)
+> V2SalesTransactionsGet200Response v2_sales_transactions_get(sales_receipt_id, license_number, include_history=include_history, page=page, page_size=page_size, strict_pagination=strict_pagination, sort=sort, filter_logic=filter_logic, filter=filter)
 
 List of transactions for a single sales receipt
 
@@ -44,6 +44,7 @@ with t3api.ApiClient(configuration) as api_client:
     api_instance = t3api.SingleSalesReceiptApi(api_client)
     sales_receipt_id = 123 # float | ID of the target sales receipt
     license_number = 'LIC-00001' # str | The unique identifier for the license associated with this request.
+    include_history = true # bool | Enables access to archived transactions in Metrc (optional)
     page = 1 # int | The index of the page to be returned. (optional) (default to 1)
     page_size = 100 # int | The number of objects per page to be returned. (optional) (default to 100)
     strict_pagination = False # bool | Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. (optional) (default to False)
@@ -53,7 +54,7 @@ with t3api.ApiClient(configuration) as api_client:
 
     try:
         # List of transactions for a single sales receipt
-        api_response = api_instance.v2_sales_transactions_get(sales_receipt_id, license_number, page=page, page_size=page_size, strict_pagination=strict_pagination, sort=sort, filter_logic=filter_logic, filter=filter)
+        api_response = api_instance.v2_sales_transactions_get(sales_receipt_id, license_number, include_history=include_history, page=page, page_size=page_size, strict_pagination=strict_pagination, sort=sort, filter_logic=filter_logic, filter=filter)
         print("The response of SingleSalesReceiptApi->v2_sales_transactions_get:\n")
         pprint(api_response)
     except Exception as e:
@@ -69,6 +70,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sales_receipt_id** | **float**| ID of the target sales receipt | 
  **license_number** | **str**| The unique identifier for the license associated with this request. | 
+ **include_history** | **bool**| Enables access to archived transactions in Metrc | [optional] 
  **page** | **int**| The index of the page to be returned. | [optional] [default to 1]
  **page_size** | **int**| The number of objects per page to be returned. | [optional] [default to 100]
  **strict_pagination** | **bool**| Toggles strict pagination. Defaults to &#x60;false&#x60; (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. | [optional] [default to False]

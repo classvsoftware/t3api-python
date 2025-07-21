@@ -66,7 +66,7 @@ class TestMetrcTransferDelivery(unittest.TestCase):
                 shipment_type_name = 'Transfer',
                 recipient_approval_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 recipient_auto_approval = False,
-                tolling_agreement_file_system_id = 0,
+                pdf_document_file_system_id = 0,
                 invoice_number = ''
             )
         else:

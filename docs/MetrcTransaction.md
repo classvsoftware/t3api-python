@@ -74,6 +74,16 @@ Name | Type | Description | Notes
 **trade_sample_sale_verified** | **bool** | Whether the trade sample sale was verified (nullable) | [optional] 
 **recall_product_sale_verified** | **bool** | Whether the recall product sale was verified (nullable) | [optional] 
 **qr_code_document** | **str** |  | [optional] 
+**item_unit_thc_a_percent** | **float** | Alternate percentage of THC in the item (nullable) | [optional] 
+**item_unit_thc_a_content** | **float** | Alternate THC content in the item (nullable) | [optional] 
+**item_unit_thc_a_content_unit_of_measure_abbreviation** | **str** | Abbreviation of the alternate THC content unit of measure (nullable) | [optional] 
+**item_unit_thc_a_content_dose** | **float** | Alternate THC content dose of the item (nullable) | [optional] 
+**item_unit_thc_a_content_dose_unit_of_measure_abbreviation** | **str** | Abbreviation of the alternate THC dose content unit of measure (nullable) | [optional] 
+**item_unit_cbd_a_percent** | **float** | Alternate percentage of CBD in the item (nullable) | [optional] 
+**item_unit_cbd_a_content** | **float** | Alternate CBD content in the item (nullable) | [optional] 
+**item_unit_cbd_a_content_unit_of_measure_abbreviation** | **str** | Abbreviation of the alternate CBD content unit of measure (nullable) | [optional] 
+**item_unit_cbd_a_content_dose** | **float** | Alternate CBD content dose of the item (nullable) | [optional] 
+**item_unit_cbd_a_content_dose_unit_of_measure_abbreviation** | **str** | Abbreviation of the alternate CBD dose content unit of measure (nullable) | [optional] 
 
 ## Example
 

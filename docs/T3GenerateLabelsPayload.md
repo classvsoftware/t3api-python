@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**label_template_layout_id** | **str** | The identifier for the label template configuration | 
-**label_content_layout_id** | **str** | The identifier for the label content configuration. | 
-**label_content_data** | [**List[V2FilesLabelsGeneratePostRequestLabelContentDataInner]**](V2FilesLabelsGeneratePostRequestLabelContentDataInner.md) | A list of label content data objects to be filled into labels.  Refer to the label content layout information for which of these fields are required and where they will be inserted. | 
-**rendering_options** | [**V2FilesLabelsGeneratePostRequestRenderingOptions**](V2FilesLabelsGeneratePostRequestRenderingOptions.md) |  | [optional] 
-**debug** | **bool** | When set to true, draws bounding boxes around the label containers, the printable area, and the individual elements per label. | [optional] 
-**force_promo** | **bool** | When set to true, force-enables the T3 promo bar on all generated labels irrespective of T3+ subscription status. | [optional] 
+**label_template_layout_config** | [**T3LabelTemplateLayoutConfig**](.md) |  | 
+**label_content_layout_config** | [**T3LabelContentLayoutConfig**](.md) |  | 
+**label_content_data_list** | **List[Dict[str, object]]** | A list of objects, each of which will be filled into one label.   Suppose you were to pass the following data, which represents two distinct labels:  &#x60;&#x60;&#x60;json [   {     \&quot;package\&quot;: {       \&quot;label\&quot;: \&quot;12345\&quot;     }   },   {     \&quot;package\&quot;: {       \&quot;label\&quot;: \&quot;67890\&quot;     }   } ] &#x60;&#x60;&#x60;  You could access these values in the content layout template as follows:  &#x60;&#x60;&#x60; {{ package.label }} &#x60;&#x60;&#x60;  Note: The format of the objects is not validated.  Note: Any values with &#x60;common&#x60; or &#x60;images&#x60; will be overwritten.  | 
+**common_content_data** | **object** | A dictionary of values shared between all labels. Any supplied values will be prefixed with &#x60;common.&#x60;  Suppose you were to pass the following data:  &#x60;&#x60;&#x60;json {   \&quot;facilityContactInfo\&quot;: {     \&quot;phoneNumber\&quot;: \&quot;123-456-7890\&quot;   } } &#x60;&#x60;&#x60;  You could access this values in the content layout template as follows:  &#x60;&#x60;&#x60; {{ facilityContactInfo.phoneNumber }} &#x60;&#x60;&#x60;  Note: The format of the object is not validated.  | [optional] 
+**images** | **object** | A dictionary of base64 image dadta shared between all labels. Any supplied values will be prefixed with &#x60;images.&#x60;  Suppose you were to pass the following data:  &#x60;&#x60;&#x60;json {   \&quot;logo\&quot;: \&quot;iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMBgKZzmtkAAAAASUVORK5CYII&#x3D;\&quot; } &#x60;&#x60;&#x60;  You could access this values in the content layout template as follows:  &#x60;&#x60;&#x60; {{ images.logo }} &#x60;&#x60;&#x60;  Note: The format of the object is not validated.  | [optional] 
+**rendering_options** | [**T3LabelRenderingOptions**](.md) |  | [optional] 
 **disposition** | **str** | Specifies whether the PDF should be opened inline or downloaded as an attachment. | [optional] [default to 'inline']
 
 ## Example

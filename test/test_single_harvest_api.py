@@ -33,6 +33,20 @@ class TestSingleHarvestApi(unittest.TestCase):
         """
         pass
 
+    def test_v2_harvests_packages_get(self) -> None:
+        """Test case for v2_harvests_packages_get
+
+        List of harvest package objects for a single harvest.
+        """
+        pass
+
+    def test_v2_harvests_plants_get(self) -> None:
+        """Test case for v2_harvests_plants_get
+
+        List of harvest plant objects for a single harvest.
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

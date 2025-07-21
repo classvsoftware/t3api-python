@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **source_strain_names** | **str** | Names of source strains | [optional] 
 **multi_strain** | **bool** | Indicates if the harvest includes multiple strains | [optional] 
 **drying_location_name** | **str** | Name of the drying location | [optional] 
+**drying_sublocation_name** | **str** |  | [optional] 
 **drying_location_type_name** | **str** | Type of the drying location | [optional] 
 **patient_license_number** | **str** | License number of the patient, if applicable | [optional] 
 **current_weight** | **float** | Current weight of the harvest | [optional] 
@@ -39,7 +40,6 @@ Name | Type | Description | Notes
 **finished_date** | **datetime** | Date when the harvest was finished | [optional] 
 **is_archived** | **bool** | Indicates if the harvest is archived | [optional] 
 **archived_date** | **datetime** | Date when the harvest was archived | [optional] 
-**is_on_trip** | **bool** | Indicates if the harvest is currently being transported | [optional] 
 **last_modified** | **datetime** | Last modified date of the harvest | [optional] 
 
 ## Example

@@ -47,6 +47,27 @@ class TestPDFApi(unittest.TestCase):
         """
         pass
 
+    def test_v2_labels_generate_post(self) -> None:
+        """Test case for v2_labels_generate_post
+
+        Generate a PDF of labels.
+        """
+        pass
+
+    def test_v2_labels_label_content_layouts_get(self) -> None:
+        """Test case for v2_labels_label_content_layouts_get
+
+        Returns a list of label content layouts
+        """
+        pass
+
+    def test_v2_labels_label_template_layouts_get(self) -> None:
+        """Test case for v2_labels_label_template_layouts_get
+
+        Returns a list of label template layouts
+        """
+        pass
+
     def test_v2_packages_labresults_document_get(self) -> None:
         """Test case for v2_packages_labresults_document_get
 

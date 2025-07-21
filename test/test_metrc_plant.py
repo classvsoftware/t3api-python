@@ -52,18 +52,22 @@ class TestMetrcPlant(unittest.TestCase):
                 strain_id = 12345,
                 strain_name = 'Coka',
                 location_name = 'Row 05',
+                sublocation_name = '',
                 location_type_name = 'Default Location Type',
                 patient_license_number = '',
                 harvest_count = 0,
                 is_on_hold = False,
-                is_on_trip = False,
                 planted_date = 'Mon Apr 08 19:00:00 CDT 2024',
                 vegetative_date = 'Mon Apr 29 19:00:00 CDT 2024',
                 flowering_date = 'Thu Jun 13 19:00:00 CDT 2024',
                 destroyed_date = datetime.datetime.strptime('1975-12-30', '%Y-%m-%d').date(),
                 destroyed_note = '',
                 destroyed_by_user_name = '',
-                last_modified = '2024-07-26T13:00Z'
+                last_modified = '2024-07-26T13:00Z',
+                survived_count = 1,
+                mother_plant_date = 'Tue Apr 30 19:00:00 CDT 2024',
+                descended_count = 3,
+                cloned_count = 2
             )
         else:
             return MetrcPlant(

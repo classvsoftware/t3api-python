@@ -35,9 +35,16 @@ class TestMetrcSuperpackageAllOfMetadata(unittest.TestCase):
         model = MetrcSuperpackageAllOfMetadata()
         if include_optional:
             return MetrcSuperpackageAllOfMetadata(
+                harvest_dates = ["01-01-2024","01-03-2024"],
                 initial_quantity = 1.337,
-                test_results = [
-                    t3api.models.metrc_superpackage_all_of_metadata_test_results.MetrcSuperpackage_allOf_metadata_testResults(
+                initial_quantity_unit_of_measure = '',
+                net_weight_or_volume = 1.337,
+                net_weight_or_volume_unit_of_measure = '',
+                test_sample_package_labels = [
+                    '1A4400001234000000005678'
+                    ],
+                extracted_lab_results = [
+                    t3api.models.extracted_lab_result.ExtractedLabResult(
                         lab_result_test_name = 'Delta-9 THC', 
                         lab_result_test_value = 0.123, 
                         lab_result_test_unit = '%', 

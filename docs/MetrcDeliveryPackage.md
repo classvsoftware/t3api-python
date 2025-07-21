@@ -74,6 +74,16 @@ Name | Type | Description | Notes
 **use_by_date** | **datetime** |  | [optional] 
 **product_label** | **str** |  | [optional] 
 **external_id** | **float** |  | [optional] 
+**item_unit_thc_a_content_dose_unit_of_measure_abbreviation** | **str** |  | [optional] 
+**item_unit_cbd_a_content** | **float** |  | [optional] 
+**item_unit_cbd_a_content_unit_of_measure_abbreviation** | **str** |  | [optional] 
+**item_unit_thc_a_content** | **float** |  | [optional] 
+**item_unit_cbd_a_content_dose** | **float** |  | [optional] 
+**item_unit_cbd_a_content_dose_unit_of_measure_abbreviation** | **str** |  | [optional] 
+**item_unit_thc_a_content_unit_of_measure_abbreviation** | **str** |  | [optional] 
+**item_unit_thc_a_percent** | **float** |  | [optional] 
+**item_unit_thc_a_content_dose** | **float** |  | [optional] 
+**item_unit_cbd_a_percent** | **float** |  | [optional] 
 
 ## Example
 

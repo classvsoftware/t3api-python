@@ -147,7 +147,29 @@ class TestMetrcItemListResponse(unittest.TestCase):
                         label_photo_override = '', 
                         processing_job_type_id = '', 
                         processing_job_type_name = '', 
-                        unit_thc_percent_override = 1.337, )
+                        unit_thc_percent_override = 1.337, 
+                        unit_thc_a_content_uo_mid = 1.337, 
+                        unit_thc_a_content = 1.337, 
+                        unit_thc_a_content_dose = 1.337, 
+                        unit_cbd_a_content_unit_of_measure_abbreviation = '', 
+                        unit_thc_a_content_unit_of_measure_abbreviation = '', 
+                        unit_cbd_a_percent_override = 1.337, 
+                        unit_cbd_a_content = 1.337, 
+                        unit_cbd_a_content_dose_unit_of_measure_id = 1.337, 
+                        unit_cbd_a_percent = 1.337, 
+                        unit_cbd_a_content_dose_unit_of_measure_abbreviation = '', 
+                        unit_thc_a_percent_override = 1.337, 
+                        unit_thc_a_content_dose_unit_of_measure_id = 1.337, 
+                        unit_thc_a_percent = 1.337, 
+                        unit_cbd_a_content_override = 1.337, 
+                        unit_cbd_a_content_dose = 1.337, 
+                        unit_thc_a_content_dose_unit_of_measure_abbreviation = '', 
+                        unit_thc_a_content_dose_uo_mid = 1.337, 
+                        unit_thc_a_content_unit_of_measure_id = 1.337, 
+                        unit_cbd_a_content_dose_uo_mid = 1.337, 
+                        unit_cbd_a_content_unit_of_measure_id = 1.337, 
+                        unit_cbd_a_content_uo_mid = 1.337, 
+                        unit_thc_a_content_override = 1.337, )
                     ]
             )
         else:

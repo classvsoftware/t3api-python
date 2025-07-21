@@ -38,6 +38,7 @@ class TestJWTData(unittest.TestCase):
                 auth_mode = 'CREDENTIALS',
                 credential_key = 'mo.metrc.com__MyMetrcUsername',
                 has_t3plus = True,
+                t3plus_subscription_tier = 'team',
                 username = 'MyMetrcUsername',
                 hostname = 'mo.metrc.com'
             )

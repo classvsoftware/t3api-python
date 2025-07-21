@@ -35,11 +35,8 @@ class TestT3LabelContentLayoutConfig(unittest.TestCase):
         model = T3LabelContentLayoutConfig()
         if include_optional:
             return T3LabelContentLayoutConfig(
-                enabled = True,
-                visible = True,
-                requires_t3plus = True,
+                name = '',
                 description = '',
-                aspect_ratio = 1.337,
                 min_aspect_ratio = 1.337,
                 max_aspect_ratio = 1.337,
                 label_content_layout_elements = [
@@ -50,7 +47,26 @@ class TestT3LabelContentLayoutConfig(unittest.TestCase):
                         x_end_fraction = 1.337, 
                         y_start_fraction = 1.337, 
                         y_end_fraction = 1.337, 
-                        label_content_data_key = 'text1', 
+                        value_template = '', 
+                        paragraph_font_name = 'Helvetica', 
+                        paragraph_font_size = 1.337, 
+                        horizontal_paragraph_alignment = 'CENTER', 
+                        vertical_paragraph_alignment = 'CENTER', 
+                        paragraph_spacing = 1.337, 
+                        enabled = True, 
+                        paragraph_text_resize_strategy = 'ALLOW_OVERFLOW', )
+                    ]
+            )
+        else:
+            return T3LabelContentLayoutConfig(
+                label_content_layout_elements = [
+                    t3api.models.t3_label_content_layout_element.T3LabelContentLayoutElement(
+                        description = '', 
+                        element_type = 'TEXT', 
+                        x_start_fraction = 1.337, 
+                        x_end_fraction = 1.337, 
+                        y_start_fraction = 1.337, 
+                        y_end_fraction = 1.337, 
                         value_template = '', 
                         paragraph_font_name = 'Helvetica', 
                         paragraph_font_size = 1.337, 
@@ -60,10 +76,6 @@ class TestT3LabelContentLayoutConfig(unittest.TestCase):
                         enabled = True, 
                         paragraph_text_resize_strategy = 'ALLOW_OVERFLOW', )
                     ],
-                label_content_data_json_schema = None
-            )
-        else:
-            return T3LabelContentLayoutConfig(
         )
         """
 

@@ -103,6 +103,13 @@ class TestReportsApi(unittest.TestCase):
         """
         pass
 
+    def test_v2_strains_report_get(self) -> None:
+        """Test case for v2_strains_report_get
+
+        Generate a report of all active strains
+        """
+        pass
+
     def test_v2_transfers_incoming_manifest_report_get(self) -> None:
         """Test case for v2_transfers_incoming_manifest_report_get
 

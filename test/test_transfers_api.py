@@ -40,6 +40,13 @@ class TestTransfersApi(unittest.TestCase):
         """
         pass
 
+    def test_v2_transfers_create_packages_get(self) -> None:
+        """Test case for v2_transfers_create_packages_get
+
+        List of packages eligible to be used in creating new transfers
+        """
+        pass
+
     def test_v2_transfers_create_post(self) -> None:
         """Test case for v2_transfers_create_post
 
@@ -128,6 +135,13 @@ class TestTransfersApi(unittest.TestCase):
         """Test case for v2_transfers_rejected_get
 
         List of rejected transfers
+        """
+        pass
+
+    def test_v2_transfers_templates_create_post(self) -> None:
+        """Test case for v2_transfers_templates_create_post
+
+        Create one or more transfer templates
         """
         pass
 

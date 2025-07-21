@@ -14,10 +14,10 @@
 
 import unittest
 
-from t3api.models.metrc_superpackage_all_of_metadata_test_results import MetrcSuperpackageAllOfMetadataTestResults
+from t3api.models.t3_generate_labels_payload_deprecated import T3GenerateLabelsPayloadDEPRECATED
 
-class TestMetrcSuperpackageAllOfMetadataTestResults(unittest.TestCase):
-    """MetrcSuperpackageAllOfMetadataTestResults unit test stubs"""
+class TestT3GenerateLabelsPayloadDEPRECATED(unittest.TestCase):
+    """T3GenerateLabelsPayloadDEPRECATED unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,33 +25,60 @@ class TestMetrcSuperpackageAllOfMetadataTestResults(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> MetrcSuperpackageAllOfMetadataTestResults:
-        """Test MetrcSuperpackageAllOfMetadataTestResults
+    def make_instance(self, include_optional) -> T3GenerateLabelsPayloadDEPRECATED:
+        """Test T3GenerateLabelsPayloadDEPRECATED
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `MetrcSuperpackageAllOfMetadataTestResults`
+        # uncomment below to create an instance of `T3GenerateLabelsPayloadDEPRECATED`
         """
-        model = MetrcSuperpackageAllOfMetadataTestResults()
+        model = T3GenerateLabelsPayloadDEPRECATED()
         if include_optional:
-            return MetrcSuperpackageAllOfMetadataTestResults(
-                lab_result_test_name = 'Delta-9 THC',
-                lab_result_test_value = 0.123,
-                lab_result_test_unit = '%',
-                lab_result_batch_name = 'Mandatory Terpenes',
-                full_lab_result_test_name = 'Delta-9 THC (%) Mandatory Terpenes',
-                passed = True,
-                tags = [
-                    'terpene'
-                    ]
+            return T3GenerateLabelsPayloadDEPRECATED(
+                label_template_layout_id = 'AVERY_8160__2_625Wx1_0H',
+                label_content_layout_id = 'COL_TEXT_CODE128_TEXT',
+                label_content_data = [
+                    t3api.models._v2_files_labels_generate_post_request_label_content_data_inner._v2_files_labels_generate_post_request_labelContentData_inner(
+                        text1 = 'text1', 
+                        text2 = 'text2', 
+                        text3 = 'text3', 
+                        text4 = 'text4', 
+                        text5 = 'text5', 
+                        text6 = 'text6', 
+                        text7 = 'text7', 
+                        text8 = 'text8', )
+                    ],
+                rendering_options = t3api.models._v2_files_labels_generate_post_request_rendering_options._v2_files_labels_generate_post_request_renderingOptions(
+                    debug = True, 
+                    enable_promo = True, 
+                    reverse_print_order = True, 
+                    rotation_degrees = 1.337, 
+                    barcode_bar_thickness = 1.0, 
+                    label_margin_thickness = 1.0, ),
+                debug = True,
+                force_promo = True,
+                disposition = 'inline'
             )
         else:
-            return MetrcSuperpackageAllOfMetadataTestResults(
+            return T3GenerateLabelsPayloadDEPRECATED(
+                label_template_layout_id = 'AVERY_8160__2_625Wx1_0H',
+                label_content_layout_id = 'COL_TEXT_CODE128_TEXT',
+                label_content_data = [
+                    t3api.models._v2_files_labels_generate_post_request_label_content_data_inner._v2_files_labels_generate_post_request_labelContentData_inner(
+                        text1 = 'text1', 
+                        text2 = 'text2', 
+                        text3 = 'text3', 
+                        text4 = 'text4', 
+                        text5 = 'text5', 
+                        text6 = 'text6', 
+                        text7 = 'text7', 
+                        text8 = 'text8', )
+                    ],
         )
         """
 
-    def testMetrcSuperpackageAllOfMetadataTestResults(self):
-        """Test MetrcSuperpackageAllOfMetadataTestResults"""
+    def testT3GenerateLabelsPayloadDEPRECATED(self):
+        """Test T3GenerateLabelsPayloadDEPRECATED"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

@@ -38,6 +38,7 @@ class TestV2TransfersCreatePostRequestInnerDestinationsInner(unittest.TestCase):
                 recipient_id = 123456,
                 planned_route = 'Keep going, you can't miss it',
                 transfer_type_id = 8,
+                invoice_number = '123456-ABC',
                 estimated_departure_date_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 estimated_arrival_date_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 gross_weight = 123.45,
@@ -67,6 +68,11 @@ class TestV2TransfersCreatePostRequestInnerDestinationsInner(unittest.TestCase):
             )
         else:
             return V2TransfersCreatePostRequestInnerDestinationsInner(
+                recipient_id = 123456,
+                planned_route = 'Keep going, you can't miss it',
+                transfer_type_id = 8,
+                estimated_departure_date_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                estimated_arrival_date_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
         )
         """
 

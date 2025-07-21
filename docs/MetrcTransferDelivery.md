@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **shipment_type_name** | **str** | The name of the shipment type. | [optional] 
 **recipient_approval_date** | **datetime** | The date and time when the recipient approved the shipment upon receipt. | [optional] 
 **recipient_auto_approval** | **bool** | Indicates whether the recipient&#39;s approval of the shipment is automatically granted, typically when there are no issues with the received packages. | [optional] 
-**tolling_agreement_file_system_id** | **float** |  | [optional] 
+**pdf_document_file_system_id** | **float** |  | [optional] 
 **invoice_number** | **str** |  | [optional] 
 
 ## Example

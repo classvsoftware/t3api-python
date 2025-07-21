@@ -22,11 +22,11 @@ Name | Type | Description | Notes
 **strain_id** | **int** |  | [optional] 
 **strain_name** | **str** | Name of the plant strain. | [optional] 
 **location_name** | **str** | Name of the location where the plant is situated. | [optional] 
+**sublocation_name** | **str** |  | [optional] 
 **location_type_name** | **str** | Type of the location. | [optional] 
 **patient_license_number** | **str** | License number of the patient, if applicable. | [optional] 
 **harvest_count** | **int** | Number of times the plant has been harvested. | [optional] 
 **is_on_hold** | **bool** | Indicates if the plant is on hold. | [optional] 
-**is_on_trip** | **bool** | Indicates if the plant is on a trip. | [optional] 
 **planted_date** | **date** | Date when the plant was planted. | [optional] 
 **vegetative_date** | **date** | Date when the plant entered the vegetative stage. | [optional] 
 **flowering_date** | **date** | Date when the plant entered the flowering stage. | [optional] 
@@ -34,6 +34,10 @@ Name | Type | Description | Notes
 **destroyed_note** | **str** | Note about the destruction of the plant, if applicable. | [optional] 
 **destroyed_by_user_name** | **str** | Username of the person who destroyed the plant, if applicable. | [optional] 
 **last_modified** | **datetime** | The last time the plant record was modified. | [optional] 
+**survived_count** | **int** | Number of plants that survived from this record. | [optional] 
+**mother_plant_date** | **date** | Date when the plant was designated as a mother plant. | [optional] 
+**descended_count** | **int** | Number of descendant plants from this plant. | [optional] 
+**cloned_count** | **int** | Number of clones taken from this plant. | [optional] 
 
 ## Example
 

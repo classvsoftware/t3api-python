@@ -6,8 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v2_files_labels_content_data_packages_active_post**](PackagesApi.md#v2_files_labels_content_data_packages_active_post) | **POST** /v2/files/labels/content-data/packages/active | For a given list of active packages, returns the needed ContentDataList to render the labels.
 [**v2_files_labels_content_data_packages_intransit_post**](PackagesApi.md#v2_files_labels_content_data_packages_intransit_post) | **POST** /v2/files/labels/content-data/packages/intransit | For a given list of in transit packages, returns the needed ContentDataList to render the labels.
+[**v2_harvests_packages_get**](PackagesApi.md#v2_harvests_packages_get) | **GET** /v2/harvests/packages | List of harvest package objects for a single harvest.
 [**v2_packages_active_get**](PackagesApi.md#v2_packages_active_get) | **GET** /v2/packages/active | List of active packages
 [**v2_packages_active_report_get**](PackagesApi.md#v2_packages_active_report_get) | **GET** /v2/packages/active/report | Generate a report of all active packages
+[**v2_packages_active_super_get**](PackagesApi.md#v2_packages_active_super_get) | **GET** /v2/packages/active/super | List of active superpackages. Additional metadata can be added using the &#x60;include&#x60; param.
 [**v2_packages_create_inputs_get**](PackagesApi.md#v2_packages_create_inputs_get) | **GET** /v2/packages/create/inputs | Input data used for creating new packages
 [**v2_packages_create_post**](PackagesApi.md#v2_packages_create_post) | **POST** /v2/packages/create | Create one or more packages from existing active packages
 [**v2_packages_create_source_items_get**](PackagesApi.md#v2_packages_create_source_items_get) | **GET** /v2/packages/create/source-items | List of items eligible to be used in creating new packages
@@ -16,6 +18,7 @@ Method | HTTP request | Description
 [**v2_packages_inactive_get**](PackagesApi.md#v2_packages_inactive_get) | **GET** /v2/packages/inactive | List of inactive packages
 [**v2_packages_intransit_get**](PackagesApi.md#v2_packages_intransit_get) | **GET** /v2/packages/intransit | List of in transit packages
 [**v2_packages_intransit_report_get**](PackagesApi.md#v2_packages_intransit_report_get) | **GET** /v2/packages/intransit/report | Generate a report of all in-transit packages
+[**v2_packages_intransit_super_get**](PackagesApi.md#v2_packages_intransit_super_get) | **GET** /v2/packages/intransit/super | List of intransit superpackages. Additional metadata can be added using the &#x60;include&#x60; param.
 [**v2_packages_labresult_batches_get**](PackagesApi.md#v2_packages_labresult_batches_get) | **GET** /v2/packages/labresult-batches | List of package lab result batch objects for a single package
 [**v2_packages_labresults_document_get**](PackagesApi.md#v2_packages_labresults_document_get) | **GET** /v2/packages/labresults/document | Get the COA PDF for a lab result.
 [**v2_packages_labresults_get**](PackagesApi.md#v2_packages_labresults_get) | **GET** /v2/packages/labresults | List of package lab result objects for a single package
@@ -26,6 +29,7 @@ Method | HTTP request | Description
 [**v2_packages_transferred_report_get**](PackagesApi.md#v2_packages_transferred_report_get) | **GET** /v2/packages/transferred/report | Generate a report of all transferred packages
 [**v2_packages_unfinish_post**](PackagesApi.md#v2_packages_unfinish_post) | **POST** /v2/packages/unfinish | Unfinish packages
 [**v2_transfers_create_destinations_get**](PackagesApi.md#v2_transfers_create_destinations_get) | **GET** /v2/transfers/create/destinations | List of destination facilities eligible to be used in creating new transfers
+[**v2_transfers_create_packages_get**](PackagesApi.md#v2_transfers_create_packages_get) | **GET** /v2/transfers/create/packages | List of packages eligible to be used in creating new transfers
 [**v2_transfers_create_transporters_get**](PackagesApi.md#v2_transfers_create_transporters_get) | **GET** /v2/transfers/create/transporters | List of transporter facilities eligible to be used in creating new transfers
 
 
@@ -188,6 +192,100 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | List of LabelContentData objects compiled from the packages and template |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v2_harvests_packages_get**
+> V2HarvestsPlantsGet200Response v2_harvests_packages_get(license_number, package_id, page=page, page_size=page_size, strict_pagination=strict_pagination, sort=sort, filter_logic=filter_logic, filter=filter)
+
+List of harvest package objects for a single harvest.
+
+NOTE: only supports INACTIVE harvests
+
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import t3api
+from t3api.models.v2_harvests_plants_get200_response import V2HarvestsPlantsGet200Response
+from t3api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.trackandtrace.tools
+# See configuration.py for a list of all supported configuration parameters.
+configuration = t3api.Configuration(
+    host = "https://api.trackandtrace.tools"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = t3api.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with t3api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = t3api.PackagesApi(api_client)
+    license_number = 'LIC-00001' # str | The unique identifier for the license associated with this request.
+    package_id = 123 # float | ID of the target harvest
+    page = 1 # int | The index of the page to be returned. (optional) (default to 1)
+    page_size = 100 # int | The number of objects per page to be returned. (optional) (default to 100)
+    strict_pagination = False # bool | Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. (optional) (default to False)
+    sort = 'label:asc' # str | Defines the collection sort order. (optional)
+    filter_logic = and # str | Describes how the filters, if any, should be applied (optional) (default to and)
+    filter = ['label__endswith:0003'] # List[str] | One or more collection filters. (optional)
+
+    try:
+        # List of harvest package objects for a single harvest.
+        api_response = api_instance.v2_harvests_packages_get(license_number, package_id, page=page, page_size=page_size, strict_pagination=strict_pagination, sort=sort, filter_logic=filter_logic, filter=filter)
+        print("The response of PackagesApi->v2_harvests_packages_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PackagesApi->v2_harvests_packages_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **license_number** | **str**| The unique identifier for the license associated with this request. | 
+ **package_id** | **float**| ID of the target harvest | 
+ **page** | **int**| The index of the page to be returned. | [optional] [default to 1]
+ **page_size** | **int**| The number of objects per page to be returned. | [optional] [default to 100]
+ **strict_pagination** | **bool**| Toggles strict pagination. Defaults to &#x60;false&#x60; (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. | [optional] [default to False]
+ **sort** | **str**| Defines the collection sort order. | [optional] 
+ **filter_logic** | **str**| Describes how the filters, if any, should be applied | [optional] [default to and]
+ **filter** | [**List[str]**](str.md)| One or more collection filters. | [optional] 
+
+### Return type
+
+[**V2HarvestsPlantsGet200Response**](V2HarvestsPlantsGet200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A list of harvest package objects for the specified harvest. |  -  |
+**401** | The harvest with id&#x3D;{harvestId} was not found in the specified license, or you do not have access to view this harvest&#39;s packages |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -369,6 +467,96 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A list of active packages for this license |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v2_packages_active_super_get**
+> V2PackagesActiveSuperGet200Response v2_packages_active_super_get(license_number, page=page, page_size=page_size, sort=sort, filter=filter, filter_logic=filter_logic, strict_pagination=strict_pagination, include=include)
+
+List of active superpackages. Additional metadata can be added using the `include` param.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import t3api
+from t3api.models.v2_packages_active_super_get200_response import V2PackagesActiveSuperGet200Response
+from t3api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.trackandtrace.tools
+# See configuration.py for a list of all supported configuration parameters.
+configuration = t3api.Configuration(
+    host = "https://api.trackandtrace.tools"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = t3api.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with t3api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = t3api.PackagesApi(api_client)
+    license_number = 'LIC-00001' # str | The unique identifier for the license associated with this request.
+    page = 1 # int | The index of the page to be returned. (optional) (default to 1)
+    page_size = 100 # int | The number of objects per page to be returned. (optional) (default to 100)
+    sort = 'label:asc' # str | Defines the collection sort order. (optional)
+    filter = ['label__endswith:0003'] # List[str] | One or more collection filters. (optional)
+    filter_logic = and # str | Describes how the filters, if any, should be applied (optional) (default to and)
+    strict_pagination = False # bool | Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. (optional) (default to False)
+    include = ['sourceHarvests'] # List[str] | One or more superpackage mixins. Each mixin will include the raw data from Metrc, but also will populate the extracted metadata.  - labResults     Extracted metadata:     - extractedLabResults     - testSamplePackageLabels  - labResultBatches     Extracted metadata:     - extractedLabResults     - testSamplePackageLabels  - sourceHarvests     Extracted metadata:     - harvestDates  - history     Extracted metadata:     - initialQuantity  - coaFiles (not yet supported)   Extracted metadata:     - extractedLabResults  (optional)
+
+    try:
+        # List of active superpackages. Additional metadata can be added using the `include` param.
+        api_response = api_instance.v2_packages_active_super_get(license_number, page=page, page_size=page_size, sort=sort, filter=filter, filter_logic=filter_logic, strict_pagination=strict_pagination, include=include)
+        print("The response of PackagesApi->v2_packages_active_super_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PackagesApi->v2_packages_active_super_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **license_number** | **str**| The unique identifier for the license associated with this request. | 
+ **page** | **int**| The index of the page to be returned. | [optional] [default to 1]
+ **page_size** | **int**| The number of objects per page to be returned. | [optional] [default to 100]
+ **sort** | **str**| Defines the collection sort order. | [optional] 
+ **filter** | [**List[str]**](str.md)| One or more collection filters. | [optional] 
+ **filter_logic** | **str**| Describes how the filters, if any, should be applied | [optional] [default to and]
+ **strict_pagination** | **bool**| Toggles strict pagination. Defaults to &#x60;false&#x60; (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. | [optional] [default to False]
+ **include** | [**List[str]**](str.md)| One or more superpackage mixins. Each mixin will include the raw data from Metrc, but also will populate the extracted metadata.  - labResults     Extracted metadata:     - extractedLabResults     - testSamplePackageLabels  - labResultBatches     Extracted metadata:     - extractedLabResults     - testSamplePackageLabels  - sourceHarvests     Extracted metadata:     - harvestDates  - history     Extracted metadata:     - initialQuantity  - coaFiles (not yet supported)   Extracted metadata:     - extractedLabResults  | [optional] 
+
+### Return type
+
+[**V2PackagesActiveSuperGet200Response**](V2PackagesActiveSuperGet200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A list of active superpackages for this license |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1068,6 +1256,96 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A list of in-transit packages for this license |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v2_packages_intransit_super_get**
+> V2PackagesActiveSuperGet200Response v2_packages_intransit_super_get(license_number, page=page, page_size=page_size, sort=sort, filter=filter, filter_logic=filter_logic, strict_pagination=strict_pagination, include=include)
+
+List of intransit superpackages. Additional metadata can be added using the `include` param.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import t3api
+from t3api.models.v2_packages_active_super_get200_response import V2PackagesActiveSuperGet200Response
+from t3api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.trackandtrace.tools
+# See configuration.py for a list of all supported configuration parameters.
+configuration = t3api.Configuration(
+    host = "https://api.trackandtrace.tools"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = t3api.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with t3api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = t3api.PackagesApi(api_client)
+    license_number = 'LIC-00001' # str | The unique identifier for the license associated with this request.
+    page = 1 # int | The index of the page to be returned. (optional) (default to 1)
+    page_size = 100 # int | The number of objects per page to be returned. (optional) (default to 100)
+    sort = 'label:asc' # str | Defines the collection sort order. (optional)
+    filter = ['label__endswith:0003'] # List[str] | One or more collection filters. (optional)
+    filter_logic = and # str | Describes how the filters, if any, should be applied (optional) (default to and)
+    strict_pagination = False # bool | Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. (optional) (default to False)
+    include = ['sourceHarvests'] # List[str] | One or more superpackage mixins. Each mixin will include the raw data from Metrc, but also will populate the extracted metadata.  - labResults     Extracted metadata:     - extractedLabResults     - testSamplePackageLabels  - labResultBatches     Extracted metadata:     - extractedLabResults     - testSamplePackageLabels  - sourceHarvests     Extracted metadata:     - harvestDates  - history     Extracted metadata:     - initialQuantity  - coaFiles (not yet supported)   Extracted metadata:     - extractedLabResults  (optional)
+
+    try:
+        # List of intransit superpackages. Additional metadata can be added using the `include` param.
+        api_response = api_instance.v2_packages_intransit_super_get(license_number, page=page, page_size=page_size, sort=sort, filter=filter, filter_logic=filter_logic, strict_pagination=strict_pagination, include=include)
+        print("The response of PackagesApi->v2_packages_intransit_super_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PackagesApi->v2_packages_intransit_super_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **license_number** | **str**| The unique identifier for the license associated with this request. | 
+ **page** | **int**| The index of the page to be returned. | [optional] [default to 1]
+ **page_size** | **int**| The number of objects per page to be returned. | [optional] [default to 100]
+ **sort** | **str**| Defines the collection sort order. | [optional] 
+ **filter** | [**List[str]**](str.md)| One or more collection filters. | [optional] 
+ **filter_logic** | **str**| Describes how the filters, if any, should be applied | [optional] [default to and]
+ **strict_pagination** | **bool**| Toggles strict pagination. Defaults to &#x60;false&#x60; (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. | [optional] [default to False]
+ **include** | [**List[str]**](str.md)| One or more superpackage mixins. Each mixin will include the raw data from Metrc, but also will populate the extracted metadata.  - labResults     Extracted metadata:     - extractedLabResults     - testSamplePackageLabels  - labResultBatches     Extracted metadata:     - extractedLabResults     - testSamplePackageLabels  - sourceHarvests     Extracted metadata:     - harvestDates  - history     Extracted metadata:     - initialQuantity  - coaFiles (not yet supported)   Extracted metadata:     - extractedLabResults  | [optional] 
+
+### Return type
+
+[**V2PackagesActiveSuperGet200Response**](V2PackagesActiveSuperGet200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A list of intransit superpackages for this license |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1952,6 +2230,94 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A list of eligible facilities for this license |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v2_transfers_create_packages_get**
+> V2PackagesActiveGet200Response v2_transfers_create_packages_get(license_number, page=page, page_size=page_size, strict_pagination=strict_pagination, sort=sort, filter_logic=filter_logic, filter=filter)
+
+List of packages eligible to be used in creating new transfers
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import t3api
+from t3api.models.v2_packages_active_get200_response import V2PackagesActiveGet200Response
+from t3api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.trackandtrace.tools
+# See configuration.py for a list of all supported configuration parameters.
+configuration = t3api.Configuration(
+    host = "https://api.trackandtrace.tools"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = t3api.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with t3api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = t3api.PackagesApi(api_client)
+    license_number = 'LIC-00001' # str | The unique identifier for the license associated with this request.
+    page = 1 # int | The index of the page to be returned. (optional) (default to 1)
+    page_size = 100 # int | The number of objects per page to be returned. (optional) (default to 100)
+    strict_pagination = False # bool | Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. (optional) (default to False)
+    sort = 'label:asc' # str | Defines the collection sort order. (optional)
+    filter_logic = and # str | Describes how the filters, if any, should be applied (optional) (default to and)
+    filter = ['label__endswith:0003'] # List[str] | One or more collection filters. (optional)
+
+    try:
+        # List of packages eligible to be used in creating new transfers
+        api_response = api_instance.v2_transfers_create_packages_get(license_number, page=page, page_size=page_size, strict_pagination=strict_pagination, sort=sort, filter_logic=filter_logic, filter=filter)
+        print("The response of PackagesApi->v2_transfers_create_packages_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PackagesApi->v2_transfers_create_packages_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **license_number** | **str**| The unique identifier for the license associated with this request. | 
+ **page** | **int**| The index of the page to be returned. | [optional] [default to 1]
+ **page_size** | **int**| The number of objects per page to be returned. | [optional] [default to 100]
+ **strict_pagination** | **bool**| Toggles strict pagination. Defaults to &#x60;false&#x60; (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page. | [optional] [default to False]
+ **sort** | **str**| Defines the collection sort order. | [optional] 
+ **filter_logic** | **str**| Describes how the filters, if any, should be applied | [optional] [default to and]
+ **filter** | [**List[str]**](str.md)| One or more collection filters. | [optional] 
+
+### Return type
+
+[**V2PackagesActiveGet200Response**](V2PackagesActiveGet200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A list of eligible packages for this license |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**transporter_id** | **float** | Facility ID of the transporter facility. To find eligible transporter facilities, use the [Transporters](#/Create%20Transfer/get_v2_packages_create_transfer_transporter_list) endpoint. | 
+**transporter_id** | **float** | Facility ID of the transporter facility.   To find eligible transporter facilities, use the [Transporters](#/Create%20Transfer/get_v2_packages_create_transfer_transporter_list) endpoint.  | 
 **phone_number_for_questions** | **str** | Phone number for inquiries. | 
 **transporter_details** | [**List[V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInnerTransporterDetailsInner]**](V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInnerTransporterDetailsInner.md) | Details of the transporter. | 
 

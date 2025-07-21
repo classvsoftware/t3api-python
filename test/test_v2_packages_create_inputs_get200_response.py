@@ -41,6 +41,7 @@ class TestV2PackagesCreateInputsGet200Response(unittest.TestCase):
                 allowed_production_product_category_ids = [1,2,3],
                 details = '',
                 harvest_batches = '',
+                growth_phase = 0,
                 is_product_destruction = False,
                 item_category_ids = '',
                 items = [],
@@ -56,6 +57,9 @@ class TestV2PackagesCreateInputsGet200Response(unittest.TestCase):
                         location_type_id = 1, 
                         location_type_name = 'Default Location Type', 
                         name = 'Row 01', )
+                    ],
+                sublocations = [
+                    ''
                     ],
                 packages = [],
                 patient_affiliations = '',

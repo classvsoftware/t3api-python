@@ -35,45 +35,97 @@ class TestT3GenerateLabelsPayload(unittest.TestCase):
         model = T3GenerateLabelsPayload()
         if include_optional:
             return T3GenerateLabelsPayload(
-                label_template_layout_id = 'AVERY_8160__2_625Wx1_0H',
-                label_content_layout_id = 'COL_TEXT_CODE128_TEXT',
-                label_content_data = [
-                    t3api.models._v2_files_labels_generate_post_request_label_content_data_inner._v2_files_labels_generate_post_request_labelContentData_inner(
-                        text1 = 'text1', 
-                        text2 = 'text2', 
-                        text3 = 'text3', 
-                        text4 = 'text4', 
-                        text5 = 'text5', 
-                        text6 = 'text6', 
-                        text7 = 'text7', 
-                        text8 = 'text8', )
-                    ],
-                rendering_options = t3api.models._v2_files_labels_generate_post_request_rendering_options._v2_files_labels_generate_post_request_renderingOptions(
+                label_template_layout_config = t3api.models.t3_label_template_layout_config.T3LabelTemplateLayoutConfig(
+                    name = '', 
+                    description = '', 
+                    pagesize_xin = 1.337, 
+                    pagesize_yin = 1.337, 
+                    label_width_in = 1.337, 
+                    label_height_in = 1.337, 
+                    x_gap_in = 1.337, 
+                    y_gap_in = 1.337, 
+                    num_columns = 56, 
+                    num_rows = 56, 
+                    page_margin_top_in = 1.337, 
+                    page_margin_left_in = 1.337, 
+                    label_padding_xin = 1.337, 
+                    label_padding_yin = 1.337, ),
+                label_content_layout_config = t3api.models.t3_label_content_layout_config.T3LabelContentLayoutConfig(
+                    name = '', 
+                    description = '', 
+                    min_aspect_ratio = 1.337, 
+                    max_aspect_ratio = 1.337, 
+                    label_content_layout_elements = [
+                        t3api.models.t3_label_content_layout_element.T3LabelContentLayoutElement(
+                            description = '', 
+                            element_type = 'TEXT', 
+                            x_start_fraction = 1.337, 
+                            x_end_fraction = 1.337, 
+                            y_start_fraction = 1.337, 
+                            y_end_fraction = 1.337, 
+                            value_template = '', 
+                            paragraph_font_name = 'Helvetica', 
+                            paragraph_font_size = 1.337, 
+                            horizontal_paragraph_alignment = 'CENTER', 
+                            vertical_paragraph_alignment = 'CENTER', 
+                            paragraph_spacing = 1.337, 
+                            enabled = True, 
+                            paragraph_text_resize_strategy = 'ALLOW_OVERFLOW', )
+                        ], ),
+                label_content_data_list = [{"package":{"label":"12345"}},{"package":{"label":"67890"}}],
+                common_content_data = {"facilityContactinfo":{"phoneNumber":"123-456-7890"}},
+                images = {"logo":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMBgKZzmtkAAAAASUVORK5CYII="},
+                rendering_options = t3api.models.t3_label_rendering_options.T3LabelRenderingOptions(
                     debug = True, 
-                    enable_promo = True, 
+                    enable_watermark = True, 
                     reverse_print_order = True, 
-                    rotation_degrees = 1.337, 
+                    rotation_degrees = 0, 
+                    label_copies = 1, 
                     barcode_bar_thickness = 1.0, 
-                    label_margin_thickness = 1.0, ),
-                debug = True,
-                force_promo = True,
+                    label_margin_thickness = 1.0, 
+                    rendering_version = 1, ),
                 disposition = 'inline'
             )
         else:
             return T3GenerateLabelsPayload(
-                label_template_layout_id = 'AVERY_8160__2_625Wx1_0H',
-                label_content_layout_id = 'COL_TEXT_CODE128_TEXT',
-                label_content_data = [
-                    t3api.models._v2_files_labels_generate_post_request_label_content_data_inner._v2_files_labels_generate_post_request_labelContentData_inner(
-                        text1 = 'text1', 
-                        text2 = 'text2', 
-                        text3 = 'text3', 
-                        text4 = 'text4', 
-                        text5 = 'text5', 
-                        text6 = 'text6', 
-                        text7 = 'text7', 
-                        text8 = 'text8', )
-                    ],
+                label_template_layout_config = t3api.models.t3_label_template_layout_config.T3LabelTemplateLayoutConfig(
+                    name = '', 
+                    description = '', 
+                    pagesize_xin = 1.337, 
+                    pagesize_yin = 1.337, 
+                    label_width_in = 1.337, 
+                    label_height_in = 1.337, 
+                    x_gap_in = 1.337, 
+                    y_gap_in = 1.337, 
+                    num_columns = 56, 
+                    num_rows = 56, 
+                    page_margin_top_in = 1.337, 
+                    page_margin_left_in = 1.337, 
+                    label_padding_xin = 1.337, 
+                    label_padding_yin = 1.337, ),
+                label_content_layout_config = t3api.models.t3_label_content_layout_config.T3LabelContentLayoutConfig(
+                    name = '', 
+                    description = '', 
+                    min_aspect_ratio = 1.337, 
+                    max_aspect_ratio = 1.337, 
+                    label_content_layout_elements = [
+                        t3api.models.t3_label_content_layout_element.T3LabelContentLayoutElement(
+                            description = '', 
+                            element_type = 'TEXT', 
+                            x_start_fraction = 1.337, 
+                            x_end_fraction = 1.337, 
+                            y_start_fraction = 1.337, 
+                            y_end_fraction = 1.337, 
+                            value_template = '', 
+                            paragraph_font_name = 'Helvetica', 
+                            paragraph_font_size = 1.337, 
+                            horizontal_paragraph_alignment = 'CENTER', 
+                            vertical_paragraph_alignment = 'CENTER', 
+                            paragraph_spacing = 1.337, 
+                            enabled = True, 
+                            paragraph_text_resize_strategy = 'ALLOW_OVERFLOW', )
+                        ], ),
+                label_content_data_list = [{"package":{"label":"12345"}},{"package":{"label":"67890"}}],
         )
         """
 

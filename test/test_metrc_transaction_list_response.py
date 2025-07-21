@@ -109,7 +109,17 @@ class TestMetrcTransactionListResponse(unittest.TestCase):
                         sales_tax = 1.337, 
                         trade_sample_sale_verified = True, 
                         recall_product_sale_verified = True, 
-                        qr_code_document = '', )
+                        qr_code_document = '', 
+                        item_unit_thc_a_percent = 1.337, 
+                        item_unit_thc_a_content = 1.337, 
+                        item_unit_thc_a_content_unit_of_measure_abbreviation = '', 
+                        item_unit_thc_a_content_dose = 1.337, 
+                        item_unit_thc_a_content_dose_unit_of_measure_abbreviation = '', 
+                        item_unit_cbd_a_percent = 1.337, 
+                        item_unit_cbd_a_content = 1.337, 
+                        item_unit_cbd_a_content_unit_of_measure_abbreviation = '', 
+                        item_unit_cbd_a_content_dose = 1.337, 
+                        item_unit_cbd_a_content_dose_unit_of_measure_abbreviation = '', )
                     ]
             )
         else:

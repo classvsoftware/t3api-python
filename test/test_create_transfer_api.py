@@ -40,6 +40,13 @@ class TestCreateTransferApi(unittest.TestCase):
         """
         pass
 
+    def test_v2_transfers_create_packages_get(self) -> None:
+        """Test case for v2_transfers_create_packages_get
+
+        List of packages eligible to be used in creating new transfers
+        """
+        pass
+
     def test_v2_transfers_create_post(self) -> None:
         """Test case for v2_transfers_create_post
 
@@ -51,6 +58,13 @@ class TestCreateTransferApi(unittest.TestCase):
         """Test case for v2_transfers_create_transporters_get
 
         List of transporter facilities eligible to be used in creating new transfers
+        """
+        pass
+
+    def test_v2_transfers_templates_create_post(self) -> None:
+        """Test case for v2_transfers_templates_create_post
+
+        Create one or more transfer templates
         """
         pass
 

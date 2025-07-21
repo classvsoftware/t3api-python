@@ -70,7 +70,7 @@ Name | Type | Description | Notes
 **approval_rejected_by_user** | **str** | Username of the person who rejected the approval | [optional] 
 **approval_rejected_facility_license_number** | **str** | License number of the facility where approval was rejected | [optional] 
 **approval_reject_reason_id** | **str** | Reason ID for the approval rejection | [optional] 
-**tolling_agreement_file_system_id** | **float** |  | [optional] 
+**pdf_document_file_system_id** | **float** |  | [optional] 
 **invoice_number** | **str** |  | [optional] 
 **line_number** | **int** |  | [optional] 
 

@@ -56,6 +56,7 @@ class TestMetrcHarvestListResponse(unittest.TestCase):
                         source_strain_names = 'Watermelon Gushers', 
                         multi_strain = False, 
                         drying_location_name = 'Drying Room 001', 
+                        drying_sublocation_name = '', 
                         drying_location_type_name = 'Default Location Type', 
                         patient_license_number = '', 
                         current_weight = 1915.0, 
@@ -75,7 +76,6 @@ class TestMetrcHarvestListResponse(unittest.TestCase):
                         finished_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         is_archived = False, 
                         archived_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                        is_on_trip = False, 
                         last_modified = '2024-07-26T20:00Z', )
                     ]
             )

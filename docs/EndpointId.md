@@ -12,6 +12,14 @@ Uniquely identifies a Metrc endpoint used to query data.
 
 * `ACTIVE_ITEMS` (value: `'ACTIVE_ITEMS'`)
 
+* `DISCONTINUE_ITEMS` (value: `'DISCONTINUE_ITEMS'`)
+
+* `ACTIVE_STRAINS` (value: `'ACTIVE_STRAINS'`)
+
+* `DISCONTINUE_STRAINS` (value: `'DISCONTINUE_STRAINS'`)
+
+* `CREATE_STRAINS` (value: `'CREATE_STRAINS'`)
+
 * `ACTIVE_PACKAGES` (value: `'ACTIVE_PACKAGES'`)
 
 * `ONHOLD_PACKAGES` (value: `'ONHOLD_PACKAGES'`)

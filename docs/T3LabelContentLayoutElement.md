@@ -7,14 +7,13 @@ Describes the bounding rectangle and styling of one piece of a label layout.
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **str** |  | [optional] 
-**element_type** | [**T3LabelContentLayoutElementType**](T3LabelContentLayoutElementType.md) |  | [optional] 
+**element_type** | [**T3LabelContentLayoutElementType**](T3LabelContentLayoutElementType.md) |  | 
 **x_start_fraction** | **float** | The left edge of the bounding box for this element, represented as a fraction of the total width of the content layout. | [optional] [default to 0]
 **x_end_fraction** | **float** | The right edge of the bounding box for this element, represented as a fraction of the total width of the content layout. | [optional] [default to 1]
 **y_start_fraction** | **float** | The bottom edge of the bounding box for this element, represented as a fraction of the total height of the content layout. | [optional] [default to 0]
 **y_end_fraction** | **float** |  | [optional] [default to 1]
-**label_content_data_key** | **str** |  | [optional] 
-**value_template** | **str** |  | [optional] 
-**paragraph_font_name** | **str** |  | [optional] [default to 'Helvetica']
+**value_template** | **str** | A general purpose template string. This is compiled with Jinja.  Values can be interpolated from the following places: - Each   | [optional] 
+**paragraph_font_name** | [**T3LabelContentLayoutElementParagraphFontName**](T3LabelContentLayoutElementParagraphFontName.md) |  | [optional] [default to T3LabelContentLayoutElementParagraphFontName.HELVETICA]
 **paragraph_font_size** | **float** |  | [optional] [default to 6]
 **horizontal_paragraph_alignment** | **str** |  | [optional] [default to 'CENTER']
 **vertical_paragraph_alignment** | **str** |  | [optional] [default to 'CENTER']

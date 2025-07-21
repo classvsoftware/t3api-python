@@ -100,7 +100,7 @@ class TestMetrcOutgoingTransfer(unittest.TestCase):
                 approval_rejected_by_user = 'Mike Smith',
                 approval_rejected_facility_license_number = '',
                 approval_reject_reason_id = '',
-                tolling_agreement_file_system_id = 0,
+                pdf_document_file_system_id = 0,
                 invoice_number = '',
                 line_number = 56
             )

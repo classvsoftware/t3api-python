@@ -6,15 +6,11 @@ Data describing how each label will be laid out, including a list of pieces and 
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**enabled** | **bool** |  | [optional] 
-**visible** | **bool** |  | [optional] 
-**requires_t3plus** | **bool** |  | [optional] 
+**name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
-**aspect_ratio** | **float** |  | [optional] 
 **min_aspect_ratio** | **float** |  | [optional] 
 **max_aspect_ratio** | **float** |  | [optional] 
-**label_content_layout_elements** | [**List[T3LabelContentLayoutElement]**](T3LabelContentLayoutElement.md) |  | [optional] 
-**label_content_data_json_schema** | **object** |  | [optional] 
+**label_content_layout_elements** | [**List[T3LabelContentLayoutElement]**](T3LabelContentLayoutElement.md) |  | 
 
 ## Example
 

@@ -51,6 +51,7 @@ class TestMetrcPlantBatchReportResponse(unittest.TestCase):
                         name = 'PLNT12345_07.19.24', 
                         plant_batch_type_name = 'Clone', 
                         location_name = 'Row 01', 
+                        sublocation_name = '', 
                         location_type_name = 'Default Location Type', 
                         strain_id = 12345, 
                         strain_name = 'Wedding Cake', 
@@ -64,7 +65,6 @@ class TestMetrcPlantBatchReportResponse(unittest.TestCase):
                         source_plant_batch_names = '', 
                         multi_plant_batch = False, 
                         planted_date = 'Thu Jul 18 19:00:00 CDT 2024', 
-                        is_on_trip = False, 
                         last_modified = '2024-07-26T13:00Z', 
                         is_on_hold = False, )
                     ]

@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**v2_plants_flowering_report_get**](ReportsApi.md#v2_plants_flowering_report_get) | **GET** /v2/plants/flowering/report | Generate a report of all flowering plants
 [**v2_plants_vegetative_report_get**](ReportsApi.md#v2_plants_vegetative_report_get) | **GET** /v2/plants/vegetative/report | Generate a report of all vegetative plants
 [**v2_sales_active_report_get**](ReportsApi.md#v2_sales_active_report_get) | **GET** /v2/sales/active/report | Generate a report of all active sales
+[**v2_strains_report_get**](ReportsApi.md#v2_strains_report_get) | **GET** /v2/strains/report | Generate a report of all active strains
 [**v2_transfers_incoming_manifest_report_get**](ReportsApi.md#v2_transfers_incoming_manifest_report_get) | **GET** /v2/transfers/incoming/manifest/report | Generate a report of all incoming transfer manifests
 [**v2_transfers_outgoing_manifest_report_get**](ReportsApi.md#v2_transfers_outgoing_manifest_report_get) | **GET** /v2/transfers/outgoing/manifest/report | Generate a report of all outgoing transfer manifests
 
@@ -1018,6 +1019,99 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A list of active sales receipts for this license |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v2_strains_report_get**
+> V2StrainsReportGet200Response v2_strains_report_get(license_number, secret_key=secret_key, filter_logic=filter_logic, content_type=content_type, prepend_csv_metadata=prepend_csv_metadata, sort=sort, filter=filter, fieldnames=fieldnames)
+
+Generate a report of all active strains
+
+**Note: this endpoint supports secret key authentication.**
+
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import t3api
+from t3api.models.v2_strains_report_get200_response import V2StrainsReportGet200Response
+from t3api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.trackandtrace.tools
+# See configuration.py for a list of all supported configuration parameters.
+configuration = t3api.Configuration(
+    host = "https://api.trackandtrace.tools"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = t3api.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with t3api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = t3api.ReportsApi(api_client)
+    license_number = 'LIC-00001' # str | The unique identifier for the license associated with this request.
+    secret_key = '2616ec56-fa2a-4c5b-86c0-acacf23c9ef7' # str | Your secret key, if you wish to authenticate via query params. Secret keys can be manually generated [here](/v2/pages/secret-key).  (optional)
+    filter_logic = and # str | Describes how the filters, if any, should be applied (optional) (default to and)
+    content_type = json # str | Specifies how the report should be formatted. Can be returned as json or csv. *This can also be defined in the Content-Type header*  (optional) (default to json)
+    prepend_csv_metadata = true # str | Controls if the CSV header metadata should be included in the output. When set to false, only the column headers and data will be returned.  (optional) (default to true)
+    sort = 'label:asc' # str | Defines the collection sort order. (optional)
+    filter = ['label__endswith:0003'] # List[str] | One or more collection filters. (optional)
+    fieldnames = 'name,sativaPercentage,indicaPercentage,isUsed' # str | Defines which strain fields should appear in the report data. (optional) (default to 'name,sativaPercentage,indicaPercentage,isUsed')
+
+    try:
+        # Generate a report of all active strains
+        api_response = api_instance.v2_strains_report_get(license_number, secret_key=secret_key, filter_logic=filter_logic, content_type=content_type, prepend_csv_metadata=prepend_csv_metadata, sort=sort, filter=filter, fieldnames=fieldnames)
+        print("The response of ReportsApi->v2_strains_report_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ReportsApi->v2_strains_report_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **license_number** | **str**| The unique identifier for the license associated with this request. | 
+ **secret_key** | **str**| Your secret key, if you wish to authenticate via query params. Secret keys can be manually generated [here](/v2/pages/secret-key).  | [optional] 
+ **filter_logic** | **str**| Describes how the filters, if any, should be applied | [optional] [default to and]
+ **content_type** | **str**| Specifies how the report should be formatted. Can be returned as json or csv. *This can also be defined in the Content-Type header*  | [optional] [default to json]
+ **prepend_csv_metadata** | **str**| Controls if the CSV header metadata should be included in the output. When set to false, only the column headers and data will be returned.  | [optional] [default to true]
+ **sort** | **str**| Defines the collection sort order. | [optional] 
+ **filter** | [**List[str]**](str.md)| One or more collection filters. | [optional] 
+ **fieldnames** | **str**| Defines which strain fields should appear in the report data. | [optional] [default to &#39;name,sativaPercentage,indicaPercentage,isUsed&#39;]
+
+### Return type
+
+[**V2StrainsReportGet200Response**](V2StrainsReportGet200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/csv
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A list of active strains for this license |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

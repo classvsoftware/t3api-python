@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **total_pages** | **int** |  | [optional] 
 **page_size** | **int** |  | [optional] 
 **total** | **int** |  | [optional] 
-**data** | [**List[MetrcSuperpackage]**](MetrcSuperpackage.md) |  | [optional] 
+**data** | [**List[MetrcPackage]**](MetrcPackage.md) |  | [optional] 
 
 ## Example
 

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **name** | **str** | The name of the plant batch. In CA, this is a plant tag label. | [optional] 
 **plant_batch_type_name** | **str** | The type of the plant batch, typically a category or classification. | [optional] 
 **location_name** | **str** | The name of the location where the plant batch is stored or processed. | [optional] 
+**sublocation_name** | **str** |  | [optional] 
 **location_type_name** | **str** | The type of location. | [optional] 
 **strain_id** | **int** |  | [optional] 
 **strain_name** | **str** | The name of the strain of the plants. | [optional] 
@@ -27,7 +28,6 @@ Name | Type | Description | Notes
 **source_plant_batch_names** | **str** | Names of the source plant batches, if any. | [optional] 
 **multi_plant_batch** | **bool** | Indicates if the batch contains multiple plants. | [optional] 
 **planted_date** | **date** | The date the plants were planted. | [optional] 
-**is_on_trip** | **bool** | Indicates if the batch is currently on a trip or being transported. | [optional] 
 **last_modified** | **datetime** | The last modified timestamp for the plant batch data. | [optional] 
 **is_on_hold** | **bool** | Indicates if the batch is currently on hold. | [optional] 
 

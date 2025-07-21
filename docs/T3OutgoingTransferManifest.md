@@ -156,7 +156,7 @@ Name | Type | Description | Notes
 **package_product_name** | **str** | Name of the product | 
 **package_product_category_name** | **str** | Category name of the product | 
 **package_item_strain_name** | **str** | Strain name of the item | 
-**package_lab_testing_state_name** | **str** | Lab testing status of the item | 
+**package_lab_testing_state_name** | [**LabTestingStates**](LabTestingStates.md) |  | 
 **package_shipped_quantity** | **float** | Quantity shipped | 
 **package_shipped_unit_of_measure_abbreviation** | **str** | Unit of measure for the shipped quantity | 
 **package_gross_weight** | **float** | Gross weight of the package | 

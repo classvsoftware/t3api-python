@@ -316,12 +316,18 @@ Class | Method | HTTP request | Description
 *CreatePackageApi* | [**v2_packages_create_post**](docs/CreatePackageApi.md#v2_packages_create_post) | **POST** /v2/packages/create | Create one or more packages from existing active packages
 *CreatePackageApi* | [**v2_packages_create_source_items_get**](docs/CreatePackageApi.md#v2_packages_create_source_items_get) | **GET** /v2/packages/create/source-items | List of items eligible to be used in creating new packages
 *CreatePackageApi* | [**v2_packages_create_source_packages_get**](docs/CreatePackageApi.md#v2_packages_create_source_packages_get) | **GET** /v2/packages/create/source-packages | List of packages eligible to be used in creating new packages
+*CreateStrainsApi* | [**v2_strains_create_post**](docs/CreateStrainsApi.md#v2_strains_create_post) | **POST** /v2/strains/create | Create one or more strains
 *CreateTransferApi* | [**v2_transfers_create_destinations_get**](docs/CreateTransferApi.md#v2_transfers_create_destinations_get) | **GET** /v2/transfers/create/destinations | List of destination facilities eligible to be used in creating new transfers
 *CreateTransferApi* | [**v2_transfers_create_inputs_get**](docs/CreateTransferApi.md#v2_transfers_create_inputs_get) | **GET** /v2/transfers/create/inputs | Input data used for creating new transers
+*CreateTransferApi* | [**v2_transfers_create_packages_get**](docs/CreateTransferApi.md#v2_transfers_create_packages_get) | **GET** /v2/transfers/create/packages | List of packages eligible to be used in creating new transfers
 *CreateTransferApi* | [**v2_transfers_create_post**](docs/CreateTransferApi.md#v2_transfers_create_post) | **POST** /v2/transfers/create | Create one or more transfers
 *CreateTransferApi* | [**v2_transfers_create_transporters_get**](docs/CreateTransferApi.md#v2_transfers_create_transporters_get) | **GET** /v2/transfers/create/transporters | List of transporter facilities eligible to be used in creating new transfers
+*CreateTransferApi* | [**v2_transfers_templates_create_post**](docs/CreateTransferApi.md#v2_transfers_templates_create_post) | **POST** /v2/transfers/templates/create | Create one or more transfer templates
 *FacilitiesApi* | [**v2_transfers_create_destinations_get**](docs/FacilitiesApi.md#v2_transfers_create_destinations_get) | **GET** /v2/transfers/create/destinations | List of destination facilities eligible to be used in creating new transfers
 *FacilitiesApi* | [**v2_transfers_create_transporters_get**](docs/FacilitiesApi.md#v2_transfers_create_transporters_get) | **GET** /v2/transfers/create/transporters | List of transporter facilities eligible to be used in creating new transfers
+*FilesApi* | [**v2_items_photos_file_get**](docs/FilesApi.md#v2_items_photos_file_get) | **GET** /v2/items/photos/file | Get a photo for an item.
+*FilesApi* | [**v2_items_photos_get**](docs/FilesApi.md#v2_items_photos_get) | **GET** /v2/items/photos | List of item photo objects for a single item
+*FilesApi* | [**v2_transfers_manifest_get**](docs/FilesApi.md#v2_transfers_manifest_get) | **GET** /v2/transfers/manifest | Get the manifest PDF for a transfer.
 *FreeApi* | [**v2_auth_credentials_post**](docs/FreeApi.md#v2_auth_credentials_post) | **POST** /v2/auth/credentials | Authenticate with Metrc credentials
 *FreeApi* | [**v2_auth_whoami_get**](docs/FreeApi.md#v2_auth_whoami_get) | **GET** /v2/auth/whoami | Returns information about the authenticated user
 *FreeApi* | [**v2_files_labels_content_data_packages_active_post**](docs/FreeApi.md#v2_files_labels_content_data_packages_active_post) | **POST** /v2/files/labels/content-data/packages/active | For a given list of active packages, returns the needed ContentDataList to render the labels.
@@ -329,6 +335,9 @@ Class | Method | HTTP request | Description
 *FreeApi* | [**v2_files_labels_generate_post**](docs/FreeApi.md#v2_files_labels_generate_post) | **POST** /v2/files/labels/generate | Generate a PDF of labels.
 *FreeApi* | [**v2_files_labels_label_content_layouts_get**](docs/FreeApi.md#v2_files_labels_label_content_layouts_get) | **GET** /v2/files/labels/label-content-layouts | Returns a list of label content layouts
 *FreeApi* | [**v2_files_labels_label_template_layouts_get**](docs/FreeApi.md#v2_files_labels_label_template_layouts_get) | **GET** /v2/files/labels/label-template-layouts | Returns a list of label template layouts
+*FreeApi* | [**v2_labels_generate_post**](docs/FreeApi.md#v2_labels_generate_post) | **POST** /v2/labels/generate | Generate a PDF of labels.
+*FreeApi* | [**v2_labels_label_content_layouts_get**](docs/FreeApi.md#v2_labels_label_content_layouts_get) | **GET** /v2/labels/label-content-layouts | Returns a list of label content layouts
+*FreeApi* | [**v2_labels_label_template_layouts_get**](docs/FreeApi.md#v2_labels_label_template_layouts_get) | **GET** /v2/labels/label-template-layouts | Returns a list of label template layouts
 *FreeApi* | [**v2_licenses_get**](docs/FreeApi.md#v2_licenses_get) | **GET** /v2/licenses | List of accessible licenses
 *FreeApi* | [**v2_permissions_get**](docs/FreeApi.md#v2_permissions_get) | **GET** /v2/permissions | List of all permissions within a single view
 *FreeApi* | [**v2_permissions_views_get**](docs/FreeApi.md#v2_permissions_views_get) | **GET** /v2/permissions/views | List of all available permission views
@@ -340,6 +349,8 @@ Class | Method | HTTP request | Description
 *HarvestsApi* | [**v2_harvests_inactive_get**](docs/HarvestsApi.md#v2_harvests_inactive_get) | **GET** /v2/harvests/inactive | List of inactive harvests
 *HarvestsApi* | [**v2_harvests_inactive_report_get**](docs/HarvestsApi.md#v2_harvests_inactive_report_get) | **GET** /v2/harvests/inactive/report | Generate a report of all active harvests
 *HarvestsApi* | [**v2_harvests_onhold_get**](docs/HarvestsApi.md#v2_harvests_onhold_get) | **GET** /v2/harvests/onhold | List of on hold harvests
+*HarvestsApi* | [**v2_harvests_packages_get**](docs/HarvestsApi.md#v2_harvests_packages_get) | **GET** /v2/harvests/packages | List of harvest package objects for a single harvest.
+*HarvestsApi* | [**v2_harvests_plants_get**](docs/HarvestsApi.md#v2_harvests_plants_get) | **GET** /v2/harvests/plants | List of harvest plant objects for a single harvest.
 *HarvestsApi* | [**v2_packages_source_harvests_get**](docs/HarvestsApi.md#v2_packages_source_harvests_get) | **GET** /v2/packages/source-harvests | List of package source harvest objects for a single package
 *HistoryApi* | [**v2_harvests_history_get**](docs/HistoryApi.md#v2_harvests_history_get) | **GET** /v2/harvests/history | List of history objects for a single harvest.
 *HistoryApi* | [**v2_items_history_get**](docs/HistoryApi.md#v2_items_history_get) | **GET** /v2/items/history | List of item history objects for a single item
@@ -350,6 +361,8 @@ Class | Method | HTTP request | Description
 *ItemsApi* | [**v2_items_discontinue_post**](docs/ItemsApi.md#v2_items_discontinue_post) | **POST** /v2/items/discontinue | Discontinue one item
 *ItemsApi* | [**v2_items_get**](docs/ItemsApi.md#v2_items_get) | **GET** /v2/items | List of active items
 *ItemsApi* | [**v2_items_history_get**](docs/ItemsApi.md#v2_items_history_get) | **GET** /v2/items/history | List of item history objects for a single item
+*ItemsApi* | [**v2_items_photos_file_get**](docs/ItemsApi.md#v2_items_photos_file_get) | **GET** /v2/items/photos/file | Get a photo for an item.
+*ItemsApi* | [**v2_items_photos_get**](docs/ItemsApi.md#v2_items_photos_get) | **GET** /v2/items/photos | List of item photo objects for a single item
 *ItemsApi* | [**v2_items_report_get**](docs/ItemsApi.md#v2_items_report_get) | **GET** /v2/items/report | Generate a report of all active items
 *LabResultsApi* | [**v2_packages_labresult_batches_get**](docs/LabResultsApi.md#v2_packages_labresult_batches_get) | **GET** /v2/packages/labresult-batches | List of package lab result batch objects for a single package
 *LabResultsApi* | [**v2_packages_labresults_document_get**](docs/LabResultsApi.md#v2_packages_labresults_document_get) | **GET** /v2/packages/labresults/document | Get the COA PDF for a lab result.
@@ -359,6 +372,9 @@ Class | Method | HTTP request | Description
 *LabelsApi* | [**v2_files_labels_generate_post**](docs/LabelsApi.md#v2_files_labels_generate_post) | **POST** /v2/files/labels/generate | Generate a PDF of labels.
 *LabelsApi* | [**v2_files_labels_label_content_layouts_get**](docs/LabelsApi.md#v2_files_labels_label_content_layouts_get) | **GET** /v2/files/labels/label-content-layouts | Returns a list of label content layouts
 *LabelsApi* | [**v2_files_labels_label_template_layouts_get**](docs/LabelsApi.md#v2_files_labels_label_template_layouts_get) | **GET** /v2/files/labels/label-template-layouts | Returns a list of label template layouts
+*LabelsApi* | [**v2_labels_generate_post**](docs/LabelsApi.md#v2_labels_generate_post) | **POST** /v2/labels/generate | Generate a PDF of labels.
+*LabelsApi* | [**v2_labels_label_content_layouts_get**](docs/LabelsApi.md#v2_labels_label_content_layouts_get) | **GET** /v2/labels/label-content-layouts | Returns a list of label content layouts
+*LabelsApi* | [**v2_labels_label_template_layouts_get**](docs/LabelsApi.md#v2_labels_label_template_layouts_get) | **GET** /v2/labels/label-template-layouts | Returns a list of label template layouts
 *LicensesApi* | [**v2_licenses_get**](docs/LicensesApi.md#v2_licenses_get) | **GET** /v2/licenses | List of accessible licenses
 *ManifestsApi* | [**v2_transfers_incoming_manifest_report_get**](docs/ManifestsApi.md#v2_transfers_incoming_manifest_report_get) | **GET** /v2/transfers/incoming/manifest/report | Generate a report of all incoming transfer manifests
 *ManifestsApi* | [**v2_transfers_manifest_get**](docs/ManifestsApi.md#v2_transfers_manifest_get) | **GET** /v2/transfers/manifest | Get the manifest PDF for a transfer.
@@ -368,15 +384,21 @@ Class | Method | HTTP request | Description
 *ModifyPackagesApi* | [**v2_packages_unfinish_post**](docs/ModifyPackagesApi.md#v2_packages_unfinish_post) | **POST** /v2/packages/unfinish | Unfinish packages
 *ModifySalesReceiptsApi* | [**v2_sales_unfinalize_post**](docs/ModifySalesReceiptsApi.md#v2_sales_unfinalize_post) | **POST** /v2/sales/unfinalize | Unfinalize sales receipts
 *ModifySalesReceiptsApi* | [**v2_sales_void_post**](docs/ModifySalesReceiptsApi.md#v2_sales_void_post) | **POST** /v2/sales/void | Void one sales receipt
+*ModifyStrainsApi* | [**v2_strains_discontinue_post**](docs/ModifyStrainsApi.md#v2_strains_discontinue_post) | **POST** /v2/strains/discontinue | Discontinue one strain
 *PDFApi* | [**v2_files_labels_generate_post**](docs/PDFApi.md#v2_files_labels_generate_post) | **POST** /v2/files/labels/generate | Generate a PDF of labels.
 *PDFApi* | [**v2_files_labels_label_content_layouts_get**](docs/PDFApi.md#v2_files_labels_label_content_layouts_get) | **GET** /v2/files/labels/label-content-layouts | Returns a list of label content layouts
 *PDFApi* | [**v2_files_labels_label_template_layouts_get**](docs/PDFApi.md#v2_files_labels_label_template_layouts_get) | **GET** /v2/files/labels/label-template-layouts | Returns a list of label template layouts
+*PDFApi* | [**v2_labels_generate_post**](docs/PDFApi.md#v2_labels_generate_post) | **POST** /v2/labels/generate | Generate a PDF of labels.
+*PDFApi* | [**v2_labels_label_content_layouts_get**](docs/PDFApi.md#v2_labels_label_content_layouts_get) | **GET** /v2/labels/label-content-layouts | Returns a list of label content layouts
+*PDFApi* | [**v2_labels_label_template_layouts_get**](docs/PDFApi.md#v2_labels_label_template_layouts_get) | **GET** /v2/labels/label-template-layouts | Returns a list of label template layouts
 *PDFApi* | [**v2_packages_labresults_document_get**](docs/PDFApi.md#v2_packages_labresults_document_get) | **GET** /v2/packages/labresults/document | Get the COA PDF for a lab result.
 *PDFApi* | [**v2_transfers_manifest_get**](docs/PDFApi.md#v2_transfers_manifest_get) | **GET** /v2/transfers/manifest | Get the manifest PDF for a transfer.
 *PackagesApi* | [**v2_files_labels_content_data_packages_active_post**](docs/PackagesApi.md#v2_files_labels_content_data_packages_active_post) | **POST** /v2/files/labels/content-data/packages/active | For a given list of active packages, returns the needed ContentDataList to render the labels.
 *PackagesApi* | [**v2_files_labels_content_data_packages_intransit_post**](docs/PackagesApi.md#v2_files_labels_content_data_packages_intransit_post) | **POST** /v2/files/labels/content-data/packages/intransit | For a given list of in transit packages, returns the needed ContentDataList to render the labels.
+*PackagesApi* | [**v2_harvests_packages_get**](docs/PackagesApi.md#v2_harvests_packages_get) | **GET** /v2/harvests/packages | List of harvest package objects for a single harvest.
 *PackagesApi* | [**v2_packages_active_get**](docs/PackagesApi.md#v2_packages_active_get) | **GET** /v2/packages/active | List of active packages
 *PackagesApi* | [**v2_packages_active_report_get**](docs/PackagesApi.md#v2_packages_active_report_get) | **GET** /v2/packages/active/report | Generate a report of all active packages
+*PackagesApi* | [**v2_packages_active_super_get**](docs/PackagesApi.md#v2_packages_active_super_get) | **GET** /v2/packages/active/super | List of active superpackages. Additional metadata can be added using the &#x60;include&#x60; param.
 *PackagesApi* | [**v2_packages_create_inputs_get**](docs/PackagesApi.md#v2_packages_create_inputs_get) | **GET** /v2/packages/create/inputs | Input data used for creating new packages
 *PackagesApi* | [**v2_packages_create_post**](docs/PackagesApi.md#v2_packages_create_post) | **POST** /v2/packages/create | Create one or more packages from existing active packages
 *PackagesApi* | [**v2_packages_create_source_items_get**](docs/PackagesApi.md#v2_packages_create_source_items_get) | **GET** /v2/packages/create/source-items | List of items eligible to be used in creating new packages
@@ -385,6 +407,7 @@ Class | Method | HTTP request | Description
 *PackagesApi* | [**v2_packages_inactive_get**](docs/PackagesApi.md#v2_packages_inactive_get) | **GET** /v2/packages/inactive | List of inactive packages
 *PackagesApi* | [**v2_packages_intransit_get**](docs/PackagesApi.md#v2_packages_intransit_get) | **GET** /v2/packages/intransit | List of in transit packages
 *PackagesApi* | [**v2_packages_intransit_report_get**](docs/PackagesApi.md#v2_packages_intransit_report_get) | **GET** /v2/packages/intransit/report | Generate a report of all in-transit packages
+*PackagesApi* | [**v2_packages_intransit_super_get**](docs/PackagesApi.md#v2_packages_intransit_super_get) | **GET** /v2/packages/intransit/super | List of intransit superpackages. Additional metadata can be added using the &#x60;include&#x60; param.
 *PackagesApi* | [**v2_packages_labresult_batches_get**](docs/PackagesApi.md#v2_packages_labresult_batches_get) | **GET** /v2/packages/labresult-batches | List of package lab result batch objects for a single package
 *PackagesApi* | [**v2_packages_labresults_document_get**](docs/PackagesApi.md#v2_packages_labresults_document_get) | **GET** /v2/packages/labresults/document | Get the COA PDF for a lab result.
 *PackagesApi* | [**v2_packages_labresults_get**](docs/PackagesApi.md#v2_packages_labresults_get) | **GET** /v2/packages/labresults | List of package lab result objects for a single package
@@ -395,19 +418,23 @@ Class | Method | HTTP request | Description
 *PackagesApi* | [**v2_packages_transferred_report_get**](docs/PackagesApi.md#v2_packages_transferred_report_get) | **GET** /v2/packages/transferred/report | Generate a report of all transferred packages
 *PackagesApi* | [**v2_packages_unfinish_post**](docs/PackagesApi.md#v2_packages_unfinish_post) | **POST** /v2/packages/unfinish | Unfinish packages
 *PackagesApi* | [**v2_transfers_create_destinations_get**](docs/PackagesApi.md#v2_transfers_create_destinations_get) | **GET** /v2/transfers/create/destinations | List of destination facilities eligible to be used in creating new transfers
+*PackagesApi* | [**v2_transfers_create_packages_get**](docs/PackagesApi.md#v2_transfers_create_packages_get) | **GET** /v2/transfers/create/packages | List of packages eligible to be used in creating new transfers
 *PackagesApi* | [**v2_transfers_create_transporters_get**](docs/PackagesApi.md#v2_transfers_create_transporters_get) | **GET** /v2/transfers/create/transporters | List of transporter facilities eligible to be used in creating new transfers
 *PermissionsApi* | [**v2_permissions_get**](docs/PermissionsApi.md#v2_permissions_get) | **GET** /v2/permissions | List of all permissions within a single view
 *PermissionsApi* | [**v2_permissions_views_get**](docs/PermissionsApi.md#v2_permissions_views_get) | **GET** /v2/permissions/views | List of all available permission views
+*PhotosApi* | [**v2_items_photos_file_get**](docs/PhotosApi.md#v2_items_photos_file_get) | **GET** /v2/items/photos/file | Get a photo for an item.
+*PhotosApi* | [**v2_items_photos_get**](docs/PhotosApi.md#v2_items_photos_get) | **GET** /v2/items/photos | List of item photo objects for a single item
 *PlantBatchesApi* | [**v2_plantbatches_active_get**](docs/PlantBatchesApi.md#v2_plantbatches_active_get) | **GET** /v2/plantbatches/active | List of active plant batches
 *PlantBatchesApi* | [**v2_plantbatches_active_report_get**](docs/PlantBatchesApi.md#v2_plantbatches_active_report_get) | **GET** /v2/plantbatches/active/report | Generate a report of all active plant batches
 *PlantBatchesApi* | [**v2_plantbatches_history_get**](docs/PlantBatchesApi.md#v2_plantbatches_history_get) | **GET** /v2/plantbatches/history | List of history objects for a single plant batch
 *PlantBatchesApi* | [**v2_plantbatches_inactive_get**](docs/PlantBatchesApi.md#v2_plantbatches_inactive_get) | **GET** /v2/plantbatches/inactive | List of inactive plantbatches
 *PlantBatchesApi* | [**v2_plantbatches_onhold_get**](docs/PlantBatchesApi.md#v2_plantbatches_onhold_get) | **GET** /v2/plantbatches/onhold | List of on hold plantbatches
+*PlantsApi* | [**v2_harvests_plants_get**](docs/PlantsApi.md#v2_harvests_plants_get) | **GET** /v2/harvests/plants | List of harvest plant objects for a single harvest.
 *PlantsApi* | [**v2_plants_flowering_get**](docs/PlantsApi.md#v2_plants_flowering_get) | **GET** /v2/plants/flowering | List of flowering plants
 *PlantsApi* | [**v2_plants_flowering_report_get**](docs/PlantsApi.md#v2_plants_flowering_report_get) | **GET** /v2/plants/flowering/report | Generate a report of all flowering plants
 *PlantsApi* | [**v2_plants_history_get**](docs/PlantsApi.md#v2_plants_history_get) | **GET** /v2/plants/history | List of history objects for a single plant
 *PlantsApi* | [**v2_plants_inactive_get**](docs/PlantsApi.md#v2_plants_inactive_get) | **GET** /v2/plants/inactive | List of inactive plants
-*PlantsApi* | [**v2_plants_onhold_get**](docs/PlantsApi.md#v2_plants_onhold_get) | **GET** /v2/plants/onhold | List of on hold plants
+*PlantsApi* | [**v2_plants_onhold_get**](docs/PlantsApi.md#v2_plants_onhold_get) | **GET** /v2/plants/onhold | 
 *PlantsApi* | [**v2_plants_vegetative_get**](docs/PlantsApi.md#v2_plants_vegetative_get) | **GET** /v2/plants/vegetative | List of vegetative plants
 *PlantsApi* | [**v2_plants_vegetative_report_get**](docs/PlantsApi.md#v2_plants_vegetative_report_get) | **GET** /v2/plants/vegetative/report | Generate a report of all vegetative plants
 *ReportsApi* | [**v2_auth_secretkey_post**](docs/ReportsApi.md#v2_auth_secretkey_post) | **POST** /v2/auth/secretkey | Generate a secret key that can be used for special T3 routes that support secrey key authentication.
@@ -421,6 +448,7 @@ Class | Method | HTTP request | Description
 *ReportsApi* | [**v2_plants_flowering_report_get**](docs/ReportsApi.md#v2_plants_flowering_report_get) | **GET** /v2/plants/flowering/report | Generate a report of all flowering plants
 *ReportsApi* | [**v2_plants_vegetative_report_get**](docs/ReportsApi.md#v2_plants_vegetative_report_get) | **GET** /v2/plants/vegetative/report | Generate a report of all vegetative plants
 *ReportsApi* | [**v2_sales_active_report_get**](docs/ReportsApi.md#v2_sales_active_report_get) | **GET** /v2/sales/active/report | Generate a report of all active sales
+*ReportsApi* | [**v2_strains_report_get**](docs/ReportsApi.md#v2_strains_report_get) | **GET** /v2/strains/report | Generate a report of all active strains
 *ReportsApi* | [**v2_transfers_incoming_manifest_report_get**](docs/ReportsApi.md#v2_transfers_incoming_manifest_report_get) | **GET** /v2/transfers/incoming/manifest/report | Generate a report of all incoming transfer manifests
 *ReportsApi* | [**v2_transfers_outgoing_manifest_report_get**](docs/ReportsApi.md#v2_transfers_outgoing_manifest_report_get) | **GET** /v2/transfers/outgoing/manifest/report | Generate a report of all outgoing transfer manifests
 *SalesReceiptsApi* | [**v2_sales_active_get**](docs/SalesReceiptsApi.md#v2_sales_active_get) | **GET** /v2/sales/active | List of active sales
@@ -431,7 +459,11 @@ Class | Method | HTTP request | Description
 *SalesReceiptsApi* | [**v2_sales_void_post**](docs/SalesReceiptsApi.md#v2_sales_void_post) | **POST** /v2/sales/void | Void one sales receipt
 *SearchApi* | [**v2_search_get**](docs/SearchApi.md#v2_search_get) | **GET** /v2/search | Generic text search endpoint
 *SingleHarvestApi* | [**v2_harvests_history_get**](docs/SingleHarvestApi.md#v2_harvests_history_get) | **GET** /v2/harvests/history | List of history objects for a single harvest.
+*SingleHarvestApi* | [**v2_harvests_packages_get**](docs/SingleHarvestApi.md#v2_harvests_packages_get) | **GET** /v2/harvests/packages | List of harvest package objects for a single harvest.
+*SingleHarvestApi* | [**v2_harvests_plants_get**](docs/SingleHarvestApi.md#v2_harvests_plants_get) | **GET** /v2/harvests/plants | List of harvest plant objects for a single harvest.
 *SingleItemApi* | [**v2_items_history_get**](docs/SingleItemApi.md#v2_items_history_get) | **GET** /v2/items/history | List of item history objects for a single item
+*SingleItemApi* | [**v2_items_photos_file_get**](docs/SingleItemApi.md#v2_items_photos_file_get) | **GET** /v2/items/photos/file | Get a photo for an item.
+*SingleItemApi* | [**v2_items_photos_get**](docs/SingleItemApi.md#v2_items_photos_get) | **GET** /v2/items/photos | List of item photo objects for a single item
 *SinglePackageApi* | [**v2_packages_history_get**](docs/SinglePackageApi.md#v2_packages_history_get) | **GET** /v2/packages/history | List of package history objects for a single package
 *SinglePackageApi* | [**v2_packages_labresult_batches_get**](docs/SinglePackageApi.md#v2_packages_labresult_batches_get) | **GET** /v2/packages/labresult-batches | List of package lab result batch objects for a single package
 *SinglePackageApi* | [**v2_packages_labresults_document_get**](docs/SinglePackageApi.md#v2_packages_labresults_document_get) | **GET** /v2/packages/labresults/document | Get the COA PDF for a lab result.
@@ -447,8 +479,15 @@ Class | Method | HTTP request | Description
 *SingleTransferApi* | [**v2_transfers_transporter_details_get**](docs/SingleTransferApi.md#v2_transfers_transporter_details_get) | **GET** /v2/transfers/transporter-details | List of transporter detailss for a single transfer
 *SingleTransferApi* | [**v2_transfers_transporters_get**](docs/SingleTransferApi.md#v2_transfers_transporters_get) | **GET** /v2/transfers/transporters | List of transporters for a single delivery
 *StatesApi* | [**v2_states_get**](docs/StatesApi.md#v2_states_get) | **GET** /v2/states | List of accessible states
+*StrainsApi* | [**v2_strains_create_post**](docs/StrainsApi.md#v2_strains_create_post) | **POST** /v2/strains/create | Create one or more strains
+*StrainsApi* | [**v2_strains_discontinue_post**](docs/StrainsApi.md#v2_strains_discontinue_post) | **POST** /v2/strains/discontinue | Discontinue one strain
+*StrainsApi* | [**v2_strains_get**](docs/StrainsApi.md#v2_strains_get) | **GET** /v2/strains | List of active strains
+*StrainsApi* | [**v2_strains_report_get**](docs/StrainsApi.md#v2_strains_report_get) | **GET** /v2/strains/report | Generate a report of all active strains
+*SupercollectionsApi* | [**v2_packages_active_super_get**](docs/SupercollectionsApi.md#v2_packages_active_super_get) | **GET** /v2/packages/active/super | List of active superpackages. Additional metadata can be added using the &#x60;include&#x60; param.
+*SupercollectionsApi* | [**v2_packages_intransit_super_get**](docs/SupercollectionsApi.md#v2_packages_intransit_super_get) | **GET** /v2/packages/intransit/super | List of intransit superpackages. Additional metadata can be added using the &#x60;include&#x60; param.
 *TransfersApi* | [**v2_transfers_create_destinations_get**](docs/TransfersApi.md#v2_transfers_create_destinations_get) | **GET** /v2/transfers/create/destinations | List of destination facilities eligible to be used in creating new transfers
 *TransfersApi* | [**v2_transfers_create_inputs_get**](docs/TransfersApi.md#v2_transfers_create_inputs_get) | **GET** /v2/transfers/create/inputs | Input data used for creating new transers
+*TransfersApi* | [**v2_transfers_create_packages_get**](docs/TransfersApi.md#v2_transfers_create_packages_get) | **GET** /v2/transfers/create/packages | List of packages eligible to be used in creating new transfers
 *TransfersApi* | [**v2_transfers_create_post**](docs/TransfersApi.md#v2_transfers_create_post) | **POST** /v2/transfers/create | Create one or more transfers
 *TransfersApi* | [**v2_transfers_create_transporters_get**](docs/TransfersApi.md#v2_transfers_create_transporters_get) | **GET** /v2/transfers/create/transporters | List of transporter facilities eligible to be used in creating new transfers
 *TransfersApi* | [**v2_transfers_deliveries_get**](docs/TransfersApi.md#v2_transfers_deliveries_get) | **GET** /v2/transfers/deliveries | List of deliveries for a single transfer
@@ -462,6 +501,7 @@ Class | Method | HTTP request | Description
 *TransfersApi* | [**v2_transfers_outgoing_manifest_report_get**](docs/TransfersApi.md#v2_transfers_outgoing_manifest_report_get) | **GET** /v2/transfers/outgoing/manifest/report | Generate a report of all outgoing transfer manifests
 *TransfersApi* | [**v2_transfers_packages_get**](docs/TransfersApi.md#v2_transfers_packages_get) | **GET** /v2/transfers/packages | List of packages for a single delivery
 *TransfersApi* | [**v2_transfers_rejected_get**](docs/TransfersApi.md#v2_transfers_rejected_get) | **GET** /v2/transfers/rejected | List of rejected transfers
+*TransfersApi* | [**v2_transfers_templates_create_post**](docs/TransfersApi.md#v2_transfers_templates_create_post) | **POST** /v2/transfers/templates/create | Create one or more transfer templates
 *TransfersApi* | [**v2_transfers_transporter_details_get**](docs/TransfersApi.md#v2_transfers_transporter_details_get) | **GET** /v2/transfers/transporter-details | List of transporter detailss for a single transfer
 *TransfersApi* | [**v2_transfers_transporters_get**](docs/TransfersApi.md#v2_transfers_transporters_get) | **GET** /v2/transfers/transporters | List of transporters for a single delivery
 
@@ -469,20 +509,27 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [EndpointId](docs/EndpointId.md)
+ - [ExtractedLabResult](docs/ExtractedLabResult.md)
  - [IncomingTransferManifestReportResponse](docs/IncomingTransferManifestReportResponse.md)
  - [JWTData](docs/JWTData.md)
  - [LabTestingStates](docs/LabTestingStates.md)
  - [MetrcCreatePackageInputsResponse](docs/MetrcCreatePackageInputsResponse.md)
+ - [MetrcCreateTransferInputsResponse](docs/MetrcCreateTransferInputsResponse.md)
  - [MetrcCredentialAuthPayload](docs/MetrcCredentialAuthPayload.md)
  - [MetrcDeliveryPackage](docs/MetrcDeliveryPackage.md)
  - [MetrcDeliveryPackageListResponse](docs/MetrcDeliveryPackageListResponse.md)
  - [MetrcDiscontinueItemPayload](docs/MetrcDiscontinueItemPayload.md)
+ - [MetrcDiscontinueStrainPayload](docs/MetrcDiscontinueStrainPayload.md)
  - [MetrcDriver](docs/MetrcDriver.md)
  - [MetrcFacility](docs/MetrcFacility.md)
  - [MetrcFacilityListResponse](docs/MetrcFacilityListResponse.md)
  - [MetrcFacilityPhysicalAddress](docs/MetrcFacilityPhysicalAddress.md)
  - [MetrcHarvest](docs/MetrcHarvest.md)
  - [MetrcHarvestListResponse](docs/MetrcHarvestListResponse.md)
+ - [MetrcHarvestPackage](docs/MetrcHarvestPackage.md)
+ - [MetrcHarvestPackageListResponse](docs/MetrcHarvestPackageListResponse.md)
+ - [MetrcHarvestPlant](docs/MetrcHarvestPlant.md)
+ - [MetrcHarvestPlantListResponse](docs/MetrcHarvestPlantListResponse.md)
  - [MetrcHarvestReportResponse](docs/MetrcHarvestReportResponse.md)
  - [MetrcHistory](docs/MetrcHistory.md)
  - [MetrcHistoryListResponse](docs/MetrcHistoryListResponse.md)
@@ -490,6 +537,8 @@ Class | Method | HTTP request | Description
  - [MetrcIncomingTransferListResponse](docs/MetrcIncomingTransferListResponse.md)
  - [MetrcItem](docs/MetrcItem.md)
  - [MetrcItemListResponse](docs/MetrcItemListResponse.md)
+ - [MetrcItemPhoto](docs/MetrcItemPhoto.md)
+ - [MetrcItemPhotoListResponse](docs/MetrcItemPhotoListResponse.md)
  - [MetrcLicense](docs/MetrcLicense.md)
  - [MetrcLocation](docs/MetrcLocation.md)
  - [MetrcOutgoingTransfer](docs/MetrcOutgoingTransfer.md)
@@ -513,10 +562,14 @@ Class | Method | HTTP request | Description
  - [MetrcSalesReceipt](docs/MetrcSalesReceipt.md)
  - [MetrcSalesReceiptListResponse](docs/MetrcSalesReceiptListResponse.md)
  - [MetrcSalesReceiptReportResponse](docs/MetrcSalesReceiptReportResponse.md)
+ - [MetrcSessionAuthPayload](docs/MetrcSessionAuthPayload.md)
+ - [MetrcSessionAuthPayloadFacilitiesInner](docs/MetrcSessionAuthPayloadFacilitiesInner.md)
  - [MetrcState](docs/MetrcState.md)
+ - [MetrcStrain](docs/MetrcStrain.md)
+ - [MetrcStrainListResponse](docs/MetrcStrainListResponse.md)
  - [MetrcSuperpackage](docs/MetrcSuperpackage.md)
  - [MetrcSuperpackageAllOfMetadata](docs/MetrcSuperpackageAllOfMetadata.md)
- - [MetrcSuperpackageAllOfMetadataTestResults](docs/MetrcSuperpackageAllOfMetadataTestResults.md)
+ - [MetrcSuperpackageListResponse](docs/MetrcSuperpackageListResponse.md)
  - [MetrcTag](docs/MetrcTag.md)
  - [MetrcTransaction](docs/MetrcTransaction.md)
  - [MetrcTransactionListResponse](docs/MetrcTransactionListResponse.md)
@@ -534,16 +587,22 @@ Class | Method | HTTP request | Description
  - [Pagination](docs/Pagination.md)
  - [SearchResponse](docs/SearchResponse.md)
  - [T3GenerateLabelsPayload](docs/T3GenerateLabelsPayload.md)
+ - [T3GenerateLabelsPayloadDEPRECATED](docs/T3GenerateLabelsPayloadDEPRECATED.md)
  - [T3IncomingTransferManifest](docs/T3IncomingTransferManifest.md)
  - [T3LabelContentData](docs/T3LabelContentData.md)
  - [T3LabelContentDataListResponse](docs/T3LabelContentDataListResponse.md)
  - [T3LabelContentLayoutConfig](docs/T3LabelContentLayoutConfig.md)
  - [T3LabelContentLayoutElement](docs/T3LabelContentLayoutElement.md)
+ - [T3LabelContentLayoutElementParagraphFontName](docs/T3LabelContentLayoutElementParagraphFontName.md)
  - [T3LabelContentLayoutElementTextResizeStrategy](docs/T3LabelContentLayoutElementTextResizeStrategy.md)
  - [T3LabelContentLayoutElementType](docs/T3LabelContentLayoutElementType.md)
  - [T3LabelContentLayoutsResponse](docs/T3LabelContentLayoutsResponse.md)
+ - [T3LabelRenderingOptions](docs/T3LabelRenderingOptions.md)
+ - [T3LabelTemplateLayoutConfig](docs/T3LabelTemplateLayoutConfig.md)
  - [T3LabelTemplateLayoutsResponse](docs/T3LabelTemplateLayoutsResponse.md)
  - [T3OutgoingTransferManifest](docs/T3OutgoingTransferManifest.md)
+ - [T3PackageLabelsPayload](docs/T3PackageLabelsPayload.md)
+ - [T3PackageLabelsPayloadDEPRECATED](docs/T3PackageLabelsPayloadDEPRECATED.md)
  - [UnitOfMeasure](docs/UnitOfMeasure.md)
  - [UnitOfMeasureAbbreviation](docs/UnitOfMeasureAbbreviation.md)
  - [V2AuthApikeyPostRequest](docs/V2AuthApikeyPostRequest.md)
@@ -568,6 +627,7 @@ Class | Method | HTTP request | Description
  - [V2FilesLabelsLabelTemplateLayoutsGet200ResponseDataDataInnerLabelTemplateLayoutConfig](docs/V2FilesLabelsLabelTemplateLayoutsGet200ResponseDataDataInnerLabelTemplateLayoutConfig.md)
  - [V2HarvestsActiveGet200Response](docs/V2HarvestsActiveGet200Response.md)
  - [V2HarvestsActiveReportGet200Response](docs/V2HarvestsActiveReportGet200Response.md)
+ - [V2HarvestsPlantsGet200Response](docs/V2HarvestsPlantsGet200Response.md)
  - [V2ItemsDiscontinuePost200Response](docs/V2ItemsDiscontinuePost200Response.md)
  - [V2ItemsDiscontinuePost400Response](docs/V2ItemsDiscontinuePost400Response.md)
  - [V2ItemsDiscontinuePost400ResponseError](docs/V2ItemsDiscontinuePost400ResponseError.md)
@@ -578,10 +638,13 @@ Class | Method | HTTP request | Description
  - [V2ItemsDiscontinuePostRequest](docs/V2ItemsDiscontinuePostRequest.md)
  - [V2ItemsGet200Response](docs/V2ItemsGet200Response.md)
  - [V2ItemsHistoryGet200Response](docs/V2ItemsHistoryGet200Response.md)
+ - [V2ItemsPhotosGet200Response](docs/V2ItemsPhotosGet200Response.md)
  - [V2ItemsReportGet200Response](docs/V2ItemsReportGet200Response.md)
+ - [V2LabelsGeneratePostRequest](docs/V2LabelsGeneratePostRequest.md)
  - [V2LicensesGet200ResponseInner](docs/V2LicensesGet200ResponseInner.md)
  - [V2PackagesActiveGet200Response](docs/V2PackagesActiveGet200Response.md)
  - [V2PackagesActiveReportGet200Response](docs/V2PackagesActiveReportGet200Response.md)
+ - [V2PackagesActiveSuperGet200Response](docs/V2PackagesActiveSuperGet200Response.md)
  - [V2PackagesCreateInputsGet200Response](docs/V2PackagesCreateInputsGet200Response.md)
  - [V2PackagesCreatePostRequestInner](docs/V2PackagesCreatePostRequestInner.md)
  - [V2PackagesCreatePostRequestInnerIngredientsInner](docs/V2PackagesCreatePostRequestInnerIngredientsInner.md)
@@ -603,6 +666,10 @@ Class | Method | HTTP request | Description
  - [V2SearchGet200Response](docs/V2SearchGet200Response.md)
  - [V2SearchGet200ResponseDataInner](docs/V2SearchGet200ResponseDataInner.md)
  - [V2StatesGet200ResponseInner](docs/V2StatesGet200ResponseInner.md)
+ - [V2StrainsCreatePostRequestInner](docs/V2StrainsCreatePostRequestInner.md)
+ - [V2StrainsDiscontinuePostRequest](docs/V2StrainsDiscontinuePostRequest.md)
+ - [V2StrainsGet200Response](docs/V2StrainsGet200Response.md)
+ - [V2StrainsReportGet200Response](docs/V2StrainsReportGet200Response.md)
  - [V2TransfersCreateDestinationsGet200Response](docs/V2TransfersCreateDestinationsGet200Response.md)
  - [V2TransfersCreateInputsGet200Response](docs/V2TransfersCreateInputsGet200Response.md)
  - [V2TransfersCreateInputsGet200ResponseTransferTypesInner](docs/V2TransfersCreateInputsGet200ResponseTransferTypesInner.md)
@@ -617,6 +684,9 @@ Class | Method | HTTP request | Description
  - [V2TransfersIncomingManifestReportGet200Response](docs/V2TransfersIncomingManifestReportGet200Response.md)
  - [V2TransfersOutgoingActiveGet200Response](docs/V2TransfersOutgoingActiveGet200Response.md)
  - [V2TransfersOutgoingManifestReportGet200Response](docs/V2TransfersOutgoingManifestReportGet200Response.md)
+ - [V2TransfersTemplatesCreatePostRequestInner](docs/V2TransfersTemplatesCreatePostRequestInner.md)
+ - [V2TransfersTemplatesCreatePostRequestInnerDestinationsInner](docs/V2TransfersTemplatesCreatePostRequestInnerDestinationsInner.md)
+ - [V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner](docs/V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner.md)
  - [V2TransfersTransporterDetailsGet200Response](docs/V2TransfersTransporterDetailsGet200Response.md)
  - [V2TransfersTransportersGet200Response](docs/V2TransfersTransportersGet200Response.md)
 

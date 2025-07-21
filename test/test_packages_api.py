@@ -40,6 +40,13 @@ class TestPackagesApi(unittest.TestCase):
         """
         pass
 
+    def test_v2_harvests_packages_get(self) -> None:
+        """Test case for v2_harvests_packages_get
+
+        List of harvest package objects for a single harvest.
+        """
+        pass
+
     def test_v2_packages_active_get(self) -> None:
         """Test case for v2_packages_active_get
 
@@ -51,6 +58,13 @@ class TestPackagesApi(unittest.TestCase):
         """Test case for v2_packages_active_report_get
 
         Generate a report of all active packages
+        """
+        pass
+
+    def test_v2_packages_active_super_get(self) -> None:
+        """Test case for v2_packages_active_super_get
+
+        List of active superpackages. Additional metadata can be added using the `include` param.
         """
         pass
 
@@ -107,6 +121,13 @@ class TestPackagesApi(unittest.TestCase):
         """Test case for v2_packages_intransit_report_get
 
         Generate a report of all in-transit packages
+        """
+        pass
+
+    def test_v2_packages_intransit_super_get(self) -> None:
+        """Test case for v2_packages_intransit_super_get
+
+        List of intransit superpackages. Additional metadata can be added using the `include` param.
         """
         pass
 
@@ -177,6 +198,13 @@ class TestPackagesApi(unittest.TestCase):
         """Test case for v2_transfers_create_destinations_get
 
         List of destination facilities eligible to be used in creating new transfers
+        """
+        pass
+
+    def test_v2_transfers_create_packages_get(self) -> None:
+        """Test case for v2_transfers_create_packages_get
+
+        List of packages eligible to be used in creating new transfers
         """
         pass
 

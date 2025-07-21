@@ -47,6 +47,20 @@ class TestItemsApi(unittest.TestCase):
         """
         pass
 
+    def test_v2_items_photos_file_get(self) -> None:
+        """Test case for v2_items_photos_file_get
+
+        Get a photo for an item.
+        """
+        pass
+
+    def test_v2_items_photos_get(self) -> None:
+        """Test case for v2_items_photos_get
+
+        List of item photo objects for a single item
+        """
+        pass
+
     def test_v2_items_report_get(self) -> None:
         """Test case for v2_items_report_get
 

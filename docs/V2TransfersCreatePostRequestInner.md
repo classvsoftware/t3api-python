@@ -6,7 +6,7 @@ A schema representing a shipment with details about destinations, transporters, 
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**destinations** | [**List[V2TransfersCreatePostRequestInnerDestinationsInner]**](V2TransfersCreatePostRequestInnerDestinationsInner.md) | List of destinations for the shipment. | [optional] 
+**destinations** | [**List[V2TransfersCreatePostRequestInnerDestinationsInner]**](V2TransfersCreatePostRequestInnerDestinationsInner.md) | List of destinations for the shipment. | 
 
 ## Example
 

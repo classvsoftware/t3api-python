@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **auth_mode** | **str** |  | [optional] 
 **credential_key** | **str** |  | [optional] 
 **has_t3plus** | **bool** |  | [optional] 
+**t3plus_subscription_tier** | **str** |  | [optional] 
 **username** | **str** |  | [optional] 
 **hostname** | **str** |  | [optional] 
 
