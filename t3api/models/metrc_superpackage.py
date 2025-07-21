@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union
 from t3api.models.lab_testing_states import LabTestingStates
 from t3api.models.metrc_history import MetrcHistory
 from t3api.models.metrc_item import MetrcItem
+from t3api.models.metrc_package_lab_result import MetrcPackageLabResult
 from t3api.models.metrc_package_lab_result_batch import MetrcPackageLabResultBatch
 from t3api.models.metrc_package_source_harvest import MetrcPackageSourceHarvest
 from t3api.models.metrc_superpackage_all_of_metadata import MetrcSuperpackageAllOfMetadata
@@ -126,9 +127,10 @@ class MetrcSuperpackage(BaseModel):
     external_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="externalId")
     metadata: Optional[MetrcSuperpackageAllOfMetadata] = None
     source_harvests: Optional[List[MetrcPackageSourceHarvest]] = Field(default=None, description="A list of this package's source harvests", alias="sourceHarvests")
-    lab_result_batches: Optional[List[MetrcPackageLabResultBatch]] = Field(default=None, description="A list of this package's lab result batches", alias="labResultBatches")
+    lab_results: Optional[List[MetrcPackageLabResult]] = Field(default=None, description="A list of this package's lab results  Note: these are the raw values passed back from Metrc. For extracted lab results,  refer to the metadata property. ", alias="labResults")
+    lab_result_batches: Optional[List[MetrcPackageLabResultBatch]] = Field(default=None, description="A list of this package's lab result batches  Note: these are the raw values passed back from Metrc. For extracted lab results,  refer to the metadata property. ", alias="labResultBatches")
     history: Optional[List[MetrcHistory]] = Field(default=None, description="A list of this package's history")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "archivedDate", "containsRemediatedProduct", "donationFacilityLicenseNumber", "donationFacilityName", "facilityLicenseNumber", "facilityName", "finishedDate", "initialLabTestingState", "isArchived", "isDonation", "isDonationPersistent", "isFinished", "isInTransit", "isOnHold", "isProcessValidationTestingSample", "isProductionBatch", "isTestingSample", "isTradeSample", "isTradeSamplePersistent", "item", "itemFromFacilityLicenseNumber", "itemFromFacilityName", "labTestingStateDate", "labTestingStateName", "labTestingRecordedDate", "labTestingPerformedDate", "labTestStageId", "labTestResultExpirationDateTime", "label", "lastModified", "locationName", "sublocationName", "locationTypeName", "multiHarvest", "multiPackage", "multiProductionBatch", "note", "packageType", "packagedByFacilityLicenseNumber", "packagedByFacilityName", "packagedDate", "patientLicenseNumber", "productRequiresRemediation", "productionBatchNumber", "quantity", "receivedDateTime", "receivedFromFacilityLicenseNumber", "receivedFromFacilityName", "receivedFromManifestNumber", "remediationDate", "sourceHarvestNames", "sourcePackageIsDonation", "sourcePackageIsTradeSample", "sourcePackageLabels", "sourceProductionBatchNumbers", "tradeSampleFacilityName", "tradeSampleFacilityLicenseNumber", "transferManifestNumber", "unitOfMeasureAbbreviation", "unitOfMeasureId", "unitOfMeasureQuantityType", "sourceHarvestCount", "sourcePackageCount", "sourceProcessingJobCount", "sourceProcessingJobNumbers", "sourceProcessingJobNames", "multiProcessingJob", "expirationDate", "sellByDate", "useByDate", "labTestResultDocumentFileId", "isOnRetailerDelivery", "packageForProductDestruction", "hasPartial", "isPartial", "inTransitStatus", "processingJobTypeId", "isOnRecall", "decontaminationDate", "containsDecontaminatedProduct", "productRequiresDecontamination", "productLabel", "labTestStage", "externalId", "metadata", "sourceHarvests", "labResultBatches", "history"]
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "archivedDate", "containsRemediatedProduct", "donationFacilityLicenseNumber", "donationFacilityName", "facilityLicenseNumber", "facilityName", "finishedDate", "initialLabTestingState", "isArchived", "isDonation", "isDonationPersistent", "isFinished", "isInTransit", "isOnHold", "isProcessValidationTestingSample", "isProductionBatch", "isTestingSample", "isTradeSample", "isTradeSamplePersistent", "item", "itemFromFacilityLicenseNumber", "itemFromFacilityName", "labTestingStateDate", "labTestingStateName", "labTestingRecordedDate", "labTestingPerformedDate", "labTestStageId", "labTestResultExpirationDateTime", "label", "lastModified", "locationName", "sublocationName", "locationTypeName", "multiHarvest", "multiPackage", "multiProductionBatch", "note", "packageType", "packagedByFacilityLicenseNumber", "packagedByFacilityName", "packagedDate", "patientLicenseNumber", "productRequiresRemediation", "productionBatchNumber", "quantity", "receivedDateTime", "receivedFromFacilityLicenseNumber", "receivedFromFacilityName", "receivedFromManifestNumber", "remediationDate", "sourceHarvestNames", "sourcePackageIsDonation", "sourcePackageIsTradeSample", "sourcePackageLabels", "sourceProductionBatchNumbers", "tradeSampleFacilityName", "tradeSampleFacilityLicenseNumber", "transferManifestNumber", "unitOfMeasureAbbreviation", "unitOfMeasureId", "unitOfMeasureQuantityType", "sourceHarvestCount", "sourcePackageCount", "sourceProcessingJobCount", "sourceProcessingJobNumbers", "sourceProcessingJobNames", "multiProcessingJob", "expirationDate", "sellByDate", "useByDate", "labTestResultDocumentFileId", "isOnRetailerDelivery", "packageForProductDestruction", "hasPartial", "isPartial", "inTransitStatus", "processingJobTypeId", "isOnRecall", "decontaminationDate", "containsDecontaminatedProduct", "productRequiresDecontamination", "productLabel", "labTestStage", "externalId", "metadata", "sourceHarvests", "labResults", "labResultBatches", "history"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -212,6 +214,13 @@ class MetrcSuperpackage(BaseModel):
                 if _item_source_harvests:
                     _items.append(_item_source_harvests.to_dict())
             _dict['sourceHarvests'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in lab_results (list)
+        _items = []
+        if self.lab_results:
+            for _item_lab_results in self.lab_results:
+                if _item_lab_results:
+                    _items.append(_item_lab_results.to_dict())
+            _dict['labResults'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in lab_result_batches (list)
         _items = []
         if self.lab_result_batches:
@@ -475,6 +484,7 @@ class MetrcSuperpackage(BaseModel):
             "externalId": obj.get("externalId"),
             "metadata": MetrcSuperpackageAllOfMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None,
             "sourceHarvests": [MetrcPackageSourceHarvest.from_dict(_item) for _item in obj["sourceHarvests"]] if obj.get("sourceHarvests") is not None else None,
+            "labResults": [MetrcPackageLabResult.from_dict(_item) for _item in obj["labResults"]] if obj.get("labResults") is not None else None,
             "labResultBatches": [MetrcPackageLabResultBatch.from_dict(_item) for _item in obj["labResultBatches"]] if obj.get("labResultBatches") is not None else None,
             "history": [MetrcHistory.from_dict(_item) for _item in obj["history"]] if obj.get("history") is not None else None
         })

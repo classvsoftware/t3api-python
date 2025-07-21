@@ -29,16 +29,17 @@ class V2TransfersCreatePostRequestInnerDestinationsInner(BaseModel):
     """
     V2TransfersCreatePostRequestInnerDestinationsInner
     """ # noqa: E501
-    recipient_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Facility ID of the destination facility. To find eligible destination facilities, use the [Destinations](#/Create%20Transfer/get_v2_packages_create_transfer_destination_list) endpoint. ", alias="recipientId")
-    planned_route: Optional[StrictStr] = Field(default=None, description="Planned route for the shipment.", alias="plannedRoute")
-    transfer_type_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Identifier for the type of transfer.", alias="transferTypeId")
-    estimated_departure_date_time: Optional[datetime] = Field(default=None, description="Estimated departure date and time.", alias="estimatedDepartureDateTime")
-    estimated_arrival_date_time: Optional[datetime] = Field(default=None, description="Estimated arrival date and time.", alias="estimatedArrivalDateTime")
-    gross_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gross weight of the transfer.  *Only applicable in some Metrc states* ", alias="grossWeight")
-    gross_unit_of_weight_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Identifier for the unit of weight.", alias="grossUnitOfWeightId")
+    recipient_id: Union[StrictFloat, StrictInt] = Field(description="Facility ID of the destination facility.  To find eligible destination facilities, use the [Destinations](#/Create%20Transfer/get_v2_packages_create_transfer_destination_list) endpoint. ", alias="recipientId")
+    planned_route: StrictStr = Field(description="Planned route for the shipment.", alias="plannedRoute")
+    transfer_type_id: Union[StrictFloat, StrictInt] = Field(description="Identifier for the type of transfer.", alias="transferTypeId")
+    invoice_number: Optional[StrictStr] = Field(default=None, description="Invoice number for this delivery. *Not all transfer types require this value.*  This value is only required if the `transferType` has `requiresInvoiceNumber=true`.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details. ", alias="invoiceNumber")
+    estimated_departure_date_time: datetime = Field(description="Estimated departure date and time.", alias="estimatedDepartureDateTime")
+    estimated_arrival_date_time: datetime = Field(description="Estimated arrival date and time.", alias="estimatedArrivalDateTime")
+    gross_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gross weight of the transfer. *Not all transfer types require this value.*  Only should be set if the `transferType` has `requiresDestinationGrossWeight=true`.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details. ", alias="grossWeight")
+    gross_unit_of_weight_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Identifier for the unit of weight. *Not all transfer types require this value.*  Only should be set if the `transferType` has `requiresDestinationGrossWeight=true`.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details. ", alias="grossUnitOfWeightId")
     transporters: Optional[List[V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInner]] = Field(default=None, description="List of transporters for the transfer.")
     packages: Optional[List[V2TransfersCreatePostRequestInnerDestinationsInnerPackagesInner]] = Field(default=None, description="List of packages in the transfer.")
-    __properties: ClassVar[List[str]] = ["recipientId", "plannedRoute", "transferTypeId", "estimatedDepartureDateTime", "estimatedArrivalDateTime", "grossWeight", "grossUnitOfWeightId", "transporters", "packages"]
+    __properties: ClassVar[List[str]] = ["recipientId", "plannedRoute", "transferTypeId", "invoiceNumber", "estimatedDepartureDateTime", "estimatedArrivalDateTime", "grossWeight", "grossUnitOfWeightId", "transporters", "packages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,11 +94,6 @@ class V2TransfersCreatePostRequestInnerDestinationsInner(BaseModel):
                 if _item_packages:
                     _items.append(_item_packages.to_dict())
             _dict['packages'] = _items
-        # set to None if gross_weight (nullable) is None
-        # and model_fields_set contains the field
-        if self.gross_weight is None and "gross_weight" in self.model_fields_set:
-            _dict['grossWeight'] = None
-
         return _dict
 
     @classmethod
@@ -113,6 +109,7 @@ class V2TransfersCreatePostRequestInnerDestinationsInner(BaseModel):
             "recipientId": obj.get("recipientId"),
             "plannedRoute": obj.get("plannedRoute"),
             "transferTypeId": obj.get("transferTypeId"),
+            "invoiceNumber": obj.get("invoiceNumber"),
             "estimatedDepartureDateTime": obj.get("estimatedDepartureDateTime"),
             "estimatedArrivalDateTime": obj.get("estimatedArrivalDateTime"),
             "grossWeight": obj.get("grossWeight"),

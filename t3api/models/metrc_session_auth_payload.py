@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
+from typing_extensions import Annotated
 from t3api.models.metrc_session_auth_payload_facilities_inner import MetrcSessionAuthPayloadFacilitiesInner
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,17 +29,17 @@ class MetrcSessionAuthPayload(BaseModel):
     MetrcSessionAuthPayload
     """ # noqa: E501
     username: StrictStr = Field(description="Your Metrc username")
-    hostname: StrictStr = Field(description="The Metrc hostname you use to login. For example, a California user would use ca.metrc.com.")
+    hostname: Annotated[str, Field(strict=True)] = Field(description="The Metrc hostname you use to login. For example, a California user would use ca.metrc.com.")
     cookies: Dict[str, StrictStr] = Field(description="Session cookies for authentication")
     facilities: List[MetrcSessionAuthPayloadFacilitiesInner] = Field(description="List of facilities associated with the session")
     api_verification_token: StrictStr = Field(description="Verification token used for API authentication", alias="apiVerificationToken")
     __properties: ClassVar[List[str]] = ["username", "hostname", "cookies", "facilities", "apiVerificationToken"]
 
     @field_validator('hostname')
-    def hostname_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['ak.metrc.com', 'al.metrc.com', 'ca.metrc.com', 'co.metrc.com', 'il.metrc.com', 'ky.metrc.com', 'la.metrc.com', 'ma.metrc.com', 'md.metrc.com', 'me.metrc.com', 'mi.metrc.com', 'mn.metrc.com', 'mo.metrc.com', 'ms.metrc.com', 'mt.metrc.com', 'nj.metrc.com', 'nv.metrc.com', 'oh.metrc.com', 'ok.metrc.com', 'or.metrc.com', 'sd.metrc.com', 'wv.metrc.com']):
-            raise ValueError("must be one of enum values ('ak.metrc.com', 'al.metrc.com', 'ca.metrc.com', 'co.metrc.com', 'il.metrc.com', 'ky.metrc.com', 'la.metrc.com', 'ma.metrc.com', 'md.metrc.com', 'me.metrc.com', 'mi.metrc.com', 'mn.metrc.com', 'mo.metrc.com', 'ms.metrc.com', 'mt.metrc.com', 'nj.metrc.com', 'nv.metrc.com', 'oh.metrc.com', 'ok.metrc.com', 'or.metrc.com', 'sd.metrc.com', 'wv.metrc.com')")
+    def hostname_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^([a-zA-Z0-9-]+\.)*metrc\.com$", value):
+            raise ValueError(r"must validate the regular expression /^([a-zA-Z0-9-]+\.)*metrc\.com$/")
         return value
 
     model_config = ConfigDict(

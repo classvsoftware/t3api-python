@@ -19,8 +19,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from t3api.models.v2_files_labels_generate_post_request_label_content_data_inner import V2FilesLabelsGeneratePostRequestLabelContentDataInner
-from t3api.models.v2_files_labels_generate_post_request_rendering_options import V2FilesLabelsGeneratePostRequestRenderingOptions
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,12 +26,14 @@ class V2LabelsGeneratePostRequest(BaseModel):
     """
     V2LabelsGeneratePostRequest
     """ # noqa: E501
-    label_template_layout: Dict[str, Any] = Field(alias="labelTemplateLayout")
-    label_content_layout: Dict[str, Any] = Field(alias="labelContentLayout")
-    label_content_data: List[V2FilesLabelsGeneratePostRequestLabelContentDataInner] = Field(description="A list of label content data objects to be filled into labels.  Refer to the label content layout information for which of these fields are required and where they will be inserted.", alias="labelContentData")
-    rendering_options: Optional[V2FilesLabelsGeneratePostRequestRenderingOptions] = Field(default=None, alias="renderingOptions")
+    label_template_layout_config: Dict[str, Any] = Field(alias="labelTemplateLayoutConfig")
+    label_content_layout_config: Dict[str, Any] = Field(alias="labelContentLayoutConfig")
+    label_content_data_list: List[Dict[str, Any]] = Field(description="A list of objects, each of which will be filled into one label.   Suppose you were to pass the following data, which represents two distinct labels:  ```json [   {     \"package\": {       \"label\": \"12345\"     }   },   {     \"package\": {       \"label\": \"67890\"     }   } ] ```  You could access these values in the content layout template as follows:  ``` {{ package.label }} ```  Note: The format of the objects is not validated.  Note: Any values with `common` or `images` will be overwritten. ", alias="labelContentDataList")
+    common_content_data: Optional[Dict[str, Any]] = Field(default=None, description="A dictionary of values shared between all labels. Any supplied values will be prefixed with `common.`  Suppose you were to pass the following data:  ```json {   \"facilityContactInfo\": {     \"phoneNumber\": \"123-456-7890\"   } } ```  You could access this values in the content layout template as follows:  ``` {{ facilityContactInfo.phoneNumber }} ```  Note: The format of the object is not validated. ", alias="commonContentData")
+    images: Optional[Dict[str, Any]] = Field(default=None, description="A dictionary of base64 image dadta shared between all labels. Any supplied values will be prefixed with `images.`  Suppose you were to pass the following data:  ```json {   \"logo\": \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMBgKZzmtkAAAAASUVORK5CYII=\" } ```  You could access this values in the content layout template as follows:  ``` {{ images.logo }} ```  Note: The format of the object is not validated. ")
+    rendering_options: Optional[Dict[str, Any]] = Field(default=None, alias="renderingOptions")
     disposition: Optional[StrictStr] = Field(default='inline', description="Specifies whether the PDF should be opened inline or downloaded as an attachment.")
-    __properties: ClassVar[List[str]] = ["labelTemplateLayout", "labelContentLayout", "labelContentData", "renderingOptions", "disposition"]
+    __properties: ClassVar[List[str]] = ["labelTemplateLayoutConfig", "labelContentLayoutConfig", "labelContentDataList", "commonContentData", "images", "renderingOptions", "disposition"]
 
     @field_validator('disposition')
     def disposition_validate_enum(cls, value):
@@ -84,19 +84,12 @@ class V2LabelsGeneratePostRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of label_template_layout
-        if self.label_template_layout:
-            _dict['labelTemplateLayout'] = self.label_template_layout.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of label_content_layout
-        if self.label_content_layout:
-            _dict['labelContentLayout'] = self.label_content_layout.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in label_content_data (list)
-        _items = []
-        if self.label_content_data:
-            for _item_label_content_data in self.label_content_data:
-                if _item_label_content_data:
-                    _items.append(_item_label_content_data.to_dict())
-            _dict['labelContentData'] = _items
+        # override the default output from pydantic by calling `to_dict()` of label_template_layout_config
+        if self.label_template_layout_config:
+            _dict['labelTemplateLayoutConfig'] = self.label_template_layout_config.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of label_content_layout_config
+        if self.label_content_layout_config:
+            _dict['labelContentLayoutConfig'] = self.label_content_layout_config.to_dict()
         # override the default output from pydantic by calling `to_dict()` of rendering_options
         if self.rendering_options:
             _dict['renderingOptions'] = self.rendering_options.to_dict()
@@ -112,10 +105,12 @@ class V2LabelsGeneratePostRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "labelTemplateLayout": T3LabelTemplateLayoutConfig.from_dict(obj["labelTemplateLayout"]) if obj.get("labelTemplateLayout") is not None else None,
-            "labelContentLayout": T3LabelTemplateLayoutConfig.from_dict(obj["labelContentLayout"]) if obj.get("labelContentLayout") is not None else None,
-            "labelContentData": [V2FilesLabelsGeneratePostRequestLabelContentDataInner.from_dict(_item) for _item in obj["labelContentData"]] if obj.get("labelContentData") is not None else None,
-            "renderingOptions": V2FilesLabelsGeneratePostRequestRenderingOptions.from_dict(obj["renderingOptions"]) if obj.get("renderingOptions") is not None else None,
+            "labelTemplateLayoutConfig": T3LabelTemplateLayoutConfig.from_dict(obj["labelTemplateLayoutConfig"]) if obj.get("labelTemplateLayoutConfig") is not None else None,
+            "labelContentLayoutConfig": T3LabelContentLayoutConfig.from_dict(obj["labelContentLayoutConfig"]) if obj.get("labelContentLayoutConfig") is not None else None,
+            "labelContentDataList": obj.get("labelContentDataList"),
+            "commonContentData": obj.get("commonContentData"),
+            "images": obj.get("images"),
+            "renderingOptions": T3LabelRenderingOptions.from_dict(obj["renderingOptions"]) if obj.get("renderingOptions") is not None else None,
             "disposition": obj.get("disposition") if obj.get("disposition") is not None else 'inline'
         })
         return _obj

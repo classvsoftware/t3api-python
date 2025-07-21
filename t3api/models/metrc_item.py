@@ -126,7 +126,29 @@ class MetrcItem(BaseModel):
     processing_job_type_id: Optional[StrictStr] = Field(default=None, alias="processingJobTypeId")
     processing_job_type_name: Optional[StrictStr] = Field(default=None, alias="processingJobTypeName")
     unit_thc_percent_override: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcPercentOverride")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "facilityLicenseNumber", "facilityName", "name", "productCategoryId", "productCategoryName", "productCategoryTypeName", "expirationDateConfiguration", "expirationConfigurationState", "expirationDateDaysInAdvance", "sellByDateConfiguration", "sellByConfigurationState", "sellByDateDaysInAdvance", "useByDateConfiguration", "useByConfigurationState", "useByDateDaysInAdvance", "quantityTypeName", "defaultLabTestingStateName", "unitOfMeasureId", "unitOfMeasureName", "approvalStatusName", "approvalStatusDateTime", "strainName", "itemBrandId", "itemBrandName", "administrationMethod", "unitCbdPercent", "unitCbdContentDose", "unitCbdContentDoseUnitOfMeasureAbbreviation", "unitThcPercent", "unitThcContentUnitOfMeasureId", "unitThcContentDoseUnitOfMeasureAbbreviation", "unitWeight", "servingSize", "numberOfDoses", "unitQuantity", "unitQuantityUnitOfMeasureAbbreviation", "publicIngredients", "description", "allergens", "productImages", "productPhotoDescription", "labelImages", "labelPhotoDescription", "packagingImages", "packagingPhotoDescription", "productPDFDocuments", "isUsed", "isArchived", "lastModified", "processingJobCategoryId", "processingJobCategoryName", "supplyDurationDays", "unitCbdPercentOverride", "unitCbdContent", "unitCbdContentOverride", "unitCbdContentDoseUoMId", "unitCbdContentUnitOfMeasureAbbreviation", "unitCbdContentUnitOfMeasureId", "unitCbdContentUoMId", "unitThcContent", "unitThcContentOverride", "unitThcContentDose", "unitThcContentDoseUnitOfMeasureId", "unitThcContentDoseUoMId", "unitThcContentUnitOfMeasureAbbreviation", "unitThcContentUoMId", "unitWeightUnitOfMeasureAbbreviation", "unitWeightUnitOfMeasureId", "unitWeightUoMId", "unitVolume", "unitVolumeUnitOfMeasureAbbreviation", "unitVolumeUnitOfMeasureId", "unitVolumeUoMId", "publicIngredientsOverride", "allergensOverride", "descriptionOverride", "globalProductName", "productBrandName", "administrationMethodOverride", "unitCbdContentDoseUnitOfMeasureId", "strainId", "productCategoryRequiresApproval", "packagingPhotoDescriptionOverride", "packagingPhotoOverride", "labelPhotoDescriptionOverride", "productPhotoDescriptionOverride", "brandName", "productPhotoOverride", "globalProductId", "labelPhotoOverride", "processingJobTypeId", "processingJobTypeName", "unitThcPercentOverride"]
+    unit_thc_a_content_uo_mid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcAContentUoMId")
+    unit_thc_a_content: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcAContent")
+    unit_thc_a_content_dose: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcAContentDose")
+    unit_cbd_a_content_unit_of_measure_abbreviation: Optional[StrictStr] = Field(default=None, alias="unitCbdAContentUnitOfMeasureAbbreviation")
+    unit_thc_a_content_unit_of_measure_abbreviation: Optional[StrictStr] = Field(default=None, alias="unitThcAContentUnitOfMeasureAbbreviation")
+    unit_cbd_a_percent_override: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitCbdAPercentOverride")
+    unit_cbd_a_content: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitCbdAContent")
+    unit_cbd_a_content_dose_unit_of_measure_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitCbdAContentDoseUnitOfMeasureId")
+    unit_cbd_a_percent: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitCbdAPercent")
+    unit_cbd_a_content_dose_unit_of_measure_abbreviation: Optional[StrictStr] = Field(default=None, alias="unitCbdAContentDoseUnitOfMeasureAbbreviation")
+    unit_thc_a_percent_override: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcAPercentOverride")
+    unit_thc_a_content_dose_unit_of_measure_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcAContentDoseUnitOfMeasureId")
+    unit_thc_a_percent: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcAPercent")
+    unit_cbd_a_content_override: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitCbdAContentOverride")
+    unit_cbd_a_content_dose: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitCbdAContentDose")
+    unit_thc_a_content_dose_unit_of_measure_abbreviation: Optional[StrictStr] = Field(default=None, alias="unitThcAContentDoseUnitOfMeasureAbbreviation")
+    unit_thc_a_content_dose_uo_mid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcAContentDoseUoMId")
+    unit_thc_a_content_unit_of_measure_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcAContentUnitOfMeasureId")
+    unit_cbd_a_content_dose_uo_mid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitCbdAContentDoseUoMId")
+    unit_cbd_a_content_unit_of_measure_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitCbdAContentUnitOfMeasureId")
+    unit_cbd_a_content_uo_mid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitCbdAContentUoMId")
+    unit_thc_a_content_override: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="unitThcAContentOverride")
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "facilityLicenseNumber", "facilityName", "name", "productCategoryId", "productCategoryName", "productCategoryTypeName", "expirationDateConfiguration", "expirationConfigurationState", "expirationDateDaysInAdvance", "sellByDateConfiguration", "sellByConfigurationState", "sellByDateDaysInAdvance", "useByDateConfiguration", "useByConfigurationState", "useByDateDaysInAdvance", "quantityTypeName", "defaultLabTestingStateName", "unitOfMeasureId", "unitOfMeasureName", "approvalStatusName", "approvalStatusDateTime", "strainName", "itemBrandId", "itemBrandName", "administrationMethod", "unitCbdPercent", "unitCbdContentDose", "unitCbdContentDoseUnitOfMeasureAbbreviation", "unitThcPercent", "unitThcContentUnitOfMeasureId", "unitThcContentDoseUnitOfMeasureAbbreviation", "unitWeight", "servingSize", "numberOfDoses", "unitQuantity", "unitQuantityUnitOfMeasureAbbreviation", "publicIngredients", "description", "allergens", "productImages", "productPhotoDescription", "labelImages", "labelPhotoDescription", "packagingImages", "packagingPhotoDescription", "productPDFDocuments", "isUsed", "isArchived", "lastModified", "processingJobCategoryId", "processingJobCategoryName", "supplyDurationDays", "unitCbdPercentOverride", "unitCbdContent", "unitCbdContentOverride", "unitCbdContentDoseUoMId", "unitCbdContentUnitOfMeasureAbbreviation", "unitCbdContentUnitOfMeasureId", "unitCbdContentUoMId", "unitThcContent", "unitThcContentOverride", "unitThcContentDose", "unitThcContentDoseUnitOfMeasureId", "unitThcContentDoseUoMId", "unitThcContentUnitOfMeasureAbbreviation", "unitThcContentUoMId", "unitWeightUnitOfMeasureAbbreviation", "unitWeightUnitOfMeasureId", "unitWeightUoMId", "unitVolume", "unitVolumeUnitOfMeasureAbbreviation", "unitVolumeUnitOfMeasureId", "unitVolumeUoMId", "publicIngredientsOverride", "allergensOverride", "descriptionOverride", "globalProductName", "productBrandName", "administrationMethodOverride", "unitCbdContentDoseUnitOfMeasureId", "strainId", "productCategoryRequiresApproval", "packagingPhotoDescriptionOverride", "packagingPhotoOverride", "labelPhotoDescriptionOverride", "productPhotoDescriptionOverride", "brandName", "productPhotoOverride", "globalProductId", "labelPhotoOverride", "processingJobTypeId", "processingJobTypeName", "unitThcPercentOverride", "unitThcAContentUoMId", "unitThcAContent", "unitThcAContentDose", "unitCbdAContentUnitOfMeasureAbbreviation", "unitThcAContentUnitOfMeasureAbbreviation", "unitCbdAPercentOverride", "unitCbdAContent", "unitCbdAContentDoseUnitOfMeasureId", "unitCbdAPercent", "unitCbdAContentDoseUnitOfMeasureAbbreviation", "unitThcAPercentOverride", "unitThcAContentDoseUnitOfMeasureId", "unitThcAPercent", "unitCbdAContentOverride", "unitCbdAContentDose", "unitThcAContentDoseUnitOfMeasureAbbreviation", "unitThcAContentDoseUoMId", "unitThcAContentUnitOfMeasureId", "unitCbdAContentDoseUoMId", "unitCbdAContentUnitOfMeasureId", "unitCbdAContentUoMId", "unitThcAContentOverride"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -567,6 +589,116 @@ class MetrcItem(BaseModel):
         if self.unit_thc_percent_override is None and "unit_thc_percent_override" in self.model_fields_set:
             _dict['unitThcPercentOverride'] = None
 
+        # set to None if unit_thc_a_content_uo_mid (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_content_uo_mid is None and "unit_thc_a_content_uo_mid" in self.model_fields_set:
+            _dict['unitThcAContentUoMId'] = None
+
+        # set to None if unit_thc_a_content (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_content is None and "unit_thc_a_content" in self.model_fields_set:
+            _dict['unitThcAContent'] = None
+
+        # set to None if unit_thc_a_content_dose (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_content_dose is None and "unit_thc_a_content_dose" in self.model_fields_set:
+            _dict['unitThcAContentDose'] = None
+
+        # set to None if unit_cbd_a_content_unit_of_measure_abbreviation (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_content_unit_of_measure_abbreviation is None and "unit_cbd_a_content_unit_of_measure_abbreviation" in self.model_fields_set:
+            _dict['unitCbdAContentUnitOfMeasureAbbreviation'] = None
+
+        # set to None if unit_thc_a_content_unit_of_measure_abbreviation (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_content_unit_of_measure_abbreviation is None and "unit_thc_a_content_unit_of_measure_abbreviation" in self.model_fields_set:
+            _dict['unitThcAContentUnitOfMeasureAbbreviation'] = None
+
+        # set to None if unit_cbd_a_percent_override (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_percent_override is None and "unit_cbd_a_percent_override" in self.model_fields_set:
+            _dict['unitCbdAPercentOverride'] = None
+
+        # set to None if unit_cbd_a_content (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_content is None and "unit_cbd_a_content" in self.model_fields_set:
+            _dict['unitCbdAContent'] = None
+
+        # set to None if unit_cbd_a_content_dose_unit_of_measure_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_content_dose_unit_of_measure_id is None and "unit_cbd_a_content_dose_unit_of_measure_id" in self.model_fields_set:
+            _dict['unitCbdAContentDoseUnitOfMeasureId'] = None
+
+        # set to None if unit_cbd_a_percent (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_percent is None and "unit_cbd_a_percent" in self.model_fields_set:
+            _dict['unitCbdAPercent'] = None
+
+        # set to None if unit_cbd_a_content_dose_unit_of_measure_abbreviation (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_content_dose_unit_of_measure_abbreviation is None and "unit_cbd_a_content_dose_unit_of_measure_abbreviation" in self.model_fields_set:
+            _dict['unitCbdAContentDoseUnitOfMeasureAbbreviation'] = None
+
+        # set to None if unit_thc_a_percent_override (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_percent_override is None and "unit_thc_a_percent_override" in self.model_fields_set:
+            _dict['unitThcAPercentOverride'] = None
+
+        # set to None if unit_thc_a_content_dose_unit_of_measure_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_content_dose_unit_of_measure_id is None and "unit_thc_a_content_dose_unit_of_measure_id" in self.model_fields_set:
+            _dict['unitThcAContentDoseUnitOfMeasureId'] = None
+
+        # set to None if unit_thc_a_percent (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_percent is None and "unit_thc_a_percent" in self.model_fields_set:
+            _dict['unitThcAPercent'] = None
+
+        # set to None if unit_cbd_a_content_override (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_content_override is None and "unit_cbd_a_content_override" in self.model_fields_set:
+            _dict['unitCbdAContentOverride'] = None
+
+        # set to None if unit_cbd_a_content_dose (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_content_dose is None and "unit_cbd_a_content_dose" in self.model_fields_set:
+            _dict['unitCbdAContentDose'] = None
+
+        # set to None if unit_thc_a_content_dose_unit_of_measure_abbreviation (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_content_dose_unit_of_measure_abbreviation is None and "unit_thc_a_content_dose_unit_of_measure_abbreviation" in self.model_fields_set:
+            _dict['unitThcAContentDoseUnitOfMeasureAbbreviation'] = None
+
+        # set to None if unit_thc_a_content_dose_uo_mid (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_content_dose_uo_mid is None and "unit_thc_a_content_dose_uo_mid" in self.model_fields_set:
+            _dict['unitThcAContentDoseUoMId'] = None
+
+        # set to None if unit_thc_a_content_unit_of_measure_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_content_unit_of_measure_id is None and "unit_thc_a_content_unit_of_measure_id" in self.model_fields_set:
+            _dict['unitThcAContentUnitOfMeasureId'] = None
+
+        # set to None if unit_cbd_a_content_dose_uo_mid (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_content_dose_uo_mid is None and "unit_cbd_a_content_dose_uo_mid" in self.model_fields_set:
+            _dict['unitCbdAContentDoseUoMId'] = None
+
+        # set to None if unit_cbd_a_content_unit_of_measure_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_content_unit_of_measure_id is None and "unit_cbd_a_content_unit_of_measure_id" in self.model_fields_set:
+            _dict['unitCbdAContentUnitOfMeasureId'] = None
+
+        # set to None if unit_cbd_a_content_uo_mid (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_cbd_a_content_uo_mid is None and "unit_cbd_a_content_uo_mid" in self.model_fields_set:
+            _dict['unitCbdAContentUoMId'] = None
+
+        # set to None if unit_thc_a_content_override (nullable) is None
+        # and model_fields_set contains the field
+        if self.unit_thc_a_content_override is None and "unit_thc_a_content_override" in self.model_fields_set:
+            _dict['unitThcAContentOverride'] = None
+
         return _dict
 
     @classmethod
@@ -677,7 +809,29 @@ class MetrcItem(BaseModel):
             "labelPhotoOverride": obj.get("labelPhotoOverride"),
             "processingJobTypeId": obj.get("processingJobTypeId"),
             "processingJobTypeName": obj.get("processingJobTypeName"),
-            "unitThcPercentOverride": obj.get("unitThcPercentOverride")
+            "unitThcPercentOverride": obj.get("unitThcPercentOverride"),
+            "unitThcAContentUoMId": obj.get("unitThcAContentUoMId"),
+            "unitThcAContent": obj.get("unitThcAContent"),
+            "unitThcAContentDose": obj.get("unitThcAContentDose"),
+            "unitCbdAContentUnitOfMeasureAbbreviation": obj.get("unitCbdAContentUnitOfMeasureAbbreviation"),
+            "unitThcAContentUnitOfMeasureAbbreviation": obj.get("unitThcAContentUnitOfMeasureAbbreviation"),
+            "unitCbdAPercentOverride": obj.get("unitCbdAPercentOverride"),
+            "unitCbdAContent": obj.get("unitCbdAContent"),
+            "unitCbdAContentDoseUnitOfMeasureId": obj.get("unitCbdAContentDoseUnitOfMeasureId"),
+            "unitCbdAPercent": obj.get("unitCbdAPercent"),
+            "unitCbdAContentDoseUnitOfMeasureAbbreviation": obj.get("unitCbdAContentDoseUnitOfMeasureAbbreviation"),
+            "unitThcAPercentOverride": obj.get("unitThcAPercentOverride"),
+            "unitThcAContentDoseUnitOfMeasureId": obj.get("unitThcAContentDoseUnitOfMeasureId"),
+            "unitThcAPercent": obj.get("unitThcAPercent"),
+            "unitCbdAContentOverride": obj.get("unitCbdAContentOverride"),
+            "unitCbdAContentDose": obj.get("unitCbdAContentDose"),
+            "unitThcAContentDoseUnitOfMeasureAbbreviation": obj.get("unitThcAContentDoseUnitOfMeasureAbbreviation"),
+            "unitThcAContentDoseUoMId": obj.get("unitThcAContentDoseUoMId"),
+            "unitThcAContentUnitOfMeasureId": obj.get("unitThcAContentUnitOfMeasureId"),
+            "unitCbdAContentDoseUoMId": obj.get("unitCbdAContentDoseUoMId"),
+            "unitCbdAContentUnitOfMeasureId": obj.get("unitCbdAContentUnitOfMeasureId"),
+            "unitCbdAContentUoMId": obj.get("unitCbdAContentUoMId"),
+            "unitThcAContentOverride": obj.get("unitThcAContentOverride")
         })
         return _obj
 

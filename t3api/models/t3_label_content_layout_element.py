@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from t3api.models.t3_label_content_layout_element_paragraph_font_name import T3LabelContentLayoutElementParagraphFontName
 from t3api.models.t3_label_content_layout_element_text_resize_strategy import T3LabelContentLayoutElementTextResizeStrategy
 from t3api.models.t3_label_content_layout_element_type import T3LabelContentLayoutElementType
 from typing import Optional, Set
@@ -29,41 +30,20 @@ class T3LabelContentLayoutElement(BaseModel):
     Describes the bounding rectangle and styling of one piece of a label layout.
     """ # noqa: E501
     description: Optional[StrictStr] = None
-    element_type: Optional[T3LabelContentLayoutElementType] = None
-    x_start_fraction: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="The left edge of the bounding box for this element, represented as a fraction of the total width of the content layout.")
-    x_end_fraction: Optional[Union[StrictFloat, StrictInt]] = Field(default=1, description="The right edge of the bounding box for this element, represented as a fraction of the total width of the content layout.")
-    y_start_fraction: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="The bottom edge of the bounding box for this element, represented as a fraction of the total height of the content layout.")
-    y_end_fraction: Optional[Union[StrictFloat, StrictInt]] = 1
-    label_content_data_key: Optional[StrictStr] = None
-    value_template: Optional[StrictStr] = None
-    paragraph_font_name: Optional[StrictStr] = 'Helvetica'
-    paragraph_font_size: Optional[Union[StrictFloat, StrictInt]] = 6
-    horizontal_paragraph_alignment: Optional[StrictStr] = 'CENTER'
-    vertical_paragraph_alignment: Optional[StrictStr] = 'CENTER'
-    paragraph_spacing: Optional[Union[StrictFloat, StrictInt]] = 6
+    element_type: T3LabelContentLayoutElementType = Field(alias="elementType")
+    x_start_fraction: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="The left edge of the bounding box for this element, represented as a fraction of the total width of the content layout.", alias="xStartFraction")
+    x_end_fraction: Optional[Union[StrictFloat, StrictInt]] = Field(default=1, description="The right edge of the bounding box for this element, represented as a fraction of the total width of the content layout.", alias="xEndFraction")
+    y_start_fraction: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="The bottom edge of the bounding box for this element, represented as a fraction of the total height of the content layout.", alias="yStartFraction")
+    y_end_fraction: Optional[Union[StrictFloat, StrictInt]] = Field(default=1, alias="yEndFraction")
+    value_template: Optional[StrictStr] = Field(default=None, description="A general purpose template string. This is compiled with Jinja.  Values can be interpolated from the following places: - Each  ", alias="valueTemplate")
+    paragraph_font_name: Optional[T3LabelContentLayoutElementParagraphFontName] = Field(default=T3LabelContentLayoutElementParagraphFontName.HELVETICA, alias="paragraphFontName")
+    paragraph_font_size: Optional[Union[StrictFloat, StrictInt]] = Field(default=6, alias="paragraphFontSize")
+    horizontal_paragraph_alignment: Optional[StrictStr] = Field(default='CENTER', alias="horizontalParagraphAlignment")
+    vertical_paragraph_alignment: Optional[StrictStr] = Field(default='CENTER', alias="verticalParagraphAlignment")
+    paragraph_spacing: Optional[Union[StrictFloat, StrictInt]] = Field(default=6, alias="paragraphSpacing")
     enabled: Optional[StrictBool] = True
-    paragraph_text_resize_strategy: Optional[T3LabelContentLayoutElementTextResizeStrategy] = None
-    __properties: ClassVar[List[str]] = ["description", "element_type", "x_start_fraction", "x_end_fraction", "y_start_fraction", "y_end_fraction", "label_content_data_key", "value_template", "paragraph_font_name", "paragraph_font_size", "horizontal_paragraph_alignment", "vertical_paragraph_alignment", "paragraph_spacing", "enabled", "paragraph_text_resize_strategy"]
-
-    @field_validator('label_content_data_key')
-    def label_content_data_key_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['text1', 'text2', 'text3', 'text4', 'text5', 'text6', 'text7', 'text8']):
-            raise ValueError("must be one of enum values ('text1', 'text2', 'text3', 'text4', 'text5', 'text6', 'text7', 'text8')")
-        return value
-
-    @field_validator('paragraph_font_name')
-    def paragraph_font_name_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['Times-Roman', 'Times-Bold', 'Times-Italic', 'Times-BoldItalic', 'Helvetica', 'Helvetica-Bold', 'Helvetica-Oblique', 'Helvetica-BoldOblique', 'Courier', 'Courier-Bold', 'Courier-Oblique', 'Courier-BoldOblique', 'Symbol', 'ZapfDingbats']):
-            raise ValueError("must be one of enum values ('Times-Roman', 'Times-Bold', 'Times-Italic', 'Times-BoldItalic', 'Helvetica', 'Helvetica-Bold', 'Helvetica-Oblique', 'Helvetica-BoldOblique', 'Courier', 'Courier-Bold', 'Courier-Oblique', 'Courier-BoldOblique', 'Symbol', 'ZapfDingbats')")
-        return value
+    paragraph_text_resize_strategy: Optional[T3LabelContentLayoutElementTextResizeStrategy] = Field(default=None, alias="paragraphTextResizeStrategy")
+    __properties: ClassVar[List[str]] = ["description", "elementType", "xStartFraction", "xEndFraction", "yStartFraction", "yEndFraction", "valueTemplate", "paragraphFontName", "paragraphFontSize", "horizontalParagraphAlignment", "verticalParagraphAlignment", "paragraphSpacing", "enabled", "paragraphTextResizeStrategy"]
 
     @field_validator('horizontal_paragraph_alignment')
     def horizontal_paragraph_alignment_validate_enum(cls, value):
@@ -124,15 +104,10 @@ class T3LabelContentLayoutElement(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if label_content_data_key (nullable) is None
-        # and model_fields_set contains the field
-        if self.label_content_data_key is None and "label_content_data_key" in self.model_fields_set:
-            _dict['label_content_data_key'] = None
-
         # set to None if value_template (nullable) is None
         # and model_fields_set contains the field
         if self.value_template is None and "value_template" in self.model_fields_set:
-            _dict['value_template'] = None
+            _dict['valueTemplate'] = None
 
         return _dict
 
@@ -147,20 +122,19 @@ class T3LabelContentLayoutElement(BaseModel):
 
         _obj = cls.model_validate({
             "description": obj.get("description"),
-            "element_type": obj.get("element_type"),
-            "x_start_fraction": obj.get("x_start_fraction") if obj.get("x_start_fraction") is not None else 0,
-            "x_end_fraction": obj.get("x_end_fraction") if obj.get("x_end_fraction") is not None else 1,
-            "y_start_fraction": obj.get("y_start_fraction") if obj.get("y_start_fraction") is not None else 0,
-            "y_end_fraction": obj.get("y_end_fraction") if obj.get("y_end_fraction") is not None else 1,
-            "label_content_data_key": obj.get("label_content_data_key"),
-            "value_template": obj.get("value_template"),
-            "paragraph_font_name": obj.get("paragraph_font_name") if obj.get("paragraph_font_name") is not None else 'Helvetica',
-            "paragraph_font_size": obj.get("paragraph_font_size") if obj.get("paragraph_font_size") is not None else 6,
-            "horizontal_paragraph_alignment": obj.get("horizontal_paragraph_alignment") if obj.get("horizontal_paragraph_alignment") is not None else 'CENTER',
-            "vertical_paragraph_alignment": obj.get("vertical_paragraph_alignment") if obj.get("vertical_paragraph_alignment") is not None else 'CENTER',
-            "paragraph_spacing": obj.get("paragraph_spacing") if obj.get("paragraph_spacing") is not None else 6,
+            "elementType": obj.get("elementType"),
+            "xStartFraction": obj.get("xStartFraction") if obj.get("xStartFraction") is not None else 0,
+            "xEndFraction": obj.get("xEndFraction") if obj.get("xEndFraction") is not None else 1,
+            "yStartFraction": obj.get("yStartFraction") if obj.get("yStartFraction") is not None else 0,
+            "yEndFraction": obj.get("yEndFraction") if obj.get("yEndFraction") is not None else 1,
+            "valueTemplate": obj.get("valueTemplate"),
+            "paragraphFontName": obj.get("paragraphFontName") if obj.get("paragraphFontName") is not None else T3LabelContentLayoutElementParagraphFontName.HELVETICA,
+            "paragraphFontSize": obj.get("paragraphFontSize") if obj.get("paragraphFontSize") is not None else 6,
+            "horizontalParagraphAlignment": obj.get("horizontalParagraphAlignment") if obj.get("horizontalParagraphAlignment") is not None else 'CENTER',
+            "verticalParagraphAlignment": obj.get("verticalParagraphAlignment") if obj.get("verticalParagraphAlignment") is not None else 'CENTER',
+            "paragraphSpacing": obj.get("paragraphSpacing") if obj.get("paragraphSpacing") is not None else 6,
             "enabled": obj.get("enabled") if obj.get("enabled") is not None else True,
-            "paragraph_text_resize_strategy": obj.get("paragraph_text_resize_strategy")
+            "paragraphTextResizeStrategy": obj.get("paragraphTextResizeStrategy")
         })
         return _obj
 

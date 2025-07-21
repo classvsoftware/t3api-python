@@ -17,19 +17,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
-from t3api.models.metrc_superpackage_all_of_metadata_test_results import MetrcSuperpackageAllOfMetadataTestResults
+from t3api.models.extracted_lab_result import ExtractedLabResult
 from typing import Optional, Set
 from typing_extensions import Self
 
 class MetrcSuperpackageAllOfMetadata(BaseModel):
     """
-    MetrcSuperpackageAllOfMetadata
+    These values are conditionally populated based on the `includes` param sent with the request. 
     """ # noqa: E501
-    initial_quantity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The quantity this package was initially created with", alias="initialQuantity")
-    test_results: Optional[List[MetrcSuperpackageAllOfMetadataTestResults]] = Field(default=None, alias="testResults")
-    __properties: ClassVar[List[str]] = ["initialQuantity", "testResults"]
+    harvest_dates: Optional[List[StrictStr]] = Field(default=None, description="All source harvest dates for this package, duplicates removed. ", alias="harvestDates")
+    initial_quantity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The quantity this package was initially created with, extracted from history ", alias="initialQuantity")
+    initial_quantity_unit_of_measure: Optional[StrictStr] = Field(default=None, description="The unit of measure this package was initially created with, extracted from history ", alias="initialQuantityUnitOfMeasure")
+    net_weight_or_volume: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="The net weight/volume for this package.  - If package unit is already weight/volume, returns the package quantity - If package unit is \"each\", returns `quantity * unit weight/volume` - If package has no measureable weight, returns quantitiy. (Only occurs in rare cases, such as with seeds) ", alias="netWeightOrVolume")
+    net_weight_or_volume_unit_of_measure: Optional[StrictStr] = Field(default=None, description="The unit of measure for this package's net weight/volume, specified in netWeightOrVolume ", alias="netWeightOrVolumeUnitOfMeasure")
+    test_sample_package_labels: Optional[List[StrictStr]] = Field(default=None, description="A list of all test sample package labels associated with this package, duplicates removed.   This list is typically length 1. ", alias="testSamplePackageLabels")
+    extracted_lab_results: Optional[List[ExtractedLabResult]] = Field(default=None, description="An array of lab results, with values and tags extracted.   This array is populated via the labResults, labResultBatches, or coaFiles mixin. Duplicates will be removed. ", alias="extractedLabResults")
+    __properties: ClassVar[List[str]] = ["harvestDates", "initialQuantity", "initialQuantityUnitOfMeasure", "netWeightOrVolume", "netWeightOrVolumeUnitOfMeasure", "testSamplePackageLabels", "extractedLabResults"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,13 +75,13 @@ class MetrcSuperpackageAllOfMetadata(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in test_results (list)
+        # override the default output from pydantic by calling `to_dict()` of each item in extracted_lab_results (list)
         _items = []
-        if self.test_results:
-            for _item_test_results in self.test_results:
-                if _item_test_results:
-                    _items.append(_item_test_results.to_dict())
-            _dict['testResults'] = _items
+        if self.extracted_lab_results:
+            for _item_extracted_lab_results in self.extracted_lab_results:
+                if _item_extracted_lab_results:
+                    _items.append(_item_extracted_lab_results.to_dict())
+            _dict['extractedLabResults'] = _items
         return _dict
 
     @classmethod
@@ -89,8 +94,13 @@ class MetrcSuperpackageAllOfMetadata(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "harvestDates": obj.get("harvestDates"),
             "initialQuantity": obj.get("initialQuantity"),
-            "testResults": [MetrcSuperpackageAllOfMetadataTestResults.from_dict(_item) for _item in obj["testResults"]] if obj.get("testResults") is not None else None
+            "initialQuantityUnitOfMeasure": obj.get("initialQuantityUnitOfMeasure"),
+            "netWeightOrVolume": obj.get("netWeightOrVolume"),
+            "netWeightOrVolumeUnitOfMeasure": obj.get("netWeightOrVolumeUnitOfMeasure"),
+            "testSamplePackageLabels": obj.get("testSamplePackageLabels"),
+            "extractedLabResults": [ExtractedLabResult.from_dict(_item) for _item in obj["extractedLabResults"]] if obj.get("extractedLabResults") is not None else None
         })
         return _obj
 

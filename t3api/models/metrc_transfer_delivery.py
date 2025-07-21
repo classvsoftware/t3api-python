@@ -58,9 +58,9 @@ class MetrcTransferDelivery(BaseModel):
     shipment_type_name: Optional[StrictStr] = Field(default=None, description="The name of the shipment type.", alias="shipmentTypeName")
     recipient_approval_date: Optional[datetime] = Field(default=None, description="The date and time when the recipient approved the shipment upon receipt.", alias="recipientApprovalDate")
     recipient_auto_approval: Optional[StrictBool] = Field(default=None, description="Indicates whether the recipient's approval of the shipment is automatically granted, typically when there are no issues with the received packages.", alias="recipientAutoApproval")
-    tolling_agreement_file_system_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="tollingAgreementFileSystemId")
+    pdf_document_file_system_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="PDFDocumentFileSystemId")
     invoice_number: Optional[StrictStr] = Field(default=None, alias="invoiceNumber")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "manifestNumber", "deliveryNumber", "actualArrivalDateTime", "actualDepartureDateTime", "actualReturnArrivalDateTime", "actualReturnDepartureDateTime", "deliveryPackageCount", "deliveryReceivedPackageCount", "estimatedArrivalDateTime", "estimatedDepartureDateTime", "estimatedReturnArrivalDateTime", "estimatedReturnDepartureDateTime", "grossUnitOfWeightAbbreviation", "grossUnitOfWeightId", "grossWeight", "plannedRoute", "receivedByName", "receivedDateTime", "recipientFacilityId", "recipientFacilityLicenseNumber", "recipientFacilityName", "rejectedPackagesReturned", "shipmentTransactionTypeName", "shipmentTypeName", "recipientApprovalDate", "recipientAutoApproval", "tollingAgreementFileSystemId", "invoiceNumber"]
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "manifestNumber", "deliveryNumber", "actualArrivalDateTime", "actualDepartureDateTime", "actualReturnArrivalDateTime", "actualReturnDepartureDateTime", "deliveryPackageCount", "deliveryReceivedPackageCount", "estimatedArrivalDateTime", "estimatedDepartureDateTime", "estimatedReturnArrivalDateTime", "estimatedReturnDepartureDateTime", "grossUnitOfWeightAbbreviation", "grossUnitOfWeightId", "grossWeight", "plannedRoute", "receivedByName", "receivedDateTime", "recipientFacilityId", "recipientFacilityLicenseNumber", "recipientFacilityName", "rejectedPackagesReturned", "shipmentTransactionTypeName", "shipmentTypeName", "recipientApprovalDate", "recipientAutoApproval", "PDFDocumentFileSystemId", "invoiceNumber"]
 
     @field_validator('shipment_type_name')
     def shipment_type_name_validate_enum(cls, value):
@@ -214,7 +214,7 @@ class MetrcTransferDelivery(BaseModel):
             "shipmentTypeName": obj.get("shipmentTypeName"),
             "recipientApprovalDate": obj.get("recipientApprovalDate"),
             "recipientAutoApproval": obj.get("recipientAutoApproval"),
-            "tollingAgreementFileSystemId": obj.get("tollingAgreementFileSystemId"),
+            "PDFDocumentFileSystemId": obj.get("PDFDocumentFileSystemId"),
             "invoiceNumber": obj.get("invoiceNumber")
         })
         return _obj

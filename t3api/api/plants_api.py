@@ -1944,7 +1944,7 @@ class PlantsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> V2PlantsVegetativeGet200Response:
-        """List of on hold plants
+        """v2_plants_onhold_get
 
 
         :param license_number: The unique identifier for the license associated with this request. (required)
@@ -2034,7 +2034,7 @@ class PlantsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[V2PlantsVegetativeGet200Response]:
-        """List of on hold plants
+        """v2_plants_onhold_get
 
 
         :param license_number: The unique identifier for the license associated with this request. (required)
@@ -2124,7 +2124,7 @@ class PlantsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """List of on hold plants
+        """v2_plants_onhold_get
 
 
         :param license_number: The unique identifier for the license associated with this request. (required)

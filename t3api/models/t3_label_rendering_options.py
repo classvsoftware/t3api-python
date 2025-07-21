@@ -17,30 +17,45 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class T3LabelTemplateLayoutConfig(BaseModel):
+class T3LabelRenderingOptions(BaseModel):
     """
-    Describes the label layout on a printed medium. Capable of supporting any rectangular printable medium, with an arbitrarily sized grid of labels. Assumes that multiple labels are arranged in a centered grid, and arranged with even spacing. NOTE: y-coordinates are inverted. 
+    Options for controlling how 1D barcodes will render.
     """ # noqa: E501
-    name: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
-    pagesize_xin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pagesizeXIn")
-    pagesize_yin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pagesizeYIn")
-    label_width_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelWidthIn")
-    label_height_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelHeightIn")
-    x_gap_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="xGapIn")
-    y_gap_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="yGapIn")
-    num_columns: Optional[StrictInt] = Field(default=None, alias="numColumns")
-    num_rows: Optional[StrictInt] = Field(default=None, alias="numRows")
-    page_margin_top_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pageMarginTopIn")
-    page_margin_left_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pageMarginLeftIn")
-    label_padding_xin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelPaddingXIn")
-    label_padding_yin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelPaddingYIn")
-    __properties: ClassVar[List[str]] = ["name", "description", "pagesizeXIn", "pagesizeYIn", "labelWidthIn", "labelHeightIn", "xGapIn", "yGapIn", "numColumns", "numRows", "pageMarginTopIn", "pageMarginLeftIn", "labelPaddingXIn", "labelPaddingYIn"]
+    debug: Optional[StrictBool] = Field(default=False, description="When set to `true`, the generated label will draw boxes around all the content elements. This is used to troubleshoot how elements are laid out on a label. ")
+    enable_watermark: Optional[StrictBool] = Field(default=False, description="When set to `true`, the generated label will have a watermark applied. Watermarked label requests do not count towards monthly subscription limits. ", alias="enableWatermark")
+    reverse_print_order: Optional[StrictBool] = Field(default=False, description="When set to `true`, the labels will be laid out in the PDF in reverse order. This is used when the printed labels are coming off a spool, and you want the top-to-bottom order to match the PDF. ", alias="reversePrintOrder")
+    rotation_degrees: Optional[Union[StrictFloat, StrictInt]] = Field(default=0, description="Used to rotate the label content. A value of 0 means no rotation.  A value of 90 will rotate the label clockwise by 90 degrees. ", alias="rotationDegrees")
+    label_copies: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=1, description="Number of copies to generate for each label. Must be at least 1. ", alias="labelCopies")
+    barcode_bar_thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=1.0, description="Controls how thick a barcode's bars will appear. Useful for low-DPI thermal printers.  - 1.0 is normal rendering.  - 0.9 is 10% thinner - 1.1 is 10% thicker ", alias="barcodeBarThickness")
+    label_margin_thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=1.0, description="Controls width of a label''s margins. Useful for thermal printers with slighly skewed printing.  - 1.0 is normal margin.  - 0.9 is 10% thinner - 1.1 is 10% thicker ", alias="labelMarginThickness")
+    rendering_version: Optional[Union[StrictFloat, StrictInt]] = Field(default=1, description="Controls rendering path for labels.  ", alias="renderingVersion")
+    __properties: ClassVar[List[str]] = ["debug", "enableWatermark", "reversePrintOrder", "rotationDegrees", "labelCopies", "barcodeBarThickness", "labelMarginThickness", "renderingVersion"]
+
+    @field_validator('rotation_degrees')
+    def rotation_degrees_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set([0, 90]):
+            raise ValueError("must be one of enum values (0, 90)")
+        return value
+
+    @field_validator('rendering_version')
+    def rendering_version_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set([1, 2]):
+            raise ValueError("must be one of enum values (1, 2)")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,7 +75,7 @@ class T3LabelTemplateLayoutConfig(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of T3LabelTemplateLayoutConfig from a JSON string"""
+        """Create an instance of T3LabelRenderingOptions from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -85,7 +100,7 @@ class T3LabelTemplateLayoutConfig(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of T3LabelTemplateLayoutConfig from a dict"""
+        """Create an instance of T3LabelRenderingOptions from a dict"""
         if obj is None:
             return None
 
@@ -93,20 +108,14 @@ class T3LabelTemplateLayoutConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "description": obj.get("description"),
-            "pagesizeXIn": obj.get("pagesizeXIn"),
-            "pagesizeYIn": obj.get("pagesizeYIn"),
-            "labelWidthIn": obj.get("labelWidthIn"),
-            "labelHeightIn": obj.get("labelHeightIn"),
-            "xGapIn": obj.get("xGapIn"),
-            "yGapIn": obj.get("yGapIn"),
-            "numColumns": obj.get("numColumns"),
-            "numRows": obj.get("numRows"),
-            "pageMarginTopIn": obj.get("pageMarginTopIn"),
-            "pageMarginLeftIn": obj.get("pageMarginLeftIn"),
-            "labelPaddingXIn": obj.get("labelPaddingXIn"),
-            "labelPaddingYIn": obj.get("labelPaddingYIn")
+            "debug": obj.get("debug") if obj.get("debug") is not None else False,
+            "enableWatermark": obj.get("enableWatermark") if obj.get("enableWatermark") is not None else False,
+            "reversePrintOrder": obj.get("reversePrintOrder") if obj.get("reversePrintOrder") is not None else False,
+            "rotationDegrees": obj.get("rotationDegrees") if obj.get("rotationDegrees") is not None else 0,
+            "labelCopies": obj.get("labelCopies") if obj.get("labelCopies") is not None else 1,
+            "barcodeBarThickness": obj.get("barcodeBarThickness") if obj.get("barcodeBarThickness") is not None else 1.0,
+            "labelMarginThickness": obj.get("labelMarginThickness") if obj.get("labelMarginThickness") is not None else 1.0,
+            "renderingVersion": obj.get("renderingVersion") if obj.get("renderingVersion") is not None else 1
         })
         return _obj
 

@@ -22,6 +22,7 @@ from t3api.api.create_package_api import CreatePackageApi
 from t3api.api.create_strains_api import CreateStrainsApi
 from t3api.api.create_transfer_api import CreateTransferApi
 from t3api.api.facilities_api import FacilitiesApi
+from t3api.api.files_api import FilesApi
 from t3api.api.free_api import FreeApi
 from t3api.api.harvests_api import HarvestsApi
 from t3api.api.history_api import HistoryApi
@@ -37,6 +38,7 @@ from t3api.api.modify_strains_api import ModifyStrainsApi
 from t3api.api.pdf_api import PDFApi
 from t3api.api.packages_api import PackagesApi
 from t3api.api.permissions_api import PermissionsApi
+from t3api.api.photos_api import PhotosApi
 from t3api.api.plant_batches_api import PlantBatchesApi
 from t3api.api.plants_api import PlantsApi
 from t3api.api.reports_api import ReportsApi
@@ -67,6 +69,7 @@ from t3api.exceptions import ApiException
 
 # import models into sdk package
 from t3api.models.endpoint_id import EndpointId
+from t3api.models.extracted_lab_result import ExtractedLabResult
 from t3api.models.incoming_transfer_manifest_report_response import IncomingTransferManifestReportResponse
 from t3api.models.jwt_data import JWTData
 from t3api.models.lab_testing_states import LabTestingStates
@@ -94,6 +97,8 @@ from t3api.models.metrc_incoming_transfer import MetrcIncomingTransfer
 from t3api.models.metrc_incoming_transfer_list_response import MetrcIncomingTransferListResponse
 from t3api.models.metrc_item import MetrcItem
 from t3api.models.metrc_item_list_response import MetrcItemListResponse
+from t3api.models.metrc_item_photo import MetrcItemPhoto
+from t3api.models.metrc_item_photo_list_response import MetrcItemPhotoListResponse
 from t3api.models.metrc_license import MetrcLicense
 from t3api.models.metrc_location import MetrcLocation
 from t3api.models.metrc_outgoing_transfer import MetrcOutgoingTransfer
@@ -124,7 +129,6 @@ from t3api.models.metrc_strain import MetrcStrain
 from t3api.models.metrc_strain_list_response import MetrcStrainListResponse
 from t3api.models.metrc_superpackage import MetrcSuperpackage
 from t3api.models.metrc_superpackage_all_of_metadata import MetrcSuperpackageAllOfMetadata
-from t3api.models.metrc_superpackage_all_of_metadata_test_results import MetrcSuperpackageAllOfMetadataTestResults
 from t3api.models.metrc_tag import MetrcTag
 from t3api.models.metrc_transaction import MetrcTransaction
 from t3api.models.metrc_transaction_list_response import MetrcTransactionListResponse
@@ -148,9 +152,11 @@ from t3api.models.t3_label_content_data import T3LabelContentData
 from t3api.models.t3_label_content_data_list_response import T3LabelContentDataListResponse
 from t3api.models.t3_label_content_layout_config import T3LabelContentLayoutConfig
 from t3api.models.t3_label_content_layout_element import T3LabelContentLayoutElement
+from t3api.models.t3_label_content_layout_element_paragraph_font_name import T3LabelContentLayoutElementParagraphFontName
 from t3api.models.t3_label_content_layout_element_text_resize_strategy import T3LabelContentLayoutElementTextResizeStrategy
 from t3api.models.t3_label_content_layout_element_type import T3LabelContentLayoutElementType
 from t3api.models.t3_label_content_layouts_response import T3LabelContentLayoutsResponse
+from t3api.models.t3_label_rendering_options import T3LabelRenderingOptions
 from t3api.models.t3_label_template_layout_config import T3LabelTemplateLayoutConfig
 from t3api.models.t3_label_template_layouts_response import T3LabelTemplateLayoutsResponse
 from t3api.models.t3_outgoing_transfer_manifest import T3OutgoingTransferManifest
@@ -191,6 +197,7 @@ from t3api.models.v2_items_discontinue_post503_response_error import V2ItemsDisc
 from t3api.models.v2_items_discontinue_post_request import V2ItemsDiscontinuePostRequest
 from t3api.models.v2_items_get200_response import V2ItemsGet200Response
 from t3api.models.v2_items_history_get200_response import V2ItemsHistoryGet200Response
+from t3api.models.v2_items_photos_get200_response import V2ItemsPhotosGet200Response
 from t3api.models.v2_items_report_get200_response import V2ItemsReportGet200Response
 from t3api.models.v2_labels_generate_post_request import V2LabelsGeneratePostRequest
 from t3api.models.v2_licenses_get200_response_inner import V2LicensesGet200ResponseInner
@@ -236,5 +243,8 @@ from t3api.models.v2_transfers_incoming_active_get200_response import V2Transfer
 from t3api.models.v2_transfers_incoming_manifest_report_get200_response import V2TransfersIncomingManifestReportGet200Response
 from t3api.models.v2_transfers_outgoing_active_get200_response import V2TransfersOutgoingActiveGet200Response
 from t3api.models.v2_transfers_outgoing_manifest_report_get200_response import V2TransfersOutgoingManifestReportGet200Response
+from t3api.models.v2_transfers_templates_create_post_request_inner import V2TransfersTemplatesCreatePostRequestInner
+from t3api.models.v2_transfers_templates_create_post_request_inner_destinations_inner import V2TransfersTemplatesCreatePostRequestInnerDestinationsInner
+from t3api.models.v2_transfers_templates_create_post_request_inner_destinations_inner_packages_inner import V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner
 from t3api.models.v2_transfers_transporter_details_get200_response import V2TransfersTransporterDetailsGet200Response
 from t3api.models.v2_transfers_transporters_get200_response import V2TransfersTransportersGet200Response

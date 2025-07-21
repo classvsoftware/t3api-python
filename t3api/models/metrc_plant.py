@@ -56,7 +56,11 @@ class MetrcPlant(BaseModel):
     destroyed_note: Optional[StrictStr] = Field(default=None, description="Note about the destruction of the plant, if applicable.", alias="destroyedNote")
     destroyed_by_user_name: Optional[StrictStr] = Field(default=None, description="Username of the person who destroyed the plant, if applicable.", alias="destroyedByUserName")
     last_modified: Optional[datetime] = Field(default=None, description="The last time the plant record was modified.", alias="lastModified")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "label", "stateName", "growthPhaseName", "plantCount", "groupTagTypeMax", "tagTypeMax", "plantBatchName", "plantBatchTypeName", "strainId", "strainName", "locationName", "sublocationName", "locationTypeName", "patientLicenseNumber", "harvestCount", "isOnHold", "plantedDate", "vegetativeDate", "floweringDate", "destroyedDate", "destroyedNote", "destroyedByUserName", "lastModified"]
+    survived_count: Optional[StrictInt] = Field(default=None, description="Number of plants that survived from this record.", alias="survivedCount")
+    mother_plant_date: Optional[date] = Field(default=None, description="Date when the plant was designated as a mother plant.", alias="motherPlantDate")
+    descended_count: Optional[StrictInt] = Field(default=None, description="Number of descendant plants from this plant.", alias="descendedCount")
+    cloned_count: Optional[StrictInt] = Field(default=None, description="Number of clones taken from this plant.", alias="clonedCount")
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "index", "label", "stateName", "growthPhaseName", "plantCount", "groupTagTypeMax", "tagTypeMax", "plantBatchName", "plantBatchTypeName", "strainId", "strainName", "locationName", "sublocationName", "locationTypeName", "patientLicenseNumber", "harvestCount", "isOnHold", "plantedDate", "vegetativeDate", "floweringDate", "destroyedDate", "destroyedNote", "destroyedByUserName", "lastModified", "survivedCount", "motherPlantDate", "descendedCount", "clonedCount"]
 
     @field_validator('index')
     def index_validate_enum(cls, value):
@@ -212,7 +216,11 @@ class MetrcPlant(BaseModel):
             "destroyedDate": obj.get("destroyedDate"),
             "destroyedNote": obj.get("destroyedNote"),
             "destroyedByUserName": obj.get("destroyedByUserName"),
-            "lastModified": obj.get("lastModified")
+            "lastModified": obj.get("lastModified"),
+            "survivedCount": obj.get("survivedCount"),
+            "motherPlantDate": obj.get("motherPlantDate"),
+            "descendedCount": obj.get("descendedCount"),
+            "clonedCount": obj.get("clonedCount")
         })
         return _obj
 

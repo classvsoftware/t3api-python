@@ -35,6 +35,7 @@ class V2PackagesCreateInputsGet200Response(BaseModel):
     allowed_production_product_category_ids: Optional[List[StrictInt]] = Field(default=None, alias="allowedProductionProductCategoryIds")
     details: Optional[StrictStr] = None
     harvest_batches: Optional[StrictStr] = Field(default=None, alias="harvestBatches")
+    growth_phase: Optional[StrictInt] = Field(default=None, alias="growthPhase")
     is_product_destruction: Optional[StrictBool] = Field(default=None, alias="isProductDestruction")
     item_category_ids: Optional[StrictStr] = Field(default=None, alias="itemCategoryIds")
     items: Optional[List[StrictStr]] = None
@@ -49,7 +50,7 @@ class V2PackagesCreateInputsGet200Response(BaseModel):
     submit_for_testing: Optional[StrictBool] = Field(default=None, alias="submitForTesting")
     tags: Optional[List[MetrcTag]] = None
     units_of_measure: Optional[List[UnitOfMeasure]] = Field(default=None, alias="unitsOfMeasure")
-    __properties: ClassVar[List[str]] = ["allowedProductionLabTestingStates", "allowedProductionProductCategoryIds", "details", "harvestBatches", "isProductDestruction", "itemCategoryIds", "items", "labTestBatches", "locations", "sublocations", "packages", "patientAffiliations", "plantBatches", "plants", "remediationMethods", "submitForTesting", "tags", "unitsOfMeasure"]
+    __properties: ClassVar[List[str]] = ["allowedProductionLabTestingStates", "allowedProductionProductCategoryIds", "details", "harvestBatches", "growthPhase", "isProductDestruction", "itemCategoryIds", "items", "labTestBatches", "locations", "sublocations", "packages", "patientAffiliations", "plantBatches", "plants", "remediationMethods", "submitForTesting", "tags", "unitsOfMeasure"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -174,6 +175,7 @@ class V2PackagesCreateInputsGet200Response(BaseModel):
             "allowedProductionProductCategoryIds": obj.get("allowedProductionProductCategoryIds"),
             "details": obj.get("details"),
             "harvestBatches": obj.get("harvestBatches"),
+            "growthPhase": obj.get("growthPhase"),
             "isProductDestruction": obj.get("isProductDestruction"),
             "itemCategoryIds": obj.get("itemCategoryIds"),
             "items": obj.get("items"),

@@ -17,30 +17,29 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from t3api.models.v2_transfers_create_post_request_inner_destinations_inner_transporters_inner import V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInner
+from t3api.models.v2_transfers_templates_create_post_request_inner_destinations_inner_packages_inner import V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner
 from typing import Optional, Set
 from typing_extensions import Self
 
-class T3LabelTemplateLayoutConfig(BaseModel):
+class V2TransfersTemplatesCreatePostRequestInnerDestinationsInner(BaseModel):
     """
-    Describes the label layout on a printed medium. Capable of supporting any rectangular printable medium, with an arbitrarily sized grid of labels. Assumes that multiple labels are arranged in a centered grid, and arranged with even spacing. NOTE: y-coordinates are inverted. 
+    V2TransfersTemplatesCreatePostRequestInnerDestinationsInner
     """ # noqa: E501
-    name: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
-    pagesize_xin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pagesizeXIn")
-    pagesize_yin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pagesizeYIn")
-    label_width_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelWidthIn")
-    label_height_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelHeightIn")
-    x_gap_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="xGapIn")
-    y_gap_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="yGapIn")
-    num_columns: Optional[StrictInt] = Field(default=None, alias="numColumns")
-    num_rows: Optional[StrictInt] = Field(default=None, alias="numRows")
-    page_margin_top_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pageMarginTopIn")
-    page_margin_left_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pageMarginLeftIn")
-    label_padding_xin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelPaddingXIn")
-    label_padding_yin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelPaddingYIn")
-    __properties: ClassVar[List[str]] = ["name", "description", "pagesizeXIn", "pagesizeYIn", "labelWidthIn", "labelHeightIn", "xGapIn", "yGapIn", "numColumns", "numRows", "pageMarginTopIn", "pageMarginLeftIn", "labelPaddingXIn", "labelPaddingYIn"]
+    recipient_id: Union[StrictFloat, StrictInt] = Field(description="Facility ID of the destination facility.  To find eligible destination facilities, use the [Destinations](#/Create%20Transfer/get_v2_packages_create_transfer_destination_list) endpoint. ", alias="recipientId")
+    planned_route: StrictStr = Field(description="Planned route for the shipment.", alias="plannedRoute")
+    transfer_type_id: Union[StrictFloat, StrictInt] = Field(description="Identifier for the type of transfer.", alias="transferTypeId")
+    invoice_number: Optional[StrictStr] = Field(default=None, description="Invoice number for this delivery. *Not all transfer types require this value.*  This value is only required if the `transferType` has `requiresInvoiceNumber=true`.  See the [create transfer inputs](#/Create%20Transfer/get_v2_packages_create_transfer_inputs) endpoints for details. ", alias="invoiceNumber")
+    estimated_departure_date_time: datetime = Field(description="Estimated departure date and time.", alias="estimatedDepartureDateTime")
+    estimated_arrival_date_time: datetime = Field(description="Estimated arrival date and time.", alias="estimatedArrivalDateTime")
+    gross_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gross weight of the transfer. *Not all transfer types require this value.*  Only should be set if the `transferType` has requiresDestinationGrossWeight=true.  See the [create transfer inputs](#/Create%20Transfer/get_v2_packages_create_transfer_inputs) endpoints for details. ", alias="grossWeight")
+    gross_unit_of_weight_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Identifier for the unit of weight. *Not all transfer types require this value.*  Only should be set if the `transferType` has requiresDestinationGrossWeight=true.  See the [create transfer inputs](#/Create%20Transfer/get_v2_packages_create_transfer_inputs) endpoints for details. ", alias="grossUnitOfWeightId")
+    transporters: Optional[List[V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInner]] = Field(default=None, description="List of transporters for the transfer.")
+    packages: Optional[List[V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner]] = Field(default=None, description="List of packages in the transfer.")
+    __properties: ClassVar[List[str]] = ["recipientId", "plannedRoute", "transferTypeId", "invoiceNumber", "estimatedDepartureDateTime", "estimatedArrivalDateTime", "grossWeight", "grossUnitOfWeightId", "transporters", "packages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,7 +59,7 @@ class T3LabelTemplateLayoutConfig(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of T3LabelTemplateLayoutConfig from a JSON string"""
+        """Create an instance of V2TransfersTemplatesCreatePostRequestInnerDestinationsInner from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -81,11 +80,25 @@ class T3LabelTemplateLayoutConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in transporters (list)
+        _items = []
+        if self.transporters:
+            for _item_transporters in self.transporters:
+                if _item_transporters:
+                    _items.append(_item_transporters.to_dict())
+            _dict['transporters'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in packages (list)
+        _items = []
+        if self.packages:
+            for _item_packages in self.packages:
+                if _item_packages:
+                    _items.append(_item_packages.to_dict())
+            _dict['packages'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of T3LabelTemplateLayoutConfig from a dict"""
+        """Create an instance of V2TransfersTemplatesCreatePostRequestInnerDestinationsInner from a dict"""
         if obj is None:
             return None
 
@@ -93,20 +106,16 @@ class T3LabelTemplateLayoutConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "description": obj.get("description"),
-            "pagesizeXIn": obj.get("pagesizeXIn"),
-            "pagesizeYIn": obj.get("pagesizeYIn"),
-            "labelWidthIn": obj.get("labelWidthIn"),
-            "labelHeightIn": obj.get("labelHeightIn"),
-            "xGapIn": obj.get("xGapIn"),
-            "yGapIn": obj.get("yGapIn"),
-            "numColumns": obj.get("numColumns"),
-            "numRows": obj.get("numRows"),
-            "pageMarginTopIn": obj.get("pageMarginTopIn"),
-            "pageMarginLeftIn": obj.get("pageMarginLeftIn"),
-            "labelPaddingXIn": obj.get("labelPaddingXIn"),
-            "labelPaddingYIn": obj.get("labelPaddingYIn")
+            "recipientId": obj.get("recipientId"),
+            "plannedRoute": obj.get("plannedRoute"),
+            "transferTypeId": obj.get("transferTypeId"),
+            "invoiceNumber": obj.get("invoiceNumber"),
+            "estimatedDepartureDateTime": obj.get("estimatedDepartureDateTime"),
+            "estimatedArrivalDateTime": obj.get("estimatedArrivalDateTime"),
+            "grossWeight": obj.get("grossWeight"),
+            "grossUnitOfWeightId": obj.get("grossUnitOfWeightId"),
+            "transporters": [V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInner.from_dict(_item) for _item in obj["transporters"]] if obj.get("transporters") is not None else None,
+            "packages": [V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner.from_dict(_item) for _item in obj["packages"]] if obj.get("packages") is not None else None
         })
         return _obj
 

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from t3api.models.t3_label_content_layout_element import T3LabelContentLayoutElement
 from typing import Optional, Set
@@ -27,15 +27,12 @@ class T3LabelContentLayoutConfig(BaseModel):
     """
     Data describing how each label will be laid out, including a list of pieces and how they are arranged.
     """ # noqa: E501
-    enabled: Optional[StrictBool] = None
-    visible: Optional[StrictBool] = None
-    requires_t3plus: Optional[StrictBool] = None
+    name: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
-    aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = None
-    min_aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = None
-    max_aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = None
-    label_content_layout_elements: Optional[List[T3LabelContentLayoutElement]] = None
-    __properties: ClassVar[List[str]] = ["enabled", "visible", "requires_t3plus", "description", "aspect_ratio", "min_aspect_ratio", "max_aspect_ratio", "label_content_layout_elements"]
+    min_aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="minAspectRatio")
+    max_aspect_ratio: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="maxAspectRatio")
+    label_content_layout_elements: List[T3LabelContentLayoutElement] = Field(alias="labelContentLayoutElements")
+    __properties: ClassVar[List[str]] = ["name", "description", "minAspectRatio", "maxAspectRatio", "labelContentLayoutElements"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,7 +79,7 @@ class T3LabelContentLayoutConfig(BaseModel):
             for _item_label_content_layout_elements in self.label_content_layout_elements:
                 if _item_label_content_layout_elements:
                     _items.append(_item_label_content_layout_elements.to_dict())
-            _dict['label_content_layout_elements'] = _items
+            _dict['labelContentLayoutElements'] = _items
         return _dict
 
     @classmethod
@@ -95,14 +92,11 @@ class T3LabelContentLayoutConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "enabled": obj.get("enabled"),
-            "visible": obj.get("visible"),
-            "requires_t3plus": obj.get("requires_t3plus"),
+            "name": obj.get("name"),
             "description": obj.get("description"),
-            "aspect_ratio": obj.get("aspect_ratio"),
-            "min_aspect_ratio": obj.get("min_aspect_ratio"),
-            "max_aspect_ratio": obj.get("max_aspect_ratio"),
-            "label_content_layout_elements": [T3LabelContentLayoutElement.from_dict(_item) for _item in obj["label_content_layout_elements"]] if obj.get("label_content_layout_elements") is not None else None
+            "minAspectRatio": obj.get("minAspectRatio"),
+            "maxAspectRatio": obj.get("maxAspectRatio"),
+            "labelContentLayoutElements": [T3LabelContentLayoutElement.from_dict(_item) for _item in obj["labelContentLayoutElements"]] if obj.get("labelContentLayoutElements") is not None else None
         })
         return _obj
 

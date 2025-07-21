@@ -27,9 +27,9 @@ class V2TransfersCreatePostRequestInnerDestinationsInnerPackagesInner(BaseModel)
     V2TransfersCreatePostRequestInnerDestinationsInnerPackagesInner
     """ # noqa: E501
     id: Union[StrictFloat, StrictInt] = Field(description="Identifier of the package.")
-    wholesale_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Wholesale price of the package. *Only required for wholesale transfers* ", alias="wholesalePrice")
-    gross_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gross weight of the package.  *Only applicable in some Metrc states* ", alias="grossWeight")
-    gross_unit_of_weight_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unit of weight identifier for the package. *Only applicable in some Metrc states* ", alias="grossUnitOfWeightId")
+    wholesale_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Wholesale price of the package. *Not all transfer types require this value.*  Only should be set if the `transferType` has `transactionType=\"Wholesale\"`.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details. ", alias="wholesalePrice")
+    gross_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gross weight of the package. *Not all transfer types require this value.*  Only should be set if the `transferType` has `requiresPackagesGrossWeight=true`.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details. ", alias="grossWeight")
+    gross_unit_of_weight_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unit of weight identifier for the package. *Not all transfer types require this value.*  Only should be set if the `transferType` has `requiresPackagesGrossWeight=true`.  See the [create transfer inputs](#/Create%20Transfer/get_v2_transfers_create_inputs) endpoints for details. ", alias="grossUnitOfWeightId")
     __properties: ClassVar[List[str]] = ["id", "wholesalePrice", "grossWeight", "grossUnitOfWeightId"]
 
     model_config = ConfigDict(
@@ -71,21 +71,6 @@ class V2TransfersCreatePostRequestInnerDestinationsInnerPackagesInner(BaseModel)
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if wholesale_price (nullable) is None
-        # and model_fields_set contains the field
-        if self.wholesale_price is None and "wholesale_price" in self.model_fields_set:
-            _dict['wholesalePrice'] = None
-
-        # set to None if gross_weight (nullable) is None
-        # and model_fields_set contains the field
-        if self.gross_weight is None and "gross_weight" in self.model_fields_set:
-            _dict['grossWeight'] = None
-
-        # set to None if gross_unit_of_weight_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.gross_unit_of_weight_id is None and "gross_unit_of_weight_id" in self.model_fields_set:
-            _dict['grossUnitOfWeightId'] = None
-
         return _dict
 
     @classmethod

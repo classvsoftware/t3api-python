@@ -27,7 +27,7 @@ class V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInner(BaseMo
     """
     V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInner
     """ # noqa: E501
-    transporter_id: Union[StrictFloat, StrictInt] = Field(description="Facility ID of the transporter facility. To find eligible transporter facilities, use the [Transporters](#/Create%20Transfer/get_v2_packages_create_transfer_transporter_list) endpoint.", alias="transporterId")
+    transporter_id: Union[StrictFloat, StrictInt] = Field(description="Facility ID of the transporter facility.   To find eligible transporter facilities, use the [Transporters](#/Create%20Transfer/get_v2_packages_create_transfer_transporter_list) endpoint. ", alias="transporterId")
     phone_number_for_questions: StrictStr = Field(description="Phone number for inquiries.", alias="phoneNumberForQuestions")
     transporter_details: List[V2TransfersCreatePostRequestInnerDestinationsInnerTransportersInnerTransporterDetailsInner] = Field(description="Details of the transporter.", alias="transporterDetails")
     __properties: ClassVar[List[str]] = ["transporterId", "phoneNumberForQuestions", "transporterDetails"]

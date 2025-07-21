@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from t3api.models.v2_transfers_create_post_request_inner_destinations_inner import V2TransfersCreatePostRequestInnerDestinationsInner
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,7 +27,7 @@ class V2TransfersCreatePostRequestInner(BaseModel):
     """
     A schema representing a shipment with details about destinations, transporters, and packages.
     """ # noqa: E501
-    destinations: Optional[List[V2TransfersCreatePostRequestInnerDestinationsInner]] = Field(default=None, description="List of destinations for the shipment.")
+    destinations: List[V2TransfersCreatePostRequestInnerDestinationsInner] = Field(description="List of destinations for the shipment.")
     __properties: ClassVar[List[str]] = ["destinations"]
 
     model_config = ConfigDict(

@@ -6,6 +6,7 @@ from t3api.api.create_package_api import CreatePackageApi
 from t3api.api.create_strains_api import CreateStrainsApi
 from t3api.api.create_transfer_api import CreateTransferApi
 from t3api.api.facilities_api import FacilitiesApi
+from t3api.api.files_api import FilesApi
 from t3api.api.free_api import FreeApi
 from t3api.api.harvests_api import HarvestsApi
 from t3api.api.history_api import HistoryApi
@@ -21,6 +22,7 @@ from t3api.api.modify_strains_api import ModifyStrainsApi
 from t3api.api.pdf_api import PDFApi
 from t3api.api.packages_api import PackagesApi
 from t3api.api.permissions_api import PermissionsApi
+from t3api.api.photos_api import PhotosApi
 from t3api.api.plant_batches_api import PlantBatchesApi
 from t3api.api.plants_api import PlantsApi
 from t3api.api.reports_api import ReportsApi

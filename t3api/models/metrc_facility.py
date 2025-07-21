@@ -17,7 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from t3api.models.metrc_facility_physical_address import MetrcFacilityPhysicalAddress
 from typing import Optional, Set
@@ -30,12 +31,26 @@ class MetrcFacility(BaseModel):
     license_number: Optional[StrictStr] = Field(default=None, description="License number of the facility.", alias="licenseNumber")
     facility_name: Optional[StrictStr] = Field(default=None, description="Name of the facility.", alias="facilityName")
     id: Optional[StrictInt] = Field(default=None, description="Unique identifier of the facility.")
+    hostname: Optional[StrictStr] = Field(default=None, description="The hostname this object was retrieved from")
+    data_model: Optional[StrictStr] = Field(default=None, description="Name of this object's data model", alias="dataModel")
+    retrieved_at: Optional[datetime] = Field(default=None, description="Timestamp of when this object was pulled from Metrc", alias="retrievedAt")
+    index: Optional[StrictStr] = Field(default=None, description="The current state of this object.")
     facility_type_name: Optional[StrictStr] = Field(default=None, description="Type of the facility.", alias="facilityTypeName")
     facility_type: Optional[StrictStr] = Field(default=None, description="Type code of the facility.", alias="facilityType")
     physical_address: Optional[MetrcFacilityPhysicalAddress] = Field(default=None, alias="physicalAddress")
     main_phone_number: Optional[StrictStr] = Field(default=None, description="Main phone number of the facility.", alias="mainPhoneNumber")
     mobile_phone_number: Optional[StrictStr] = Field(default=None, description="Mobile phone number of the facility.", alias="mobilePhoneNumber")
-    __properties: ClassVar[List[str]] = ["licenseNumber", "facilityName", "id", "facilityTypeName", "facilityType", "physicalAddress", "mainPhoneNumber", "mobilePhoneNumber"]
+    __properties: ClassVar[List[str]] = ["licenseNumber", "facilityName", "id", "hostname", "dataModel", "retrievedAt", "index", "facilityTypeName", "facilityType", "physicalAddress", "mainPhoneNumber", "mobilePhoneNumber"]
+
+    @field_validator('index')
+    def index_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['TRANSPORTER', 'DESTINATION']):
+            raise ValueError("must be one of enum values ('TRANSPORTER', 'DESTINATION')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -104,6 +119,10 @@ class MetrcFacility(BaseModel):
             "licenseNumber": obj.get("licenseNumber"),
             "facilityName": obj.get("facilityName"),
             "id": obj.get("id"),
+            "hostname": obj.get("hostname"),
+            "dataModel": obj.get("dataModel"),
+            "retrievedAt": obj.get("retrievedAt"),
+            "index": obj.get("index"),
             "facilityTypeName": obj.get("facilityTypeName"),
             "facilityType": obj.get("facilityType"),
             "physicalAddress": MetrcFacilityPhysicalAddress.from_dict(obj["physicalAddress"]) if obj.get("physicalAddress") is not None else None,

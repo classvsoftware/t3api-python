@@ -96,7 +96,17 @@ class MetrcTransaction(BaseModel):
     trade_sample_sale_verified: Optional[StrictBool] = Field(default=None, description="Whether the trade sample sale was verified (nullable)", alias="tradeSampleSaleVerified")
     recall_product_sale_verified: Optional[StrictBool] = Field(default=None, description="Whether the recall product sale was verified (nullable)", alias="recallProductSaleVerified")
     qr_code_document: Optional[StrictStr] = Field(default=None, alias="qrCodeDocument")
-    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "packageId", "tripId", "tripManifestNumber", "packageLabel", "isPartial", "hasPartial", "packageType", "productName", "productCategoryName", "itemStrainName", "itemBrandName", "itemUnitCbdPercent", "itemUnitCbdContent", "itemUnitCbdContentUnitOfMeasureAbbreviation", "itemUnitCbdContentDose", "itemUnitCbdContentDoseUnitOfMeasureAbbreviation", "itemUnitThcPercent", "itemUnitThcContent", "itemUnitThcContentUnitOfMeasureAbbreviation", "itemUnitThcContentDose", "itemUnitThcContentDoseUnitOfMeasureAbbreviation", "itemUnitVolume", "itemUnitVolumeUnitOfMeasureAbbreviation", "itemUnitWeight", "itemUnitWeightUnitOfMeasureAbbreviation", "itemServingSize", "itemSupplyDurationDays", "itemUnitQuantity", "itemUnitQuantityUnitOfMeasureAbbreviation", "quantitySold", "unitOfMeasureId", "unitOfMeasureName", "unitOfMeasureAbbreviation", "unitThcPercent", "unitThcContent", "unitThcContentUnitOfMeasureId", "unitWeight", "unitWeightUnitOfMeasureId", "totalPrice", "salesDeliveryState", "salesDeliveryStateName", "isTradeSample", "isDonation", "isTestingSample", "productRequiresRemediation", "containsRemediatedProduct", "remediationDate", "isArchived", "archivedDate", "recordedDateTime", "recordedByUserName", "lastModified", "invoiceNumber", "price", "exciseTax", "cityTax", "countyTax", "municipalTax", "discountAmount", "subTotal", "salesTax", "tradeSampleSaleVerified", "recallProductSaleVerified", "qrCodeDocument"]
+    item_unit_thc_a_percent: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Alternate percentage of THC in the item (nullable)", alias="itemUnitThcAPercent")
+    item_unit_thc_a_content: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Alternate THC content in the item (nullable)", alias="itemUnitThcAContent")
+    item_unit_thc_a_content_unit_of_measure_abbreviation: Optional[StrictStr] = Field(default=None, description="Abbreviation of the alternate THC content unit of measure (nullable)", alias="itemUnitThcAContentUnitOfMeasureAbbreviation")
+    item_unit_thc_a_content_dose: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Alternate THC content dose of the item (nullable)", alias="itemUnitThcAContentDose")
+    item_unit_thc_a_content_dose_unit_of_measure_abbreviation: Optional[StrictStr] = Field(default=None, description="Abbreviation of the alternate THC dose content unit of measure (nullable)", alias="itemUnitThcAContentDoseUnitOfMeasureAbbreviation")
+    item_unit_cbd_a_percent: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Alternate percentage of CBD in the item (nullable)", alias="itemUnitCbdAPercent")
+    item_unit_cbd_a_content: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Alternate CBD content in the item (nullable)", alias="itemUnitCbdAContent")
+    item_unit_cbd_a_content_unit_of_measure_abbreviation: Optional[StrictStr] = Field(default=None, description="Abbreviation of the alternate CBD content unit of measure (nullable)", alias="itemUnitCbdAContentUnitOfMeasureAbbreviation")
+    item_unit_cbd_a_content_dose: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Alternate CBD content dose of the item (nullable)", alias="itemUnitCbdAContentDose")
+    item_unit_cbd_a_content_dose_unit_of_measure_abbreviation: Optional[StrictStr] = Field(default=None, description="Abbreviation of the alternate CBD dose content unit of measure (nullable)", alias="itemUnitCbdAContentDoseUnitOfMeasureAbbreviation")
+    __properties: ClassVar[List[str]] = ["id", "hostname", "dataModel", "retrievedAt", "licenseNumber", "packageId", "tripId", "tripManifestNumber", "packageLabel", "isPartial", "hasPartial", "packageType", "productName", "productCategoryName", "itemStrainName", "itemBrandName", "itemUnitCbdPercent", "itemUnitCbdContent", "itemUnitCbdContentUnitOfMeasureAbbreviation", "itemUnitCbdContentDose", "itemUnitCbdContentDoseUnitOfMeasureAbbreviation", "itemUnitThcPercent", "itemUnitThcContent", "itemUnitThcContentUnitOfMeasureAbbreviation", "itemUnitThcContentDose", "itemUnitThcContentDoseUnitOfMeasureAbbreviation", "itemUnitVolume", "itemUnitVolumeUnitOfMeasureAbbreviation", "itemUnitWeight", "itemUnitWeightUnitOfMeasureAbbreviation", "itemServingSize", "itemSupplyDurationDays", "itemUnitQuantity", "itemUnitQuantityUnitOfMeasureAbbreviation", "quantitySold", "unitOfMeasureId", "unitOfMeasureName", "unitOfMeasureAbbreviation", "unitThcPercent", "unitThcContent", "unitThcContentUnitOfMeasureId", "unitWeight", "unitWeightUnitOfMeasureId", "totalPrice", "salesDeliveryState", "salesDeliveryStateName", "isTradeSample", "isDonation", "isTestingSample", "productRequiresRemediation", "containsRemediatedProduct", "remediationDate", "isArchived", "archivedDate", "recordedDateTime", "recordedByUserName", "lastModified", "invoiceNumber", "price", "exciseTax", "cityTax", "countyTax", "municipalTax", "discountAmount", "subTotal", "salesTax", "tradeSampleSaleVerified", "recallProductSaleVerified", "qrCodeDocument", "itemUnitThcAPercent", "itemUnitThcAContent", "itemUnitThcAContentUnitOfMeasureAbbreviation", "itemUnitThcAContentDose", "itemUnitThcAContentDoseUnitOfMeasureAbbreviation", "itemUnitCbdAPercent", "itemUnitCbdAContent", "itemUnitCbdAContentUnitOfMeasureAbbreviation", "itemUnitCbdAContentDose", "itemUnitCbdAContentDoseUnitOfMeasureAbbreviation"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -337,6 +347,56 @@ class MetrcTransaction(BaseModel):
         if self.qr_code_document is None and "qr_code_document" in self.model_fields_set:
             _dict['qrCodeDocument'] = None
 
+        # set to None if item_unit_thc_a_percent (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_thc_a_percent is None and "item_unit_thc_a_percent" in self.model_fields_set:
+            _dict['itemUnitThcAPercent'] = None
+
+        # set to None if item_unit_thc_a_content (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_thc_a_content is None and "item_unit_thc_a_content" in self.model_fields_set:
+            _dict['itemUnitThcAContent'] = None
+
+        # set to None if item_unit_thc_a_content_unit_of_measure_abbreviation (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_thc_a_content_unit_of_measure_abbreviation is None and "item_unit_thc_a_content_unit_of_measure_abbreviation" in self.model_fields_set:
+            _dict['itemUnitThcAContentUnitOfMeasureAbbreviation'] = None
+
+        # set to None if item_unit_thc_a_content_dose (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_thc_a_content_dose is None and "item_unit_thc_a_content_dose" in self.model_fields_set:
+            _dict['itemUnitThcAContentDose'] = None
+
+        # set to None if item_unit_thc_a_content_dose_unit_of_measure_abbreviation (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_thc_a_content_dose_unit_of_measure_abbreviation is None and "item_unit_thc_a_content_dose_unit_of_measure_abbreviation" in self.model_fields_set:
+            _dict['itemUnitThcAContentDoseUnitOfMeasureAbbreviation'] = None
+
+        # set to None if item_unit_cbd_a_percent (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_cbd_a_percent is None and "item_unit_cbd_a_percent" in self.model_fields_set:
+            _dict['itemUnitCbdAPercent'] = None
+
+        # set to None if item_unit_cbd_a_content (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_cbd_a_content is None and "item_unit_cbd_a_content" in self.model_fields_set:
+            _dict['itemUnitCbdAContent'] = None
+
+        # set to None if item_unit_cbd_a_content_unit_of_measure_abbreviation (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_cbd_a_content_unit_of_measure_abbreviation is None and "item_unit_cbd_a_content_unit_of_measure_abbreviation" in self.model_fields_set:
+            _dict['itemUnitCbdAContentUnitOfMeasureAbbreviation'] = None
+
+        # set to None if item_unit_cbd_a_content_dose (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_cbd_a_content_dose is None and "item_unit_cbd_a_content_dose" in self.model_fields_set:
+            _dict['itemUnitCbdAContentDose'] = None
+
+        # set to None if item_unit_cbd_a_content_dose_unit_of_measure_abbreviation (nullable) is None
+        # and model_fields_set contains the field
+        if self.item_unit_cbd_a_content_dose_unit_of_measure_abbreviation is None and "item_unit_cbd_a_content_dose_unit_of_measure_abbreviation" in self.model_fields_set:
+            _dict['itemUnitCbdAContentDoseUnitOfMeasureAbbreviation'] = None
+
         return _dict
 
     @classmethod
@@ -417,7 +477,17 @@ class MetrcTransaction(BaseModel):
             "salesTax": obj.get("salesTax"),
             "tradeSampleSaleVerified": obj.get("tradeSampleSaleVerified"),
             "recallProductSaleVerified": obj.get("recallProductSaleVerified"),
-            "qrCodeDocument": obj.get("qrCodeDocument")
+            "qrCodeDocument": obj.get("qrCodeDocument"),
+            "itemUnitThcAPercent": obj.get("itemUnitThcAPercent"),
+            "itemUnitThcAContent": obj.get("itemUnitThcAContent"),
+            "itemUnitThcAContentUnitOfMeasureAbbreviation": obj.get("itemUnitThcAContentUnitOfMeasureAbbreviation"),
+            "itemUnitThcAContentDose": obj.get("itemUnitThcAContentDose"),
+            "itemUnitThcAContentDoseUnitOfMeasureAbbreviation": obj.get("itemUnitThcAContentDoseUnitOfMeasureAbbreviation"),
+            "itemUnitCbdAPercent": obj.get("itemUnitCbdAPercent"),
+            "itemUnitCbdAContent": obj.get("itemUnitCbdAContent"),
+            "itemUnitCbdAContentUnitOfMeasureAbbreviation": obj.get("itemUnitCbdAContentUnitOfMeasureAbbreviation"),
+            "itemUnitCbdAContentDose": obj.get("itemUnitCbdAContentDose"),
+            "itemUnitCbdAContentDoseUnitOfMeasureAbbreviation": obj.get("itemUnitCbdAContentDoseUnitOfMeasureAbbreviation")
         })
         return _obj
 

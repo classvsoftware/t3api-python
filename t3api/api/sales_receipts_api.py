@@ -1158,6 +1158,7 @@ class SalesReceiptsApi:
         self,
         sales_receipt_id: Annotated[Union[StrictFloat, StrictInt], Field(description="ID of the target sales receipt")],
         license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        include_history: Annotated[Optional[StrictBool], Field(description="Enables access to archived transactions in Metrc")] = None,
         page: Annotated[Optional[StrictInt], Field(description="The index of the page to be returned.")] = None,
         page_size: Annotated[Optional[StrictInt], Field(description="The number of objects per page to be returned.")] = None,
         strict_pagination: Annotated[Optional[StrictBool], Field(description="Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.")] = None,
@@ -1184,6 +1185,8 @@ class SalesReceiptsApi:
         :type sales_receipt_id: float
         :param license_number: The unique identifier for the license associated with this request. (required)
         :type license_number: str
+        :param include_history: Enables access to archived transactions in Metrc
+        :type include_history: bool
         :param page: The index of the page to be returned.
         :type page: int
         :param page_size: The number of objects per page to be returned.
@@ -1221,6 +1224,7 @@ class SalesReceiptsApi:
         _param = self._v2_sales_transactions_get_serialize(
             sales_receipt_id=sales_receipt_id,
             license_number=license_number,
+            include_history=include_history,
             page=page,
             page_size=page_size,
             strict_pagination=strict_pagination,
@@ -1252,6 +1256,7 @@ class SalesReceiptsApi:
         self,
         sales_receipt_id: Annotated[Union[StrictFloat, StrictInt], Field(description="ID of the target sales receipt")],
         license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        include_history: Annotated[Optional[StrictBool], Field(description="Enables access to archived transactions in Metrc")] = None,
         page: Annotated[Optional[StrictInt], Field(description="The index of the page to be returned.")] = None,
         page_size: Annotated[Optional[StrictInt], Field(description="The number of objects per page to be returned.")] = None,
         strict_pagination: Annotated[Optional[StrictBool], Field(description="Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.")] = None,
@@ -1278,6 +1283,8 @@ class SalesReceiptsApi:
         :type sales_receipt_id: float
         :param license_number: The unique identifier for the license associated with this request. (required)
         :type license_number: str
+        :param include_history: Enables access to archived transactions in Metrc
+        :type include_history: bool
         :param page: The index of the page to be returned.
         :type page: int
         :param page_size: The number of objects per page to be returned.
@@ -1315,6 +1322,7 @@ class SalesReceiptsApi:
         _param = self._v2_sales_transactions_get_serialize(
             sales_receipt_id=sales_receipt_id,
             license_number=license_number,
+            include_history=include_history,
             page=page,
             page_size=page_size,
             strict_pagination=strict_pagination,
@@ -1346,6 +1354,7 @@ class SalesReceiptsApi:
         self,
         sales_receipt_id: Annotated[Union[StrictFloat, StrictInt], Field(description="ID of the target sales receipt")],
         license_number: Annotated[StrictStr, Field(description="The unique identifier for the license associated with this request.")],
+        include_history: Annotated[Optional[StrictBool], Field(description="Enables access to archived transactions in Metrc")] = None,
         page: Annotated[Optional[StrictInt], Field(description="The index of the page to be returned.")] = None,
         page_size: Annotated[Optional[StrictInt], Field(description="The number of objects per page to be returned.")] = None,
         strict_pagination: Annotated[Optional[StrictBool], Field(description="Toggles strict pagination. Defaults to `false` (disabled)    - If enabled, requesting an out of bounds page will throw a 400.    - If disabled, requesting an out of bounds page will return a 200 and an empty page.")] = None,
@@ -1372,6 +1381,8 @@ class SalesReceiptsApi:
         :type sales_receipt_id: float
         :param license_number: The unique identifier for the license associated with this request. (required)
         :type license_number: str
+        :param include_history: Enables access to archived transactions in Metrc
+        :type include_history: bool
         :param page: The index of the page to be returned.
         :type page: int
         :param page_size: The number of objects per page to be returned.
@@ -1409,6 +1420,7 @@ class SalesReceiptsApi:
         _param = self._v2_sales_transactions_get_serialize(
             sales_receipt_id=sales_receipt_id,
             license_number=license_number,
+            include_history=include_history,
             page=page,
             page_size=page_size,
             strict_pagination=strict_pagination,
@@ -1435,6 +1447,7 @@ class SalesReceiptsApi:
         self,
         sales_receipt_id,
         license_number,
+        include_history,
         page,
         page_size,
         strict_pagination,
@@ -1467,6 +1480,10 @@ class SalesReceiptsApi:
         if sales_receipt_id is not None:
             
             _query_params.append(('salesReceiptId', sales_receipt_id))
+            
+        if include_history is not None:
+            
+            _query_params.append(('includeHistory', include_history))
             
         if license_number is not None:
             

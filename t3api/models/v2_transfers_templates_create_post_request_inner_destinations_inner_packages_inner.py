@@ -17,23 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class MetrcSuperpackageAllOfMetadataTestResults(BaseModel):
+class V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner(BaseModel):
     """
-    MetrcSuperpackageAllOfMetadataTestResults
+    V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner
     """ # noqa: E501
-    lab_result_test_name: Optional[StrictStr] = Field(default=None, alias="labResultTestName")
-    lab_result_test_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labResultTestValue")
-    lab_result_test_unit: Optional[StrictStr] = Field(default=None, alias="labResultTestUnit")
-    lab_result_batch_name: Optional[StrictStr] = Field(default=None, alias="labResultBatchName")
-    full_lab_result_test_name: Optional[StrictStr] = Field(default=None, alias="fullLabResultTestName")
-    passed: Optional[StrictBool] = None
-    tags: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["labResultTestName", "labResultTestValue", "labResultTestUnit", "labResultBatchName", "fullLabResultTestName", "passed", "tags"]
+    id: Union[StrictFloat, StrictInt] = Field(description="Identifier of the package.")
+    wholesale_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Wholesale price of the package. *Not all transfer types require this value.*  Only should be set if the `transferType` has `transactionType=\"Wholesale\"`.  See the [create transfer inputs](#/Create%20Transfer/get_v2_packages_create_transfer_inputs) endpoints for details. ", alias="wholesalePrice")
+    gross_weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Gross weight of the package. *Not all transfer types require this value.* Only should be set if the `transferType` has `requiresPackagesGrossWeight=true`. See the [create transfer inputs](#/Create%20Transfer/get_v2_packages_create_transfer_inputs) endpoints for details.", alias="grossWeight")
+    gross_unit_of_weight_id: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unit of weight identifier for the package. *Not all transfer types require this value.*  Only should be set if the `transferType` has `requiresPackagesGrossWeight=true`.  See the [create transfer inputs](#/Create%20Transfer/get_v2_packages_create_transfer_inputs) endpoints for details. ", alias="grossUnitOfWeightId")
+    __properties: ClassVar[List[str]] = ["id", "wholesalePrice", "grossWeight", "grossUnitOfWeightId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -53,7 +50,7 @@ class MetrcSuperpackageAllOfMetadataTestResults(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of MetrcSuperpackageAllOfMetadataTestResults from a JSON string"""
+        """Create an instance of V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,7 +75,7 @@ class MetrcSuperpackageAllOfMetadataTestResults(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of MetrcSuperpackageAllOfMetadataTestResults from a dict"""
+        """Create an instance of V2TransfersTemplatesCreatePostRequestInnerDestinationsInnerPackagesInner from a dict"""
         if obj is None:
             return None
 
@@ -86,13 +83,10 @@ class MetrcSuperpackageAllOfMetadataTestResults(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "labResultTestName": obj.get("labResultTestName"),
-            "labResultTestValue": obj.get("labResultTestValue"),
-            "labResultTestUnit": obj.get("labResultTestUnit"),
-            "labResultBatchName": obj.get("labResultBatchName"),
-            "fullLabResultTestName": obj.get("fullLabResultTestName"),
-            "passed": obj.get("passed"),
-            "tags": obj.get("tags")
+            "id": obj.get("id"),
+            "wholesalePrice": obj.get("wholesalePrice"),
+            "grossWeight": obj.get("grossWeight"),
+            "grossUnitOfWeightId": obj.get("grossUnitOfWeightId")
         })
         return _obj
 

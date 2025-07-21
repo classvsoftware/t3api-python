@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,15 +29,15 @@ class V2AuthCredentialsPostRequest(BaseModel):
     """ # noqa: E501
     username: StrictStr = Field(description="Your Metrc username")
     password: StrictStr = Field(description="Your Metrc password")
-    hostname: StrictStr = Field(description="The Metrc hostname you use to login. For example, a California user would use ca.metrc.com.")
+    hostname: Annotated[str, Field(strict=True)] = Field(description="The Metrc hostname you use to login. For example, a California user would use ca.metrc.com.")
     otp: Optional[StrictStr] = Field(default=None, description="(MI only) a valid one-time password")
     __properties: ClassVar[List[str]] = ["username", "password", "hostname", "otp"]
 
     @field_validator('hostname')
-    def hostname_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['ak.metrc.com', 'al.metrc.com', 'ca.metrc.com', 'co.metrc.com', 'il.metrc.com', 'ky.metrc.com', 'la.metrc.com', 'ma.metrc.com', 'md.metrc.com', 'me.metrc.com', 'mi.metrc.com', 'mn.metrc.com', 'mo.metrc.com', 'ms.metrc.com', 'mt.metrc.com', 'nj.metrc.com', 'nv.metrc.com', 'oh.metrc.com', 'ok.metrc.com', 'or.metrc.com', 'sd.metrc.com', 'wv.metrc.com']):
-            raise ValueError("must be one of enum values ('ak.metrc.com', 'al.metrc.com', 'ca.metrc.com', 'co.metrc.com', 'il.metrc.com', 'ky.metrc.com', 'la.metrc.com', 'ma.metrc.com', 'md.metrc.com', 'me.metrc.com', 'mi.metrc.com', 'mn.metrc.com', 'mo.metrc.com', 'ms.metrc.com', 'mt.metrc.com', 'nj.metrc.com', 'nv.metrc.com', 'oh.metrc.com', 'ok.metrc.com', 'or.metrc.com', 'sd.metrc.com', 'wv.metrc.com')")
+    def hostname_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if not re.match(r"^([a-zA-Z0-9-]+\.)*metrc\.com$", value):
+            raise ValueError(r"must validate the regular expression /^([a-zA-Z0-9-]+\.)*metrc\.com$/")
         return value
 
     model_config = ConfigDict(

@@ -17,30 +17,23 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class T3LabelTemplateLayoutConfig(BaseModel):
+class ExtractedLabResult(BaseModel):
     """
-    Describes the label layout on a printed medium. Capable of supporting any rectangular printable medium, with an arbitrarily sized grid of labels. Assumes that multiple labels are arranged in a centered grid, and arranged with even spacing. NOTE: y-coordinates are inverted. 
+    ExtractedLabResult
     """ # noqa: E501
-    name: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
-    pagesize_xin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pagesizeXIn")
-    pagesize_yin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pagesizeYIn")
-    label_width_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelWidthIn")
-    label_height_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelHeightIn")
-    x_gap_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="xGapIn")
-    y_gap_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="yGapIn")
-    num_columns: Optional[StrictInt] = Field(default=None, alias="numColumns")
-    num_rows: Optional[StrictInt] = Field(default=None, alias="numRows")
-    page_margin_top_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pageMarginTopIn")
-    page_margin_left_in: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="pageMarginLeftIn")
-    label_padding_xin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelPaddingXIn")
-    label_padding_yin: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labelPaddingYIn")
-    __properties: ClassVar[List[str]] = ["name", "description", "pagesizeXIn", "pagesizeYIn", "labelWidthIn", "labelHeightIn", "xGapIn", "yGapIn", "numColumns", "numRows", "pageMarginTopIn", "pageMarginLeftIn", "labelPaddingXIn", "labelPaddingYIn"]
+    lab_result_test_name: Optional[StrictStr] = Field(default=None, alias="labResultTestName")
+    lab_result_test_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="labResultTestValue")
+    lab_result_test_unit: Optional[StrictStr] = Field(default=None, alias="labResultTestUnit")
+    lab_result_batch_name: Optional[StrictStr] = Field(default=None, description="The name of the lab result batch. This is only set if the lab results were loaded via `include=labResultBatches` ", alias="labResultBatchName")
+    full_lab_result_test_name: Optional[StrictStr] = Field(default=None, alias="fullLabResultTestName")
+    passed: Optional[StrictBool] = None
+    tags: Optional[List[StrictStr]] = Field(default=None, description="T3 analyzes each lab result, and creates a normalized list of tags for each lab result.  Examples:   - ['delta9', 'thc'] - ['total', 'cbd'] - ['terpene', 'limonene'] ")
+    __properties: ClassVar[List[str]] = ["labResultTestName", "labResultTestValue", "labResultTestUnit", "labResultBatchName", "fullLabResultTestName", "passed", "tags"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,7 +53,7 @@ class T3LabelTemplateLayoutConfig(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of T3LabelTemplateLayoutConfig from a JSON string"""
+        """Create an instance of ExtractedLabResult from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -81,11 +74,16 @@ class T3LabelTemplateLayoutConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if lab_result_batch_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.lab_result_batch_name is None and "lab_result_batch_name" in self.model_fields_set:
+            _dict['labResultBatchName'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of T3LabelTemplateLayoutConfig from a dict"""
+        """Create an instance of ExtractedLabResult from a dict"""
         if obj is None:
             return None
 
@@ -93,20 +91,13 @@ class T3LabelTemplateLayoutConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "description": obj.get("description"),
-            "pagesizeXIn": obj.get("pagesizeXIn"),
-            "pagesizeYIn": obj.get("pagesizeYIn"),
-            "labelWidthIn": obj.get("labelWidthIn"),
-            "labelHeightIn": obj.get("labelHeightIn"),
-            "xGapIn": obj.get("xGapIn"),
-            "yGapIn": obj.get("yGapIn"),
-            "numColumns": obj.get("numColumns"),
-            "numRows": obj.get("numRows"),
-            "pageMarginTopIn": obj.get("pageMarginTopIn"),
-            "pageMarginLeftIn": obj.get("pageMarginLeftIn"),
-            "labelPaddingXIn": obj.get("labelPaddingXIn"),
-            "labelPaddingYIn": obj.get("labelPaddingYIn")
+            "labResultTestName": obj.get("labResultTestName"),
+            "labResultTestValue": obj.get("labResultTestValue"),
+            "labResultTestUnit": obj.get("labResultTestUnit"),
+            "labResultBatchName": obj.get("labResultBatchName"),
+            "fullLabResultTestName": obj.get("fullLabResultTestName"),
+            "passed": obj.get("passed"),
+            "tags": obj.get("tags")
         })
         return _obj
 
