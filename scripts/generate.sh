@@ -3,6 +3,8 @@ set -euo pipefail
 
 SPEC_URL="https://api.trackandtrace.tools/v2/spec/openapi.json"
 PACKAGE_NAME="t3api"
+TMP_DIR="_tmp_generated_client"
+PACKAGE_VERSION="0.6.0"
 
 # Ensure openapi-generator is installed
 if ! command -v openapi-generator &> /dev/null; then
@@ -10,20 +12,25 @@ if ! command -v openapi-generator &> /dev/null; then
   exit 1
 fi
 
-# Clean up previous output
-echo "🔄 Removing old generated client..."
-rm -rf "$PACKAGE_NAME"
-rm -rf test/
-rm -rf docs/
-rm -rf .openapi-generator
+# Clean up temp directory if it exists
+rm -rf "$TMP_DIR"
 
-# Generate new client in current directory
-echo "⚙️  Generating new client into current directory..."
+# Generate new client into temp directory
+echo "⚙️  Generating new client into $TMP_DIR..."
 openapi-generator generate \
   -g python \
   -i "$SPEC_URL" \
-  -o . \
-  --package-name "$PACKAGE_NAME"
+  -o "$TMP_DIR" \
+  --package-name "$PACKAGE_NAME" \
+  --additional-properties=packageVersion="$PACKAGE_VERSION"
+
+# Copy contents from temp directory into current directory
+echo "📁 Copying generated files to current directory..."
+cp -a "$TMP_DIR"/. .
+
+# Remove temp directory
+echo "🧹 Cleaning up temp directory..."
+rm -rf "$TMP_DIR"
 
 echo "✅ Done regenerating client."
 echo ""
